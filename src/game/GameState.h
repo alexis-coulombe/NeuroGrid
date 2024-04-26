@@ -22,6 +22,7 @@ private:
     ButtonHead *buttonHead;
     Music *menuMusic;
     GameTextarea *gameTextarea;
+    Font *font;
     enum State {
         INTRO,
         PAUSE,

@@ -10,9 +10,8 @@
 
 class GameTextarea : public Textarea {
 public:
-    GameTextarea(uint8_t id, Bounds2 bounds, Color backgroundColor, Color textColor, Color currentLineColor);
+    GameTextarea(uint8_t id, Vector2 position, int rows, int cols, Color backgroundColor, Color textColor, Color currentLineColor);
 
-    void render() override;
     void onHover() override;
 };
 

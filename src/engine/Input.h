@@ -26,7 +26,6 @@ public:
     Vector2 mouseMotion = Vector2(0, 0);
     float mouseScroll = 0;
     std::string typedText;
-    uint8_t textareaFocusId = 0;
     enum MouseMode {
         VISIBLE,
         HIDDEN,

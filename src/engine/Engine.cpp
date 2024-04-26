@@ -32,6 +32,8 @@ void Engine::start() {
     Mix_AllocateChannels(64);
 
     Window::window = SDL_CreateWindow("game", SDL_WINDOWPOS_CENTERED_DISPLAY(0), SDL_WINDOWPOS_CENTERED_DISPLAY(0), (int) windowResolution.x, (int) windowResolution.y, 0);
+    Window::width = (int) windowResolution.x;
+    Window::height = (int) windowResolution.y;
 
     if(!Window::window) {
         std::cout << "Error creating window: " << SDL_GetError() << std::endl;
@@ -62,6 +64,13 @@ void Engine::run() {
         if(input->getKeyDown(Input::Key::Return) && input->getKeyHeld(Input::Key::LeftAlt) || input->getKeyHeld(Input::Key::RightAlt)) {
             fullscreen = !fullscreen;
             SDL_SetWindowFullscreen(Window::window, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+
+            if (!fullscreen) {
+                Window::width = (int) windowResolution.x;
+                Window::height = (int) windowResolution.y;
+            } else {
+                SDL_GetWindowSize(Window::window, &Window::width, &Window::height);
+            }
         }
 
         game.update();

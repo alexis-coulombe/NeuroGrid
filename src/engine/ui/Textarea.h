@@ -9,12 +9,16 @@
 #include "../utility/Bounds2.h"
 #include "../utility/Color.h"
 #include "../Input.h"
+#include "../Graphics.h"
+#include "../utility/Asset.h"
+#include <sstream>
 
 class Textarea {
 public:
     const static int MAX_LINES = 10;
     uint8_t id;
-    Bounds2 bounds = Bounds2(Vector2(0, 0), Vector2(0, 0));
+    int cols, rows;
+    Bounds2 *bounds;
     Color backgroundColor = Color::TRANSPARENT;
     Color textColor = Color::BLACK;
     Color currentLineColor = Color::WHITE;
@@ -26,11 +30,11 @@ public:
     int caretLine = 0;
     int caretColumn = 0;
 
-    Textarea(uint8_t id, Bounds2 bounds, Color backgroundColor, Color textColor, Color currentLineColor);
+    Textarea(uint8_t id, Vector2 position, int cols, int rows, Color backgroundColor, Color textColor, Color currentLineColor);
 
     void update();
 
-    virtual void render() = 0;
+    virtual void render(Font *font);
 
     virtual void onClick();
 
@@ -38,13 +42,18 @@ public:
 
     std::string *getLines();
 
-    std::string getTextByLine(int line);
+    std::string getTextOfCurrentLine();
+
+    void moveCaretUp();
+
+    void moveCaretDown();
+
+    void moveCaretLeft();
+
+    void moveCaretRight();
 
 private:
     std::string lines[MAX_LINES];
-    int lineCount;
-
-    void parseLines();
 };
 
 

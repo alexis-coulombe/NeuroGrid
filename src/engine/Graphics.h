@@ -43,7 +43,7 @@ public:
     static void drawRectSolid(Bounds2 bounds, Color color);
 
     // Textures
-    static void drawTexture(Texture *texture, Vector2 position, Color color = Color::WHITE, Vector2 size = Vector2(-1, -1), float rotation = 0, Vector2 pivot = Vector2(-1, -1), TextureMirror mirror = NONE, Bounds2 source = Bounds2(-1, -1, -1, -1), TextureBlendMode blendMode = NORMAL, TextureScaleMode scaleMode = LINEAR);
+    static void drawTexture(Texture *texture, Vector2 position, Color color = Color::WHITE, Vector2 size = Vector2(-1, -1), float rotation = 0, Vector2 pivot = Vector2(-1, -1), TextureMirror mirror = NONE, Bounds2 source = Bounds2(-1, -1, -1, -1), TextureBlendMode blendMode = NORMAL, TextureScaleMode scaleMode = NEAREST);
 
     // Fonts
     static Bounds2 drawString(Font *font, char* text, Vector2 position, Color color, TextAlignement alignement = LEFT, bool measureOnly = false);

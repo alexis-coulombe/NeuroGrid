@@ -97,7 +97,7 @@ Bounds2 Graphics::drawString(Font *font, char *text, Vector2 position, Color col
     }
 
     if (!measureOnly) {
-        Texture texture = Texture(handle, width, height);
+        Texture texture = Texture(handle, width * 2, height * 2);
         drawTexture(&texture, position, color);
     }
 

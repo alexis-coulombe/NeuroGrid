@@ -4,15 +4,7 @@
 
 #include "GameTextarea.h"
 
-GameTextarea::GameTextarea(uint8_t id, Bounds2 bounds, Color backgroundColor, Color textColor, Color currentLineColor) : Textarea(id, bounds, backgroundColor, textColor, currentLineColor) {
-
-
-}
-
-void GameTextarea::render() {
-    Graphics::drawRectSolid(bounds, Color::GREEN);
-
-    Textarea::update();
+GameTextarea::GameTextarea(uint8_t id, Vector2 position, int cols, int rows, Color backgroundColor, Color textColor, Color currentLineColor) :  Textarea(id, position, cols, rows, backgroundColor, textColor, currentLineColor) {
 }
 
 void GameTextarea::onHover() {
