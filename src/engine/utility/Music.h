@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/22/24.
-//
-
 #ifndef ASM_MUSIC_H
 #define ASM_MUSIC_H
 
@@ -13,6 +9,5 @@ public:
 
     Music(Mix_Music *handle);
 };
-
 
 #endif //ASM_MUSIC_H

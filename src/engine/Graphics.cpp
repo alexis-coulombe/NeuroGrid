@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/12/24.
-//
-
 #include "Graphics.h"
 
 void Graphics::drawPrimitiveSetup(Color color) {

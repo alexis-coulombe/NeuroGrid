@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/12/24.
-//
-
 #include "Bounds2.h"
 
 Bounds2::Bounds2(Vector2 position, Vector2 size) {
@@ -18,10 +14,10 @@ std::string Bounds2::toString() {
     return "(" + position.toString() + ", " + size.toString() + ")";
 }
 
-bool Bounds2::contains(Vector2 point) {
+bool Bounds2::contains(Vector2 point) const {
     return point.x >= position.x && point.x <= position.x + size.x && point.y >= position.y && point.y <= position.y + size.y;
 }
 
-bool Bounds2::overlaps(Bounds2 bounds) {
+bool Bounds2::overlaps(Bounds2 bounds) const {
     return position.x < bounds.position.x + bounds.size.x && position.x + size.x > bounds.position.x && position.y < bounds.position.y + bounds.size.y && position.y + size.y > bounds.position.y;
 }

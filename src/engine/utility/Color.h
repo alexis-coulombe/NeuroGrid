@@ -5,7 +5,7 @@
 #ifndef ASM_COLOR_H
 #define ASM_COLOR_H
 
-#include <cstdint>
+#include <stdint.h>
 #include <iostream>
 #include <string>
 
@@ -18,10 +18,12 @@ public:
 
     Color(uint8_t r, uint8_t g, uint8_t b);
     Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-    std::string toString();
-    Color withAlpha(float a);
+    [[nodiscard]] std::string toString() const;
+    [[nodiscard]] Color withAlpha(float a) const;
 
     static const Color TRANSPARENT;
+    static const Color TRANSPARENT_HALF;
+    static const Color TRANSPARENT_THIRD;
     static const Color WHITE;
     static const Color BLACK;
     static const Color RED;

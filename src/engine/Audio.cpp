@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/22/24.
-//
-
 #include "Audio.h"
 
 SoundInstance Audio::soundInstances[Audio::AUDIO_CHANNEL_COUNT] = {};

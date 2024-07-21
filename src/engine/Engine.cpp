@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/12/24.
-//
-
 #include "Engine.h"
 #include <iostream>
 
@@ -56,12 +52,12 @@ void Engine::run() {
 
     game.init();
 
-    while(true) {
+    while(1) {
         frameStart = SDL_GetTicks();
 
         input->pollEvents();
 
-        if(input->getKeyDown(Input::Key::Return) && input->getKeyHeld(Input::Key::LeftAlt) || input->getKeyHeld(Input::Key::RightAlt)) {
+        if((input->getKeyDown(Input::Key::Return) && input->getKeyDown(Input::Key::LeftAlt)) || input->getKeyDown(Input::Key::RightAlt)) {
             fullscreen = !fullscreen;
             SDL_SetWindowFullscreen(Window::window, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 

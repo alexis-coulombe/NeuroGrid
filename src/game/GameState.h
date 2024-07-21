@@ -1,57 +1,46 @@
-//
-// Created by acoulombe on 4/13/24.
-//
-
 #ifndef ASM_GAMESTATE_H
 #define ASM_GAMESTATE_H
 
-#include <SDL_render.h>
-#include "../engine/Texture.h"
-#include "../engine/utility/Asset.h"
-#include "../engine/Graphics.h"
 #include "../engine/Window.h"
-#include "../engine/ui/Button.h"
-#include "ui/menu/ButtonHead.h"
-#include "../engine/utility/Music.h"
-#include "../engine/Audio.h"
-#include "ui/menu/GameTextarea.h"
+#include "../engine/ui/GenericScreen.h"
 
 class GameState {
-private:
-    Texture *menuBackground;
-    ButtonHead *buttonHead;
-    Music *menuMusic;
-    GameTextarea *gameTextarea;
-    Font *font;
-    enum State {
-        INTRO,
-        PAUSE,
-        MENU,
-        PLAY,
-        END
-    };
+protected:
+  static GameState *instance;
 
-    void renderIntro();
-
-    void renderPause();
-
-    void renderMenu();
-
-    void renderPlay();
-
-    void renderEnd();
+  GameState() = default;
+  ~GameState() = default;
 
 public:
-    State currentState = MENU;
-    State lastState;
+  enum State {
+	PAUSE,
+	MENU,
+	INTRO,
+	MENU_PLAY,
+	PLAY,
+	END
+  };
 
-    GameState() = default;
+  GameState(GameState &other) = delete;
 
-    void init();
+  void operator=(const GameState &) = delete;
 
-    void update();
+  static GameState *getInstance();
 
-    void render();
+private:
+  State lastState;
+  GenericScreen *introScreen;
+  GenericScreen *menuScreen;
+  GenericScreen *menuPlayScreen;
+
+public:
+  State currentState = MENU;
+
+  void init();
+
+  void update();
+
+  void render();
 };
 
 #endif //ASM_GAMESTATE_H

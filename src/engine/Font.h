@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/13/24.
-//
-
 #ifndef ASM_FONT_H
 #define ASM_FONT_H
 

@@ -12,18 +12,24 @@ pkg_search_module(SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module(SDL2_IMAGE REQUIRED SDL2_image)
 
 file(GLOB SOURCE_FILES
-        "*.cpp" ,
+        "main.cpp" ,
         "src/engine/*.cpp" ,
-        "src/engine/utility/*.cpp" ,
         "src/engine/ui/*.cpp" ,
+        "src/engine/utility/*.cpp" ,
         "src/game/*.cpp" ,
-        "src/game/ui/menu/*.cpp" ,
+        "src/game/ui/screens/intro/*.cpp" ,
+        "src/game/ui/screens/intro/elements/*.cpp" ,
+        "src/game/ui/screens/menu/*.cpp" ,
+        "src/game/ui/screens/menu/elements/*.cpp" ,
+        "src/game/ui/screens/menu_play/*.cpp" ,
+        "src/game/ui/screens/menu_play/elements/*.cpp" ,
 )
 
 file(GLOB ASSETS
         "assets/*" ,
         "assets/menu/*"
         "assets/music/*"
+        "assets/sound/*"
 )
 
 # Add your executable

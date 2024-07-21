@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/12/24.
-//
-
 #ifndef ASM_ENGINE_H
 #define ASM_ENGINE_H
 
@@ -29,6 +25,5 @@ public:
     void start();
     void run();
 };
-
 
 #endif //ASM_ENGINE_H

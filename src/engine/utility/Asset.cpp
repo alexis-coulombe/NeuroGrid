@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/13/24.
-//
-
 #include "Asset.h"
 
 Texture *Asset::loadTexture(char *path) {
@@ -28,6 +24,17 @@ Font *Asset::loadFont(char *path, int pointSize) {
     }
 
     return new Font(handle);
+}
+
+Mix_Chunk *Asset::loadSound(char *path) {
+  Mix_Chunk *handle = Mix_LoadWAV(path);
+
+  if (handle == nullptr) {
+	std::cout << "Failed to load music: " + std::string(path) << std::endl;
+	throw;
+  }
+
+  return handle;
 }
 
 Mix_Music *Asset::loadMusic(char *path) {

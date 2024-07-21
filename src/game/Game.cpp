@@ -5,14 +5,14 @@
 #include "Game.h"
 
 void Game::init() {
-    state.init();
+    state->init();
 }
 
 void Game::update() {
-    state.update();
+    state->update();
 }
 
 
 void Game::render() {
-    state.render();
+    state->render();
 }

@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/22/24.
-//
-
 #ifndef ASM_AUDIO_H
 #define ASM_AUDIO_H
 
@@ -30,6 +26,5 @@ public:
 
     static void stopMusic(float fadeTime = 0.0f);
 };
-
 
 #endif //ASM_AUDIO_H

@@ -1,56 +1,64 @@
-//
-// Created by acoulombe on 4/13/24.
-//
-
 #include "GameState.h"
+#include "ui/screens/intro/IntroScreen.h"
+#include "ui/screens/menu/MenuScreen.h"
+#include "ui/screens/menu_play/MenuPlayScreen.h"
+
+GameState *GameState::instance = nullptr;
+
+GameState *GameState::getInstance() {
+  if (instance == nullptr) {
+	instance = new GameState();
+  }
+  return instance;
+}
 
 void GameState::init() {
-    menuBackground = Asset::loadTexture((char *) "assets/menu/background.png");
-    buttonHead = new ButtonHead(Bounds2(0, 0, 100, 50), Asset::loadTexture((char *) "assets/menu/background.png"));
-    menuMusic = new Music(Asset::loadMusic((char *) "assets/music/menu.mp3"));
-    gameTextarea = new GameTextarea(0, Vector2(100, 100), 10, 4, Color::WHITE, Color::WHITE, Color::WHITE);
-    font = Asset::loadFont((char *) "assets/ModernDOS.ttf", 12);
+  introScreen = new IntroScreen();
+  menuScreen = new MenuScreen();
+  menuPlayScreen = new MenuPlayScreen();
 }
 
 void GameState::update() {
-    if (currentState != lastState) {
-        switch (currentState) {
-            case MENU:
-                //Audio::playMusic(menuMusic, true, 0.4f);
-                break;
-            case INTRO:
-                break;
-            case PAUSE:
-                break;
-            case PLAY:
-                break;
-            case END:
-                break;
-        }
+  if (currentState != lastState) {
+	switch (currentState) {
+	  case MENU: {
+		menuScreen->init();
+		break;
+	  }
+	  case INTRO: {
+		introScreen->init();
+		break;
+	  }
+	  case MENU_PLAY: {
+		menuPlayScreen->init();
+		break;
+	  }
+	  case PAUSE:break;
+	  case PLAY:break;
+	  case END:break;
+	}
 
-        lastState = currentState;
-    }
+	lastState = currentState;
+  }
 }
 
 void GameState::render() {
-    switch (currentState) {
-        case MENU:
-            renderMenu();
-            break;
-        case INTRO:
-            break;
-        case PAUSE:
-            break;
-        case PLAY:
-            break;
-        case END:
-            break;
-    }
-}
+  switch (currentState) {
+	case MENU: {
+	  menuScreen->render();
+	  break;
 
-void GameState::renderMenu() {
-    Graphics::drawTexture(menuBackground, Vector2(0, 0), Color::WHITE, Vector2(Window::width, Window::height));
-    buttonHead->render();
-
-    gameTextarea->render(font);
+	}
+	case INTRO: {
+	  introScreen->render();
+	  break;
+	}
+	case MENU_PLAY: {
+	  menuPlayScreen->render();
+	  break;
+	}
+	case PLAY:break;
+	case END:break;
+	case PAUSE:break;
+  }
 }

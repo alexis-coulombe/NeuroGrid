@@ -1,7 +1,3 @@
-//
-// Created by acoulombe on 4/12/24.
-//
-
 #ifndef ASM_BOUNDS2_H
 #define ASM_BOUNDS2_H
 
@@ -19,10 +15,9 @@ public:
 
     std::string toString();
 
-    bool contains(Vector2 point);
+    [[nodiscard]] bool contains(Vector2 point) const;
 
-    bool overlaps(Bounds2 bounds);
+    [[nodiscard]] bool overlaps(Bounds2 bounds) const;
 };
-
 
 #endif //ASM_BOUNDS2_H

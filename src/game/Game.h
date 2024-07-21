@@ -10,7 +10,7 @@
 
 class Game {
 private:
-    GameState state = GameState();
+    GameState *state = GameState::getInstance();
 public:
     Game() = default;
     void init();
