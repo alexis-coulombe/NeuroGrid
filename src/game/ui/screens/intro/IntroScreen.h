@@ -9,6 +9,7 @@
 #include "../../../../engine/Texture.h"
 #include "../../../../engine/Font.h"
 #include "../../../../engine/utility/Music.h"
+#include "../../../../engine/fsm/FSM.h"
 
 class IntroScreen : public GenericScreen {
  private:
@@ -17,11 +18,19 @@ class IntroScreen : public GenericScreen {
   Texture *backgroundIntro2;
   Font *font;
   Music *backgroundMusic;
+
+  void renderFirstScreen();
+  void renderFirstScreenText();
+  void renderSecondScreen();
+  void renderSecondScreenText();
+  void renderForeground();
  public:
   IntroScreen();
   void init() override;
-
   void render() override;
+
+  bool checkCondition(FSM_condition_t condition);
+  void checkAction(FSM_action_t action);
 };
 
 #endif //ASM_SRC_GAME_UI_SCREENS_INTRO_INTROSCREEN_H

@@ -105,6 +105,13 @@ build CMakeFiles/ASM.dir/src/engine/Window.cpp.o: CXX_COMPILER__ASM_unscanned_De
   OBJECT_DIR = CMakeFiles/ASM.dir
   OBJECT_FILE_DIR = CMakeFiles/ASM.dir/src/engine
 
+build CMakeFiles/ASM.dir/src/engine/fsm/FSM.cpp.o: CXX_COMPILER__ASM_unscanned_Debug /home/acoulombe/CLionProjects/NeuroGrid/src/engine/fsm/FSM.cpp || cmake_object_order_depends_target_ASM
+  DEP_FILE = CMakeFiles/ASM.dir/src/engine/fsm/FSM.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/usr/include/SDL2
+  OBJECT_DIR = CMakeFiles/ASM.dir
+  OBJECT_FILE_DIR = CMakeFiles/ASM.dir/src/engine/fsm
+
 build CMakeFiles/ASM.dir/src/engine/ui/GenericButton.cpp.o: CXX_COMPILER__ASM_unscanned_Debug /home/acoulombe/CLionProjects/NeuroGrid/src/engine/ui/GenericButton.cpp || cmake_object_order_depends_target_ASM
   DEP_FILE = CMakeFiles/ASM.dir/src/engine/ui/GenericButton.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
@@ -218,7 +225,7 @@ build CMakeFiles/ASM.dir/src/game/ui/screens/menu_play/MenuPlayScreen.cpp.o: CXX
 #############################################
 # Link the executable ASM
 
-build ASM: CXX_EXECUTABLE_LINKER__ASM_Debug CMakeFiles/ASM.dir/main.cpp.o CMakeFiles/ASM.dir/src/engine/Audio.cpp.o CMakeFiles/ASM.dir/src/engine/Engine.cpp.o CMakeFiles/ASM.dir/src/engine/Font.cpp.o CMakeFiles/ASM.dir/src/engine/Graphics.cpp.o CMakeFiles/ASM.dir/src/engine/Input.cpp.o CMakeFiles/ASM.dir/src/engine/Texture.cpp.o CMakeFiles/ASM.dir/src/engine/Window.cpp.o CMakeFiles/ASM.dir/src/engine/ui/GenericButton.cpp.o CMakeFiles/ASM.dir/src/engine/ui/GenericScreen.cpp.o CMakeFiles/ASM.dir/src/engine/ui/Textarea.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Asset.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Bounds2.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Color.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Music.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Sound.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Vector2.cpp.o CMakeFiles/ASM.dir/src/game/Game.cpp.o CMakeFiles/ASM.dir/src/game/GameState.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/intro/IntroScreen.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/menu/MenuScreen.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/menu/elements/Button.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/menu_play/MenuPlayScreen.cpp.o
+build ASM: CXX_EXECUTABLE_LINKER__ASM_Debug CMakeFiles/ASM.dir/main.cpp.o CMakeFiles/ASM.dir/src/engine/Audio.cpp.o CMakeFiles/ASM.dir/src/engine/Engine.cpp.o CMakeFiles/ASM.dir/src/engine/Font.cpp.o CMakeFiles/ASM.dir/src/engine/Graphics.cpp.o CMakeFiles/ASM.dir/src/engine/Input.cpp.o CMakeFiles/ASM.dir/src/engine/Texture.cpp.o CMakeFiles/ASM.dir/src/engine/Window.cpp.o CMakeFiles/ASM.dir/src/engine/fsm/FSM.cpp.o CMakeFiles/ASM.dir/src/engine/ui/GenericButton.cpp.o CMakeFiles/ASM.dir/src/engine/ui/GenericScreen.cpp.o CMakeFiles/ASM.dir/src/engine/ui/Textarea.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Asset.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Bounds2.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Color.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Music.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Sound.cpp.o CMakeFiles/ASM.dir/src/engine/utility/Vector2.cpp.o CMakeFiles/ASM.dir/src/game/Game.cpp.o CMakeFiles/ASM.dir/src/game/GameState.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/intro/IntroScreen.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/menu/MenuScreen.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/menu/elements/Button.cpp.o CMakeFiles/ASM.dir/src/game/ui/screens/menu_play/MenuPlayScreen.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -lSDL2  -lSDL2_ttf  -lSDL2  -lSDL2_mixer  -lSDL2  -lSDL2_image  -lSDL2  -lSDL2_ttf  -lSDL2_mixer  -lSDL2_image
   OBJECT_DIR = CMakeFiles/ASM.dir

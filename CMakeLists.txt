@@ -14,6 +14,7 @@ pkg_search_module(SDL2_IMAGE REQUIRED SDL2_image)
 file(GLOB SOURCE_FILES
         "main.cpp" ,
         "src/engine/*.cpp" ,
+        "src/engine/fsm/*.cpp" ,
         "src/engine/ui/*.cpp" ,
         "src/engine/utility/*.cpp" ,
         "src/game/*.cpp" ,
