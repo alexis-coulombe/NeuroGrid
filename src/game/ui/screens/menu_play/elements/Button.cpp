@@ -13,13 +13,7 @@ void Button::render() {
 }
 
 void Button::onClick() {
-    if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
-        if(true) { // if game played once
-			GameState::getInstance()->currentState = GameState::INTRO;
-		} else {
-			GameState::getInstance()->currentState = GameState::MENU_PLAY;
-		}
-    }
+
 }
 
 void Button::onHover() {

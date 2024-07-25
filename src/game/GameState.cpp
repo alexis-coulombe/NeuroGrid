@@ -14,7 +14,6 @@ GameState *GameState::getInstance() {
 
 void GameState::init() {
   menuScreen = new MenuScreen();
-  menuPlayScreen = new MenuPlayScreen();
 }
 
 void GameState::update() {
@@ -30,6 +29,7 @@ void GameState::update() {
 		break;
 	  }
 	  case MENU_PLAY: {
+		menuPlayScreen = new MenuPlayScreen();
 		menuPlayScreen->init();
 		break;
 	  }
@@ -47,7 +47,6 @@ void GameState::render() {
 	case MENU: {
 	  menuScreen->render();
 	  break;
-
 	}
 	case INTRO: {
 	  introScreen->render();

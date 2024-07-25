@@ -5,13 +5,16 @@
 #include "../../../../engine/utility/Music.h"
 #include "../../../../engine/utility/Sound.h"
 #include "../../../../engine/Texture.h"
+#include "../../../../engine/ui/GenericButton.h"
 
 class MenuPlayScreen : public GenericScreen {
  private:
   Texture *background;
   Texture *backgroundBlack;
-  Music *backgroundBuzz;
   Sound *flashingNeon;
+  Music *backgroundBuzz;
+
+  GenericButton *headButton;
 
  public:
   MenuPlayScreen();

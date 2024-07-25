@@ -13,13 +13,15 @@ enum IntroState {
 IntroState introScene = FIRST_SCREEN;
 
 enum FSMStates {
-  sStart
+  sFirstScreen,
+  sSecondScreen
 };
 
 enum FSMEvents {
   eDrawBackground,
   eDrawText,
-  eDrawForeground
+  eDrawForeground,
+  eNextScreen,
 };
 
 enum FSMConditions {
@@ -34,17 +36,24 @@ enum FSMActions {
   aDrawFirstScreenText,
   aDrawSecondScreenText,
   aDrawForeground,
+  aSwitchScreen,
+  aQuit,
+  aNone
 };
 
 FSM_Transition_t transitions[] = {
-	FSM_STATE(sStart, eDrawBackground, 0),
+	FSM_STATE(sFirstScreen, aDrawForeground, aSwitchScreen),
 	FSM_EVENT(eDrawBackground, cIsFirstScreen, aDrawFirstScreen, FSM_SAME_STATE),
-	FSM_EVENT(eDrawBackground, cIsSecondScreen, aDrawSecondScreen, FSM_SAME_STATE),
 	FSM_EVENT(eDrawText, cIsFirstScreen, aDrawFirstScreenText, FSM_SAME_STATE),
+	FSM_EVENT(eDrawForeground, cAlways, aDrawForeground, FSM_SAME_STATE),
+	FSM_EVENT(eNextScreen, cIsSecondScreen, aNone, sSecondScreen),
+
+	FSM_STATE(sSecondScreen, aDrawForeground, aQuit),
+	FSM_EVENT(eDrawBackground, cIsSecondScreen, aDrawSecondScreen, FSM_SAME_STATE),
 	FSM_EVENT(eDrawText, cIsSecondScreen, aDrawSecondScreenText, FSM_SAME_STATE),
 	FSM_EVENT(eDrawForeground, cAlways, aDrawForeground, FSM_SAME_STATE),
 };
-FSM_state_t *initialState = new FSM_state_t{sStart};
+FSM_state_t *currentState = new FSM_state_t{sFirstScreen};
 FSM_Object_t *fsmObject;
 FSM *fsm;
 
@@ -58,15 +67,16 @@ IntroScreen::IntroScreen() : GenericScreen() {
 
 void IntroScreen::init() {
   fsmObject = new FSM_Object_t{transitions, FSM_GET_TABLE_SIZE(transitions), std::bind(&IntroScreen::checkCondition, this, std::placeholders::_1), std::bind(&IntroScreen::checkAction, this, std::placeholders::_1)};
-  fsm = new FSM(fsmObject, initialState, sStart);
+  fsm = new FSM(fsmObject, currentState, sFirstScreen);
 
   Audio::playMusic(backgroundMusic, false, 0.5f);
 }
 
 void IntroScreen::render() {
-  fsm->processEvent(fsmObject, initialState, eDrawBackground);
-  fsm->processEvent(fsmObject, initialState, eDrawText);
-  fsm->processEvent(fsmObject, initialState, eDrawForeground);
+  fsm->processEvent(fsmObject, currentState, eDrawBackground);
+  fsm->processEvent(fsmObject, currentState, eDrawText);
+  fsm->processEvent(fsmObject, currentState, eDrawForeground);
+  fsm->processEvent(fsmObject, currentState, eNextScreen);
 }
 
 bool IntroScreen::checkCondition(FSM_condition_t condition) {
@@ -80,21 +90,22 @@ bool IntroScreen::checkCondition(FSM_condition_t condition) {
 
 void IntroScreen::checkAction(FSM_action_t action) {
   switch (action) {
-	case aDrawFirstScreen:
-	  renderFirstScreen();
+	case aDrawFirstScreen: renderFirstScreen();
 	  break;
-	case aDrawSecondScreen:
-	  renderSecondScreen();
+	case aDrawSecondScreen: renderSecondScreen();
 	  break;
-	case aDrawFirstScreenText:
-	  renderFirstScreenText();
+	case aDrawFirstScreenText: renderFirstScreenText();
 	  break;
-	case aDrawSecondScreenText:
-	  renderSecondScreenText();
+	case aDrawSecondScreenText: renderSecondScreenText();
 	  break;
-	case aDrawForeground:
-	  renderForeground();
+	case aDrawForeground: renderForeground();
 	  break;
+	case aQuit: Audio::stopMusic(0.2f);
+	  GameState::getInstance()->currentState = GameState::MENU_PLAY;
+	  break;
+	case aSwitchScreen: introScene = SECOND_SCREEN;
+	  break;
+	default: break;
   }
 }
 
@@ -126,35 +137,27 @@ void IntroScreen::renderSecondScreenText() {
   Graphics::drawString(font, (char *)"Oren 23:12", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
 }
 
-float foregroundFading = 255;
-float standbyFading = 40;
+uint8_t foregroundFading = 255;
+uint8_t standbyFading = 40;
 bool fading = true;
 void IntroScreen::renderForeground() {
   if (fading) {
 	foregroundFading -= 5;
-
-	if (foregroundFading <= 0) {
+	if (foregroundFading == 0) {
 	  fading = false;
+	  standbyFading = 40; // Reset standby fading when transition starts
 	}
-  }
-
-  if (!fading && standbyFading > 0) {
-	standbyFading -= 1;
-  }
-
-  if (!fading && standbyFading <= 0) {
-	foregroundFading += 5;
-
-	if (foregroundFading >= 255) {
-	  if(introScene == SECOND_SCREEN) {
-		GameState::getInstance()->currentState = GameState::MENU_PLAY;
-		fsm->terminate(fsmObject, initialState);
+  } else {
+	if (standbyFading > 0) {
+	  standbyFading -= 1;
+	} else {
+	  foregroundFading += 5;
+	  if (foregroundFading == 255) {
+		fsm->terminate(fsmObject, currentState); // Terminate FSM state once fully faded in
+		fading = true; // Reset for next fade cycle
 	  }
-	  fading = true;
-	  introScene = SECOND_SCREEN;
-	  foregroundFading = 255;
-	  standbyFading = 40;
 	}
   }
 
-  Graphics::drawTexture(backgroundBlack, Vector2(0, 0), Color(255, 255, 255, std::min(255, (int)(foregroundFading))), Vector2(Window::width, Window::height));}
+  Graphics::drawTexture(backgroundBlack, Vector2(0, 0), Color(255, 255, 255, std::min(255, (int)foregroundFading)), Vector2(Window::width, Window::height));
+}

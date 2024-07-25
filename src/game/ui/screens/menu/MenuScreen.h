@@ -7,6 +7,7 @@
 class MenuScreen : public GenericScreen {
 private:
 	GenericButton *playNewButton;
+	Texture *background;
 public:
 	MenuScreen();
 	void init() override;

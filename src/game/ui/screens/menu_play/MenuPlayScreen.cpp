@@ -2,6 +2,7 @@
 #include "../../../../engine/utility/Asset.h"
 #include "../../../../engine/Audio.h"
 #include "../../../../engine/Graphics.h"
+#include "elements/Button.h"
 #include <cstdint>
 
 MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
@@ -10,6 +11,8 @@ MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 
   flashingNeon = new Sound(Asset::loadSound((char *)"assets/sound/flashing_neon.mp3"));
   backgroundBuzz = new Music(Asset::loadMusic((char *)"assets/sound/electric_transformer_loop.mp3"));
+
+  headButton = new Button(Bounds2(40, 40, 40, 40), Asset::loadTexture((char *)"assets/menu/new_game.png"));
 }
 
 uint8_t backgroundBuzzTimeout = 10;
@@ -34,4 +37,6 @@ void MenuPlayScreen::render() {
   }
 
   Graphics::drawTexture(background, Vector2(0, 0), Color::WHITE, Vector2(Window::width, Window::height));
+
+  headButton->render();
 }
