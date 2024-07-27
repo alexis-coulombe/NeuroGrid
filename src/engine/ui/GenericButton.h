@@ -6,17 +6,23 @@
 #include "../Graphics.h"
 #include "../utility/Color.h"
 #include "../Input.h"
+#include "Container.h"
 
 class GenericButton {
 public:
     Bounds2 bounds;
     Texture *texture;
     Color color;
+	uint8_t zLevel;
+	Container *parentContainer;
 
-    GenericButton(Bounds2 bounds, Texture *texture, Color color = Color::WHITE);
+  	GenericButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel);
     virtual void render() = 0;
     virtual void onClick() = 0;
     virtual void onHover() = 0;
+
+	Vector2 getRelativePositionWithParentContainer();
+	void setBounds(Bounds2 bounds);
 };
 
 

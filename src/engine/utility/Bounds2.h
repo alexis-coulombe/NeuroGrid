@@ -10,8 +10,8 @@ public:
     Vector2 size = Vector2(0, 0);
 
     Bounds2(Vector2 position, Vector2 size);
-
     Bounds2(float x, float y, float width, float height);
+    Bounds2(int x, int y, int width, int height);
 
     std::string toString();
 

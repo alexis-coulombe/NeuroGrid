@@ -9,6 +9,7 @@ public:
     float y;
 
     Vector2(float x, float y);
+    Vector2(int x, int y);
     float Dot(const Vector2& vector);
     float Cross(const Vector2& vector);
     [[nodiscard]] std::string toString() const;

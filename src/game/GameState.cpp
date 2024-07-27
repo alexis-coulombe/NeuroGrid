@@ -61,3 +61,23 @@ void GameState::render() {
 	case PAUSE:break;
   }
 }
+
+void GameState::onWindowResized() {
+  switch (currentState) {
+	case MENU: {
+	  menuScreen->onWindowResized();
+	  break;
+	}
+	case INTRO: {
+	  introScreen->onWindowResized();
+	  break;
+	}
+	case MENU_PLAY: {
+	  menuPlayScreen->onWindowResized();
+	  break;
+	}
+	case PLAY:break;
+	case END:break;
+	case PAUSE:break;
+  }
+}

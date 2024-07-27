@@ -79,6 +79,9 @@ void IntroScreen::render() {
   fsm->processEvent(fsmObject, currentState, eNextScreen);
 }
 
+void IntroScreen::onWindowResized() {
+}
+
 bool IntroScreen::checkCondition(FSM_condition_t condition) {
   switch (condition) {
 	case cIsFirstScreen: return introScene == FIRST_SCREEN;

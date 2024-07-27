@@ -6,6 +6,8 @@
 #include "../../../../engine/utility/Sound.h"
 #include "../../../../engine/Texture.h"
 #include "../../../../engine/ui/GenericButton.h"
+#include "elements/HeadButton.h"
+#include "elements/ClosePopupButton.h"
 
 class MenuPlayScreen : public GenericScreen {
  private:
@@ -13,13 +15,19 @@ class MenuPlayScreen : public GenericScreen {
   Texture *backgroundBlack;
   Sound *flashingNeon;
   Music *backgroundBuzz;
+  Container *screenContainer;
+  Container *popupContainer;
 
-  GenericButton *headButton;
+  ClosePopupButton *closePopupButton;
+  HeadButton *headButton;
 
  public:
   MenuPlayScreen();
   void init() override;
   void render() override;
+  void onWindowResized() override;
+
+  void showPopup();
 };
 
 #endif //ASM_SRC_GAME_UI_SCREENS_MENU_PLAY_MENUPLAYSCREEN_H_

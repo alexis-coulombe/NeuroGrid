@@ -12,7 +12,7 @@
 
 class Engine {
 public:
-    Vector2 windowResolution = Vector2(1080, 608);
+    Vector2 windowResolution = Vector2(1600, 900);
     const int targetFps = 10;
     const int frameDelay = 1000 / targetFps;
 

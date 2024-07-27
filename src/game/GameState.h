@@ -41,6 +41,8 @@ public:
   void update();
 
   void render();
+
+  void onWindowResized();
 };
 
 #endif //ASM_GAMESTATE_H

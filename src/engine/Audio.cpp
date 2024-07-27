@@ -22,7 +22,6 @@ SoundInstance Audio::playSound(Sound *sound, bool repeat, float fadeTime) {
     }
 
     for (int i = 0; i < AUDIO_CHANNEL_COUNT; ++i) {
-        std::cout << "channel: " << soundInstances[i].channel << std::endl;
         if (soundInstances[i].channel == -1) {
             soundInstances[i].channel = channel;
             soundInstance = soundInstances[i];

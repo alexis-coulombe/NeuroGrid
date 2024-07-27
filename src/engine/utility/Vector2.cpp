@@ -5,6 +5,11 @@ Vector2::Vector2(float x, float y) {
     this->y = y;
 }
 
+Vector2::Vector2(int x, int y) {
+  this->x = (float) x;
+  this->y = (float) y;
+}
+
 std::string Vector2::toString() const {
     return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 }

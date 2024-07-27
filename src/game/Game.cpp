@@ -12,7 +12,10 @@ void Game::update() {
     state->update();
 }
 
-
 void Game::render() {
     state->render();
+}
+
+void Game::onWindowResized() {
+	state->onWindowResized();
 }

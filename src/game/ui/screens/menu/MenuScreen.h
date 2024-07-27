@@ -12,6 +12,7 @@ public:
 	MenuScreen();
 	void init() override;
 	void render() override;
+	void onWindowResized() override;
 };
 
 #endif //ASM_SRC_GAME_UI_SCREENS_MENU_MENUSCREEN_H

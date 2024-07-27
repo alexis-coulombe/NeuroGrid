@@ -28,6 +28,7 @@ class IntroScreen : public GenericScreen {
   IntroScreen();
   void init() override;
   void render() override;
+  void onWindowResized() override;
 
   bool checkCondition(FSM_condition_t condition);
   void checkAction(FSM_action_t action);

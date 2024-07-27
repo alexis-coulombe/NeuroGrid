@@ -10,6 +10,11 @@ Bounds2::Bounds2(float x, float y, float width, float height) {
     this->size = Vector2(width, height);
 }
 
+Bounds2::Bounds2(int x, int y, int width, int height) {
+  this->position = Vector2(x, y);
+  this->size = Vector2(width, height);
+}
+
 std::string Bounds2::toString() {
     return "(" + position.toString() + ", " + size.toString() + ")";
 }
