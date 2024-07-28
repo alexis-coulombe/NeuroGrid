@@ -23,7 +23,7 @@ Font *Asset::loadFont(char *path, int pointSize) {
         throw;
     }
 
-    return new Font(handle);
+    return new Font(handle, pointSize);
 }
 
 Mix_Chunk *Asset::loadSound(char *path) {

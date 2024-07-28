@@ -10,6 +10,7 @@
 #include "../../../../engine/Font.h"
 #include "../../../../engine/utility/Music.h"
 #include "../../../../engine/fsm/FSM.h"
+#include "../../../../engine/ui/Container.h"
 
 class IntroScreen : public GenericScreen {
  private:

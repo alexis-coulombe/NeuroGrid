@@ -16,10 +16,10 @@ void HeadButton::onClick() {
 	return;
   }
 
-  if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
-	*showPopupTrigger = true;
-	Input::getInstance()->setMouseZLevel(Input::getInstance()->getMouseZLevel() + 1);
-  }
+	if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
+		*showPopupTrigger = true;
+		Input::getInstance()->setMouseZLevel(Input::getInstance()->getMouseZLevel() + 1);
+	}
 }
 
 void HeadButton::onHover() {
