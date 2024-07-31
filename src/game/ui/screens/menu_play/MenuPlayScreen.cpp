@@ -7,13 +7,14 @@ bool canShowPopup = false;
 uint8_t currentSelectedMission = 0;
 
 MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
-	background = Asset::loadTexture((char *)"assets/menu/background.png");
 	backgroundBlack = Asset::loadTexture((char *)"assets/menu/background_black.png");
 
 	flashingNeon = new Sound(Asset::loadSound((char *)"assets/sound/flashing_neon.mp3"));
 	backgroundBuzz = new Music(Asset::loadMusic((char *)"assets/sound/electric_transformer_loop.mp3"));
 
-	screenContainer = new Container(nullptr, Bounds2(0, 0, std::min(Window::width, 1920), std::min(Window::height, 1080)));
+	screenContainer = new Container(nullptr,
+																	Bounds2((Window::width / 2) - (std::min(Window::width, 1920) / 2), 0, std::min(Window::width, 1920), std::min(Window::height, 1080)),
+																	Asset::loadTexture((char *)"assets/menu/background.png"));
 
 	popupContainer = new Container(nullptr, Bounds2((Window::width / 2) - 500, (Window::height / 2) - 350, 1000, 700));
 	popupMissionsContainer = new Container(popupContainer, Bounds2(0, 0, (int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y));
@@ -67,6 +68,33 @@ MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 															Asset::loadTexture((char *)"assets/menu/new_game.png"));
 }
 
+MenuPlayScreen::~MenuPlayScreen() {
+	delete background;
+	delete backgroundBlack;
+	delete flashingNeon;
+	delete backgroundBuzz;
+
+	delete screenContainer;
+
+	delete popupContainer;
+	delete popupMissionsContainer;
+	delete popupMissionIntroContainer;
+	delete popupMissionInfoContainer;
+	delete popupMissionInfoStatsContainer;
+	delete popupMissionInfoCurrentGameContainer;
+	delete popupMissionInfoCurrentGameStatsContainer;
+	delete popupMissionInfoCurrentGameButtonsContainer;
+
+	delete newMissionButton;
+	delete loadMissionButton;
+
+	delete mission1InfoText;
+
+	delete headMission1Button;
+	delete closePopupButton;
+	delete headButton;
+}
+
 uint8_t backgroundBuzzTimeout = 10;
 bool buzzPlaying = false;
 
@@ -93,10 +121,8 @@ void MenuPlayScreen::render() {
 		return;
 	}
 
-	Graphics::drawTexture(background, Vector2(0, 0), Color::WHITE, Vector2(Window::width, Window::height));
-
-	headButton->render();
 	screenContainer->render();
+	headButton->render();
 
 	if (canShowPopup) {
 		showPopup();
@@ -104,7 +130,7 @@ void MenuPlayScreen::render() {
 }
 
 void MenuPlayScreen::onWindowResized() {
-	screenContainer->setBounds(Bounds2(0, 0, std::min(Window::width, 1920), std::min(Window::height, 1080)));
+	screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min(Window::width, 1920) / 2), 0, std::min(Window::width, 1920), std::min(Window::height, 1080)));
 
 	popupContainer->setBounds(Bounds2((Window::width / 2) - 500, (Window::height / 2) - 350, 1000, 700));
 	popupMissionsContainer->setBounds(Bounds2(0, 0, (int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y));

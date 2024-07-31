@@ -27,6 +27,7 @@ class IntroScreen : public GenericScreen {
   void renderForeground();
  public:
   IntroScreen();
+	~IntroScreen();
   void init() override;
   void render() override;
   void onWindowResized() override;

@@ -1,19 +1,19 @@
-//
-// Created by acoulombe on 4/12/24.
-//
-
 #include "Game.h"
 
+Game::Game() {
+	state = GameState::getInstance();
+}
+
 void Game::init() {
-    state->init();
+	state->init();
 }
 
 void Game::update() {
-    state->update();
+	state->update();
 }
 
 void Game::render() {
-    state->render();
+	state->render();
 }
 
 void Game::onWindowResized() {

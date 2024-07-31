@@ -3,7 +3,7 @@
 
 #include "../../../../../engine/ui/GenericButton.h"
 
-class ClosePopupButton : public GenericButton {
+class ClosePopupButton : GenericButton {
  public:
   bool *showPopupTrigger;
 
@@ -12,6 +12,7 @@ class ClosePopupButton : public GenericButton {
   void render() override;
   void onClick() override;
   void onHover() override;
+	using GenericButton::setBounds;
 
   void linkPopup(bool *popUpShowPtr);
 };

@@ -3,13 +3,15 @@
 
 #include "../../../../engine/ui/GenericScreen.h"
 #include "../../../../engine/ui/GenericButton.h"
+#include "elements/PlayNewGameButton.h"
 
 class MenuScreen : public GenericScreen {
 private:
-	GenericButton *playNewButton;
+	PlayNewGameButton *playNewButton;
 	Texture *background;
 public:
 	MenuScreen();
+	~MenuScreen();
 	void init() override;
 	void render() override;
 	void onWindowResized() override;

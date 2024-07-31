@@ -5,7 +5,6 @@
 #include "../../../../engine/utility/Music.h"
 #include "../../../../engine/utility/Sound.h"
 #include "../../../../engine/Texture.h"
-#include "../../../../engine/ui/GenericButton.h"
 #include "elements/HeadButton.h"
 #include "elements/ClosePopupButton.h"
 #include "elements/HeadMission1Button.h"
@@ -41,6 +40,7 @@ class MenuPlayScreen : public GenericScreen {
 
  public:
   MenuPlayScreen();
+	~MenuPlayScreen();
   void init() override;
   void render() override;
   void onWindowResized() override;

@@ -1,5 +1,5 @@
-#ifndef ASM_BUTTONHEAD_H
-#define ASM_BUTTONHEAD_H
+#ifndef ASM_PLAYNEWGAMEBUTTON_H
+#define ASM_PLAYNEWGAMEBUTTON_H
 
 #include "../../../../../engine/ui/GenericButton.h"
 
@@ -12,4 +12,4 @@ class PlayNewGameButton : public GenericButton {
   void onHover() override;
 };
 
-#endif //ASM_BUTTONHEAD_H
+#endif //ASM_PLAYNEWGAMEBUTTON_H

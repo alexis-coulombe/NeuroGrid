@@ -14,9 +14,9 @@ void PlayNewGameButton::render() {
 void PlayNewGameButton::onClick() {
   if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
 	if (false) { // if game played once
-	  GameState::getInstance()->currentState = GameState::INTRO;
+	  *GameState::getInstance()->currentState = GameState::sIntro;
 	} else {
-	  GameState::getInstance()->currentState = GameState::MENU_PLAY;
+	  *GameState::getInstance()->currentState = GameState::sMenuPlay;
 	}
   }
 }

@@ -1,4 +1,5 @@
 #include "NewMissionButton.h"
+#include "../../../../GameState.h"
 
 NewMissionButton::NewMissionButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, texture, color, zLevel) {
 
@@ -17,7 +18,7 @@ void NewMissionButton::onClick() {
   }
 
 	if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
-		printf("NewMissionButton clicked\n");
+		*GameState::getInstance()->currentState = GameState::sPlay;
 	}
 }
 

@@ -3,7 +3,7 @@
 
 #include "../../../../../engine/ui/GenericButton.h"
 
-class HeadButton : public GenericButton {
+class HeadButton : GenericButton {
  public:
   bool *showPopupTrigger;
 

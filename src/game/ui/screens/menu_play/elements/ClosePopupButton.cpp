@@ -5,33 +5,33 @@ ClosePopupButton::ClosePopupButton(Container *parentContainer, Bounds2 bounds, T
 }
 
 void ClosePopupButton::render() {
-  Graphics::drawTexture(texture, bounds.position, color, bounds.size);
+	Graphics::drawTexture(texture, bounds.position, color, bounds.size);
 
-  onHover();
-  onClick();
+	onHover();
+	onClick();
 }
 
 void ClosePopupButton::onClick() {
-  if(zLevel != Input::getInstance()->getMouseZLevel()){
-	return;
-  }
+	if (zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
 
-  if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
-	*showPopupTrigger = false;
-	Input::getInstance()->setMouseZLevel(Input::getInstance()->getMouseZLevel() - 1);
-  }
+	if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
+		*showPopupTrigger = false;
+		Input::getInstance()->setMouseZLevel(Input::getInstance()->getMouseZLevel() - 1);
+	}
 }
 
 void ClosePopupButton::onHover() {
-  if(zLevel != Input::getInstance()->getMouseZLevel()){
-	return;
-  }
+	if (zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
 
-  if (Input::getInstance()->mouseInBounds(bounds)) {
-	Graphics::drawRectSolid(bounds, Color::RED);
-  }
+	if (Input::getInstance()->mouseInBounds(bounds)) {
+		Graphics::drawRectSolid(bounds, Color::RED);
+	}
 }
 
 void ClosePopupButton::linkPopup(bool *popUpShowPtr) {
-  showPopupTrigger = popUpShowPtr;
+	showPopupTrigger = popUpShowPtr;
 }
