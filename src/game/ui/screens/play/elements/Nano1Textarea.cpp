@@ -1,0 +1,21 @@
+#include "Nano1Textarea.h"
+
+Nano1Textarea::Nano1Textarea(Container *parentContainer, Vector2 position, uint8_t cols, uint8_t rows, Color backgroundColor, Color textColor, Color currentLineColor): Textarea(parentContainer, position, cols, rows, backgroundColor, textColor, currentLineColor){
+
+}
+
+void Nano1Textarea::onClick() {
+
+}
+
+void Nano1Textarea::onHover() {
+
+}
+
+void Nano1Textarea::onLineExit() {
+
+}
+
+void Nano1Textarea::onLineEnter() {
+
+}

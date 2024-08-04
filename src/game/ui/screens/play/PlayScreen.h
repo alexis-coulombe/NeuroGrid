@@ -3,6 +3,9 @@
 
 #include "../../../../engine/ui/GenericScreen.h"
 #include "../../../../engine/ui/Container.h"
+#include "elements/Nano1Textarea.h"
+#include "elements/Nano2Textarea.h"
+#include "elements/Nano3Textarea.h"
 
 class PlayScreen : public GenericScreen {
  private:
@@ -11,6 +14,23 @@ class PlayScreen : public GenericScreen {
 	Container *inputContainer;
 	Container *gameContainer;
 	Container *outputContainer;
+
+	Container *nano1Container;
+	Nano1Textarea *nano1Textarea;
+	Container *nano2Container;
+	Nano2Textarea *nano2Textarea;
+	Container *nano3Container;
+	Nano3Textarea *nano3Textarea;
+
+	Container *missionDescriptionContainer;
+
+	Container *input1;
+	Container *input2;
+	Container *input3;
+
+	Container *output1;
+	Container *output2;
+	Container *output3;
 
  public:
 	PlayScreen();
