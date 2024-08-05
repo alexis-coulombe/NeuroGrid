@@ -1,6 +1,7 @@
 #ifndef ASM_ENGINE_H
 #define ASM_ENGINE_H
 
+#include "../Config.h"
 #include "../game/Game.h"
 #include "SDL.h"
 #include "SDL_ttf.h"
@@ -13,8 +14,7 @@
 class Engine {
 public:
     Vector2 windowResolution = Vector2(1600, 900);
-    const int targetFps = 10;
-    const int frameDelay = 1000 / targetFps;
+    const int frameDelay = 1000 / TARGET_FPS;
 
     bool fullscreen = false;
     Game game;

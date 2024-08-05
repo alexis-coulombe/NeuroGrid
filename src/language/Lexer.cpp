@@ -16,7 +16,7 @@ Token Lexer::next() {
 	if (content.at(cursor) == '#') {
 		token.type = Token::TOKEN_COMMENT;
 		token.text.push_back(content.at(cursor));
-		while(cursor < content.length() && content.at(cursor) != '\n') {
+		while (cursor < content.length() && content.at(cursor) != '\n') {
 			cursor++;
 		}
 		return token;
@@ -33,11 +33,17 @@ Token Lexer::next() {
 
 	if (isdigit(content.at(cursor))) {
 		token.type = Token::TOKEN_NUMBER;
-		while (cursor < content.length() && isdigit(content.at(cursor))) {
-			token.text.push_back(content.at(cursor));
-			cursor++;
+		while (cursor < content.length()) {
+			if (isdigit(content.at(cursor))) {
+				token.text.push_back(content.at(cursor));
+				cursor++;
+			} else if (content.at(cursor) == ' ') {
+				return token;
+			} else {
+				token.type = Token::TOKEN_INVALID;
+				return token;
+			}
 		}
-		return token;
 	}
 
 	token.type = Token::TOKEN_INVALID;
@@ -47,7 +53,7 @@ Token Lexer::next() {
 }
 
 void Lexer::trimLeft() {
-	while(cursor < content.length() && isspace(content.at(cursor))) {
+	while (cursor < content.length() && isspace(content.at(cursor))) {
 		cursor++;
 	}
 }
@@ -58,4 +64,17 @@ bool Lexer::isSymbolStart(char c) {
 
 bool Lexer::isSymbol(char c) {
 	return isalnum(c);
+}
+
+bool Lexer::validateLine() {
+	Token token;
+
+	while (token.type != Token::TOKEN_END) {
+		token = next();
+		if (token.type == Token::TOKEN_INVALID) {
+			return false;
+		}
+	}
+
+	return true;
 }

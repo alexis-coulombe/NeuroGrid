@@ -27,11 +27,12 @@ public:
 
     std::string text;
 
-    uint8_t fontSize = 12;
+    float fontSize = 12;
 		uint8_t fontWidth = 8;
 
     bool inFocus = false;
 
+		uint8_t lineError = -1;
     uint8_t caretLine = 0;
 		uint8_t caretColumn = 0;
 
@@ -40,33 +41,25 @@ public:
     void update();
 
     virtual void render(Font *font);
-
     virtual void onClick();
-
     virtual void onHover() = 0;
-
-		virtual void onLineExit() = 0;
-
-		virtual void onLineEnter() = 0;
+		virtual void onLineExit(uint8_t line) = 0;
+		virtual void onLineEnter(uint8_t line) = 0;
+		virtual void onLineChange(uint8_t line) = 0;
 
 		std::vector<std::string> *getLines();
-
 		std::string getFullText();
-
     std::string* getTextOfCurrentLine();
-
     void moveCaretUp();
-
     void moveCaretDown();
-
     void moveCaretLeft();
-
     void moveCaretRight();
-
+		Vector2 getRelativePositionWithParentContainer();
 private:
 	std::vector<std::string> *lines;
 	uint8_t caretAnimation = 0;
 	bool showCaret = true;
+	uint8_t lastLine;
 };
 
 

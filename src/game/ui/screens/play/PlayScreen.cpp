@@ -37,7 +37,7 @@ void PlayScreen::render() {
 	outputContainer->render();
 
 	nano1Container->render();
-	nano1Textarea->render(Asset::loadFont((char *)"assets/ModernDOS.ttf", 12));
+	nano1Textarea->render(Asset::loadFont((char *)"assets/ModernDOS.ttf", 10));
 	nano2Container->render();
 	nano3Container->render();
 

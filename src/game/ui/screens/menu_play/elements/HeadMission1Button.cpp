@@ -5,16 +5,16 @@ HeadMission1Button::HeadMission1Button(Container *parentContainer, Bounds2 bound
 }
 
 void HeadMission1Button::render() {
-  Graphics::drawTexture(texture, bounds.position, color, bounds.size);
+	Graphics::drawTexture(texture, bounds.position, color, bounds.size);
 
-  onHover();
-  onClick();
+	onHover();
+	onClick();
 }
 
 void HeadMission1Button::onClick() {
-  if (zLevel != Input::getInstance()->getMouseZLevel()) {
-	return;
-  }
+	if (zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
 
 	if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
 		*showMissionInfoTrigger = ID;
@@ -22,16 +22,16 @@ void HeadMission1Button::onClick() {
 }
 
 void HeadMission1Button::onHover() {
-  if (zLevel != Input::getInstance()->getMouseZLevel()) {
-	return;
-  }
+	if (zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
 
-  if (Input::getInstance()->mouseInBounds(bounds)) {
-	Graphics::drawRectSolid(bounds, Color::RED);
-  }
+	if (Input::getInstance()->mouseInBounds(bounds)) {
+		Graphics::drawRectSolid(bounds, Color::RED);
+	}
 }
 
 void HeadMission1Button::linkMissionInfo(uint8_t *missionInfoShowPtr) {
-  showMissionInfoTrigger = missionInfoShowPtr;
+	showMissionInfoTrigger = missionInfoShowPtr;
 }
 

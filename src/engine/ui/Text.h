@@ -5,10 +5,12 @@
 #include "Container.h"
 #include "../utility/Color.h"
 #include "../Font.h"
+#include "../../Config.h"
+
 class Text {
  private:
 	static const uint8_t MARGIN = 10;
-	static const uint8_t ANIMATION_SPEED = 1;
+	static const uint8_t ANIMATION_SPEED = TARGET_FPS / 6;
  public:
 	Container *parentContainer;
 	Vector2 position;

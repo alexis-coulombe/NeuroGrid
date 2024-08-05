@@ -1,6 +1,7 @@
 #include "MenuPlayScreen.h"
 #include "../../../../engine/utility/Asset.h"
 #include "../../../../engine/Audio.h"
+
 #include <cstdint>
 
 bool canShowPopup = false;
@@ -95,7 +96,7 @@ MenuPlayScreen::~MenuPlayScreen() {
 	delete headButton;
 }
 
-uint8_t backgroundBuzzTimeout = 10;
+uint8_t backgroundBuzzTimeout = TARGET_FPS; // 1 sec
 bool buzzPlaying = false;
 
 void MenuPlayScreen::init() {

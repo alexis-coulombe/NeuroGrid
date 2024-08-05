@@ -8,10 +8,10 @@ class Nano1Textarea : public Textarea {
 public:
 	Nano1Textarea(Container *parentContainer, Vector2 position, uint8_t cols, uint8_t rows, Color backgroundColor = Color::TRANSPARENT, Color textColor = Color::BLACK, Color currentLineColor = Color::WHITE);
 
-	void onClick() override;
 	void onHover() override;
-	void onLineExit() override;
-	void onLineEnter() override;
+	void onLineExit(uint8_t line) override;
+	void onLineEnter(uint8_t line) override;
+	void onLineChange(uint8_t line) override;
 };
 
 

@@ -74,8 +74,6 @@ void FSM::processEvent(FSM_Object_t const *pFSM, FSM_state_t *pActualState, FSM_
 		}
 	}
 
-	printf("FSM state:%d ev:%d cond:%d found:%d\n", *pActualState, event, pTx->condition, found);
-
 	if (found) {
 		if (pTx->nextState != FSM_SAME_STATE) {
 			/* Execute exit action of the current state */

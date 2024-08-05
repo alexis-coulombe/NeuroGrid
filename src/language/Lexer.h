@@ -16,6 +16,7 @@ class Lexer {
 	void trimLeft();
 	bool isSymbolStart(char c);
 	bool isSymbol(char c);
+	bool validateLine();
 };
 
 #endif //ASM_SRC_LANGUAGE_LEXER_H_

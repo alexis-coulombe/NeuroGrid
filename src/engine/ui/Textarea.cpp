@@ -1,102 +1,130 @@
-//
-// Created by acoulombe on 4/14/24.
-//
-
 #include "Textarea.h"
 
 Textarea::Textarea(Container *parentContainer, Vector2 position, uint8_t cols, uint8_t rows, Color backgroundColor, Color textColor, Color currentLineColor) : parentContainer(parentContainer), cols(cols), rows(rows), backgroundColor(backgroundColor), textColor(textColor), currentLineColor(currentLineColor) {
 	bounds = new Bounds2(position.x, position.y, (float)(cols * fontWidth), (float)(rows * fontSize));
+	bounds->position = getRelativePositionWithParentContainer();
 	id = rand() * rand();
 	lines = new std::vector<std::string>(rows);
 }
 
 void Textarea::update() {
-	if (inFocus) {
-		if (Input::getInstance()->getKeyDown(Input::Backspace) || Input::getInstance()->getKeyHeld(Input::Backspace)) {
-			if (!getTextOfCurrentLine()->empty() && caretColumn != 0) {
-				getTextOfCurrentLine()->erase(caretColumn - 1, 1);
-				moveCaretLeft();
-			}
-		}
+	onClick();
 
-		if (Input::getInstance()->getKeyDown(Input::Home)) {
-			caretColumn = 0;
-		}
+	if (!inFocus) {
+		return;
+	}
 
-		if (Input::getInstance()->getKeyDown(Input::End)) {
-			caretColumn = (uint8_t)getTextOfCurrentLine()->length();
-		}
+	Input *input = Input::getInstance();
 
-		if (Input::getInstance()->getKeyDown(Input::PageUp)) {
-			caretLine = 0;
-			moveCaretUp(); // move caret to the beginning of the first line
-		}
+	if (caretLine != lastLine) {
+		onLineExit(lastLine);
+		onLineEnter(caretLine);
+		lastLine = caretLine;
+	}
 
-		if (Input::getInstance()->getKeyDown(Input::PageDown)) {
-			caretLine = rows;
-			moveCaretDown(); // move caret to end of the last line
-		}
-
-		if (!Input::getInstance()->typedText.empty() && getTextOfCurrentLine()->length() < cols) {
-			char c = Input::getInstance()->typedText[0];
-
-			if (c >= 'a' && c <= 'z') {
-				c ^= 0x20; // Toggle uppercase
-			}
-
-			if (!(c >= 'A' && c <= 'Z') && !(c >= '0' && c <= '9') && c != ' ' && c != ':') {
-				return;
-			}
-
-			getTextOfCurrentLine()->push_back(' ');
-			getTextOfCurrentLine()->insert(caretColumn, 1, c);
-			printf("Current line: \"%s\"\n", getTextOfCurrentLine()->c_str());
-			printf("Current column: %d\n", caretColumn);
-			moveCaretRight();
-		}
-
-		if (Input::getInstance()->getKeyDown(Input::Up) || Input::getInstance()->getKeyHeld(Input::Up)) {
-			moveCaretUp();
-		}
-
-		if (Input::getInstance()->getKeyDown(Input::Down) || Input::getInstance()->getKeyHeld(Input::Down)) {
-			moveCaretDown();
-		}
-
-		if (Input::getInstance()->getKeyDown(Input::Left) || Input::getInstance()->getKeyHeld(Input::Left)) {
+	if (input->getKeyDown(Input::Backspace)) {
+		if (!getTextOfCurrentLine()->empty() && caretColumn != 0) {
+			getTextOfCurrentLine()->erase(caretColumn - 1, 1);
 			moveCaretLeft();
-		}
-
-		if (Input::getInstance()->getKeyDown(Input::Right) || Input::getInstance()->getKeyHeld(Input::Right)) {
-			moveCaretRight();
 		}
 	}
 
-	onClick();
+	if (input->getKeyDown(Input::Delete)) {
+		if (!getTextOfCurrentLine()->empty() && caretColumn != getTextOfCurrentLine()->length()) {
+			getTextOfCurrentLine()->erase(caretColumn, 1);
+		}
+	}
+
+	if (input->getKeyDown(Input::Home)) {
+		caretColumn = 0;
+	}
+
+	if (input->getKeyDown(Input::End)) {
+		caretColumn = (uint8_t)getTextOfCurrentLine()->length();
+	}
+
+	if (input->getKeyDown(Input::PageUp)) {
+		caretLine = 0;
+		moveCaretUp(); // move caret to the beginning of the first line
+	}
+
+	if (input->getKeyDown(Input::PageDown)) {
+		caretLine = rows;
+		moveCaretDown(); // move caret to end of the last line
+	}
+
+	if (!input->typedText.empty() && getTextOfCurrentLine()->length() < cols) {
+		char c = input->typedText[0];
+
+		if (c >= 'a' && c <= 'z') {
+			c ^= 0x20; // Toggle uppercase
+		}
+
+		if (!(c >= 'A' && c <= 'Z') && !(c >= '0' && c <= '9') && c != ' ' && c != ':' && c != '#') {
+			return;
+		}
+
+		getTextOfCurrentLine()->insert(caretColumn, 1, c);
+		onLineChange(caretLine);
+		moveCaretRight();
+	}
+
+	if (input->getKeyDown(Input::Up)) {
+		moveCaretUp();
+	}
+
+	if (input->getKeyDown(Input::Down)) {
+		moveCaretDown();
+	}
+
+	if (input->getKeyDown(Input::Left)) {
+		moveCaretLeft();
+	}
+
+	if (input->getKeyDown(Input::Right)) {
+		moveCaretRight();
+	}
 }
 
 void Textarea::render(Font *font) {
 	if (inFocus) {
+		fontSize = font->pointsize * 1.33;
 		if (caretAnimation % 4 == 0) {
 			showCaret = !showCaret;
 		}
 
-		Graphics::drawString(font, (char *)(showCaret ? "\u0007" : "\u0000"), Vector2(caretColumn * fontWidth + bounds->position.x, caretLine * fontSize + bounds->position.y), Color::WHITE);
+		std::string caretString = "";
+		for (uint8_t i = 0; i < caretColumn; i++) {
+			caretString.append(" ");
+		}
+
+		float x = ((caretColumn / cols) * fontWidth) + bounds->position.x;
+		float y = (caretLine / rows) + (caretLine * fontSize + bounds->position.y);
+
+		Graphics::drawString(font, (char *)(showCaret ? caretString.append("\u0007").c_str() : caretString.append("\u0000").c_str()), Vector2(x, y), Color::WHITE);
 		caretAnimation++;
 	}
 
 	for (uint8_t i = 0; i < rows; i++) {
 		std::string string = lines->at(i);
-		std::string::size_type pos = 0;
 
+		if(string.empty()){
+			continue;
+		}
+
+		std::string::size_type pos = 0;
 		while ((pos = string.find("\n", pos)) != std::string::npos) {
 			string.replace(pos, 1, ""); // Replace \n with an empty string
 		}
 
-		uint8_t x = (i / cols) * fontWidth + bounds->position.x;
-		uint8_t y = (i / rows) + (i * fontSize + bounds->position.y);
+		float x = ((i / cols) * fontWidth) + bounds->position.x;
+		float y = (i / rows) + (i * fontSize) + bounds->position.y;
 
-		Graphics::drawString(font, (char *)string.c_str(), Vector2(x, y), textColor);
+		if (lineError == i) {
+			Graphics::drawString(font, (char *)string.c_str(), Vector2(x, y), Color::RED);
+		} else {
+			Graphics::drawString(font, (char *)string.c_str(), Vector2(x, y), textColor);
+		}
 	}
 
 	update();
@@ -105,12 +133,6 @@ void Textarea::render(Font *font) {
 void Textarea::onClick() {
 	if (Input::getInstance()->getMouseButtonDown(Input::LEFT) && Input::getInstance()->mouseInBounds(*bounds)) {
 		inFocus = true;
-
-		//caretLine = (int) ((bounds->position.y + bounds->size.y) - Input::getInstance()->mousePosition.y) / fontSize;
-		//caretColumn = (int) ((bounds->position.x + bounds->size.x) - Input::getInstance()->mousePosition.x) / fontWidth;
-
-		//caretLine = std::min(caretLine, lineCount);
-		//caretColumn = std::min(caretColumn, (int) lines[caretLine].length());
 	} else if (Input::getInstance()->getMouseButtonDown(Input::LEFT) && !Input::getInstance()->mouseInBounds(*bounds)) {
 		inFocus = false;
 		caretLine = 0;
@@ -118,7 +140,7 @@ void Textarea::onClick() {
 	}
 }
 
-std::string* Textarea::getTextOfCurrentLine() {
+std::string *Textarea::getTextOfCurrentLine() {
 	return &lines->at(caretLine);
 }
 
@@ -129,7 +151,7 @@ std::vector<std::string> *Textarea::getLines() {
 std::string Textarea::getFullText() {
 	std::string fullText;
 
-	for (const std::string& line : *lines) {
+	for (const std::string &line : *lines) {
 		fullText.append(line).append("\n");
 	}
 
@@ -146,10 +168,13 @@ void Textarea::moveCaretUp() {
 }
 
 void Textarea::moveCaretDown() {
-	if (caretLine == rows) {
-		// a revoir ca en bas
+	if (caretLine == rows - 1) {
 		caretColumn = (uint8_t)getTextOfCurrentLine()->length();
 		return;
+	}
+
+	if (caretColumn > lines->at(caretLine + 1).length()) {
+		caretColumn = (uint8_t)lines->at(caretLine + 1).length();
 	}
 
 	caretLine++;
@@ -162,17 +187,31 @@ void Textarea::moveCaretLeft() {
 
 	if (caretColumn == 0 && caretLine > 0) {
 		moveCaretUp();
-		// a revoir ca en bas
 		caretColumn = (int)getTextOfCurrentLine()->length();
-	} else {
-		caretColumn--;
+		return;
 	}
+
+	caretColumn--;
 }
 
 void Textarea::moveCaretRight() {
-	if (caretColumn == cols) {
+	if (caretColumn == lines->at(caretLine).length() || caretColumn == cols) {
+		return;
+	}
+
+	if (caretColumn == lines->at(caretLine).length()) {
+		moveCaretDown();
+		caretColumn = 0;
 		return;
 	}
 
 	caretColumn++;
+}
+
+Vector2 Textarea::getRelativePositionWithParentContainer() {
+	if(parentContainer == nullptr) {
+		return bounds->position;
+	}
+
+	return bounds->position + parentContainer->bounds.position;
 }

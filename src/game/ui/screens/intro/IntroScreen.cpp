@@ -4,6 +4,7 @@
 #include "../../../../engine/Graphics.h"
 #include "../../../../engine/utility/Asset.h"
 #include "../../../../engine/Audio.h"
+#include "../../../../Config.h"
 
 enum IntroState {
 	FIRST_SCREEN,
@@ -126,7 +127,7 @@ void IntroScreen::checkAction(FSM_action_t action) {
 Vector2 firstScreenPosition = Vector2(0, 0);
 void IntroScreen::renderFirstScreen() {
 	Graphics::drawTexture(backgroundIntro1, Vector2(0, 0) + firstScreenPosition, Color::TRANSPARENT_THIRD, Window::getWindowSize() * 1.6);
-	firstScreenPosition.y -= 1;
+	firstScreenPosition.y -= 1 / TARGET_FPS;
 }
 
 void IntroScreen::renderFirstScreenText() {
@@ -140,7 +141,7 @@ void IntroScreen::renderFirstScreenText() {
 Vector2 secondScreenPosition = Vector2(0, 0);
 void IntroScreen::renderSecondScreen() {
 	Graphics::drawTexture(backgroundIntro2, Vector2(0, -100) + secondScreenPosition, Color::TRANSPARENT_THIRD, Window::getWindowSize() * 1.6);
-	secondScreenPosition.x -= 1;
+	secondScreenPosition.x -= 1 / TARGET_FPS;
 }
 
 void IntroScreen::renderSecondScreenText() {
@@ -151,22 +152,25 @@ void IntroScreen::renderSecondScreenText() {
 	Graphics::drawString(font, (char *)"Oren 23:12", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
 }
 
-uint8_t foregroundFading = 255;
-uint8_t standbyFading = 40;
+float foregroundFading = 255;
+float standbyFading = 40;
 bool fading = true;
 void IntroScreen::renderForeground() {
 	if (fading) {
-		foregroundFading -= 5;
-		if (foregroundFading == 0) {
+		foregroundFading -= (255.0 / 2) / TARGET_FPS;
+		printf("foregroundFading: %f\n", foregroundFading);
+		if ((uint8_t) foregroundFading == 0) {
 			fading = false;
-			standbyFading = 40; // Reset standby fading when transition starts
+			standbyFading = (TARGET_FPS * 10.0); // Reset standby fading when transition starts, 10 secs
 		}
 	} else {
 		if (standbyFading > 0) {
-			standbyFading -= 1;
+			standbyFading -= 1.0;
+			printf("standbyFading: %f\n", standbyFading);
 		} else {
-			foregroundFading += 5;
-			if (foregroundFading == 255) {
+			foregroundFading += (255.0 / 2) / TARGET_FPS;
+			printf("foregroundFading: %f\n", foregroundFading);
+			if ((uint8_t) foregroundFading == 255) {
 				fsm->terminate(fsmObject, currentState); // Terminate FSM state once fully faded in
 				fading = true; // Reset for next fade cycle
 			}
