@@ -119,9 +119,8 @@ void FSM::terminate(FSM_Object_t const *pFSM, FSM_state_t *pActualState) {
 }
 
 static fsm_StateEntry_t const *fsmFindState(FSM_Object_t const *const pFSM, FSM_state_t state) {
-	uint32_t tableIndex = 0u;
-	fsm_StateEntry_t const *pStateEntry = nullptr;
-	for (tableIndex = 0; tableIndex < pFSM->tableSize; tableIndex++) {
+	fsm_StateEntry_t const *pStateEntry;
+	for (size_t tableIndex = 0; tableIndex < pFSM->tableSize; tableIndex++) {
 		pStateEntry = (fsm_StateEntry_t const *)&(pFSM->pTransitionTable[tableIndex]);
 
 		if (pStateEntry->state & FSM_STATE_BIT && (pStateEntry->state ^ FSM_STATE_BIT) == FSM_STATE_ID(state)) {

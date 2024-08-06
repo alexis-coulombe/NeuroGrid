@@ -1,6 +1,24 @@
 #ifndef ASM_SRC_CONFIG_H_
 #define ASM_SRC_CONFIG_H_
 
+// Engine
 #define TARGET_FPS (50)
+
+// Window
+#define WINDOW_TITLE ("NeuroGrid")
+#define WINDOW_WIDTH_RESOLUTION (1600)
+#define WINDOW_HEIGHT_RESOLUTION (900)
+#define WINDOW_FULLSCREEN (0)
+
+// Audio
+#define AUDIO_FREQUENCY (44100)
+#define AUDIO_FORMAT (AUDIO_S16)
+#define AUDIO_CHANNELS (2)
+#define AUDIO_CHUNKSIZE (1024)
+#define AUDIO_CHANNEL_COUNT (8)
+
+enum MISSION_TYPES {
+	INPUT_OUTPUT = 0
+};
 
 #endif //ASM_SRC_CONFIG_H_

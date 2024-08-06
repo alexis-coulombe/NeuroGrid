@@ -13,15 +13,16 @@ class Text {
 	static const uint8_t ANIMATION_SPEED = TARGET_FPS / 6;
  public:
 	Container *parentContainer;
-	Vector2 position;
-	std::vector<char *> *texts;
+	Vector2f position;
+	std::vector<std::string> lines;
 	Font *font;
 	Color color;
 
-	Text(Container *parentContainer, Vector2 position, std::vector<char *> *texts, Font *font, Color color = Color::WHITE);
+	Text(Container *parentContainer, Vector2f position, std::vector<std::string> lines, Font *font, Color color = Color::WHITE);
 
-	void render(bool animate);
-	Vector2 getRelativePositionWithParentContainer();
+	void render();
+	void renderAnimateScrolling();
+	Vector2f getRelativePositionWithParentContainer();
 };
 
 #endif //ASM_SRC_ENGINE_UI_TEXT_H_

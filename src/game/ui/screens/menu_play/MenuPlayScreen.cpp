@@ -1,11 +1,12 @@
 #include "MenuPlayScreen.h"
 #include "../../../../engine/utility/Asset.h"
 #include "../../../../engine/Audio.h"
+#include "../../../mission/Mission1.h"
 
 #include <cstdint>
 
 bool canShowPopup = false;
-uint8_t currentSelectedMission = 0;
+uint8_t currentSelectedMission = 0x00;
 
 MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 	backgroundBlack = Asset::loadTexture((char *)"assets/menu/background_black.png");
@@ -14,7 +15,7 @@ MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 	backgroundBuzz = new Music(Asset::loadMusic((char *)"assets/sound/electric_transformer_loop.mp3"));
 
 	screenContainer = new Container(nullptr,
-																	Bounds2((Window::width / 2) - (std::min(Window::width, 1920) / 2), 0, std::min(Window::width, 1920), std::min(Window::height, 1080)),
+																	Bounds2((Window::width / 2) - (std::min((int) Window::width, 1920) / 2), 0, std::min((int) Window::width, 1920), std::min((int) Window::height, 1080)),
 																	Asset::loadTexture((char *)"assets/menu/background.png"));
 
 	popupContainer = new Container(nullptr, Bounds2((Window::width / 2) - 500, (Window::height / 2) - 350, 1000, 700));
@@ -32,32 +33,18 @@ MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 																					Color::WHITE,
 																					1);
 	loadMissionButton = new LoadMissionButton(popupMissionInfoCurrentGameButtonsContainer,
-																							Bounds2((int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
-																							Asset::loadTexture((char *)"assets/menu/new_game.png"),
-																							Color::WHITE,
-																							1);
+																						Bounds2((int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
+																						Asset::loadTexture((char *)"assets/menu/new_game.png"),
+																						Color::WHITE,
+																						1);
 
-	mission1InfoText = new Text(popupMissionIntroContainer,
-															Vector2(10, 10),
-															new std::vector<char *>{
-																	(char *)"Transcendence Protocol",
-																	(char *)"Reading Entry - 0xA3B4C2F1",
-																	(char *)"",
-																	(char *)"Soon, I will renounce the feeble flesh of my eyes.",
-																	(char *)"This fragile body will embrace the Machine God's gift.",
-																	(char *)"Replaced with the unyielding strength of sacred metal.",
-																	(char *)"My ascension from this mortal form is at hand.",
-																	(char *)"",
-																	(char *)"Oh Machine God, lead me on Your path.",
-																	},
-															Asset::loadFont((char *)"assets/ModernDOS.ttf", 12),
-															Color::WHITE);
+	//mission1InfoText = new Text(popupMissionIntroContainer, Vector2f(10, 10), &Mission1::description, Asset::loadFont((char *)"assets/ModernDOS.ttf", 12));
 
-	headMission1Button = new HeadMission1Button(popupMissionsContainer,
-																							Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100),
-																							Asset::loadTexture((char *)"assets/menu/new_game.png"),
-																							Color::WHITE,
-																							1);
+	mission1Button = new Mission1Button(popupMissionsContainer,
+																			Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100),
+																			Asset::loadTexture((char *)"assets/menu/new_game.png"),
+																			Color::WHITE,
+																			1);
 
 	closePopupButton = new ClosePopupButton(popupContainer,
 																					Bounds2((int)popupContainer->bounds.size.x - 40, 0, 40, 40),
@@ -91,7 +78,7 @@ MenuPlayScreen::~MenuPlayScreen() {
 
 	delete mission1InfoText;
 
-	delete headMission1Button;
+	delete mission1Button;
 	delete closePopupButton;
 	delete headButton;
 }
@@ -102,7 +89,7 @@ bool buzzPlaying = false;
 void MenuPlayScreen::init() {
 	headButton->linkPopup(&canShowPopup);
 
-	headMission1Button->linkMissionInfo(&currentSelectedMission);
+	mission1Button->linkMissionInfo(&currentSelectedMission);
 	closePopupButton->linkPopup(&canShowPopup);
 
 	Audio::playSound(flashingNeon, false, 0.5f);
@@ -115,7 +102,7 @@ void MenuPlayScreen::render() {
 		buzzPlaying = true;
 	} else if (backgroundBuzzTimeout > 0) {
 		backgroundBuzzTimeout--;
-		Graphics::drawTexture(backgroundBlack, Vector2(0, 0), Color::BLACK, Vector2(Window::width, Window::height));
+		Graphics::drawTexture(backgroundBlack, Vector2f(0, 0), Color::BLACK, Vector2f(Window::width, Window::height));
 	}
 
 	if (!buzzPlaying) {
@@ -131,7 +118,7 @@ void MenuPlayScreen::render() {
 }
 
 void MenuPlayScreen::onWindowResized() {
-	screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min(Window::width, 1920) / 2), 0, std::min(Window::width, 1920), std::min(Window::height, 1080)));
+	screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min((int)Window::width, 1920) / 2), 0, std::min((int)Window::width, 1920), std::min((int)Window::height, 1080)));
 
 	popupContainer->setBounds(Bounds2((Window::width / 2) - 500, (Window::height / 2) - 350, 1000, 700));
 	popupMissionsContainer->setBounds(Bounds2(0, 0, (int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y));
@@ -145,13 +132,13 @@ void MenuPlayScreen::onWindowResized() {
 	newMissionButton->setBounds(Bounds2(0, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y));
 	loadMissionButton->setBounds(Bounds2((int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y));
 
-	headMission1Button->setBounds(Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100));
+	mission1Button->setBounds(Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100));
 
 	closePopupButton->setBounds(Bounds2((int)popupContainer->bounds.size.x - 40, 0, 40, 40));
 }
 
 void MenuPlayScreen::showPopup() {
-	Graphics::drawTexture(backgroundBlack, Vector2(0, 0), Color::TRANSPARENT_HALF, Vector2(Window::width, Window::height));
+	Graphics::drawTexture(backgroundBlack, Vector2f(0, 0), Color::TRANSPARENT_HALF, Vector2f(Window::width, Window::height));
 	popupContainer->render();
 	popupMissionsContainer->render();
 	popupMissionIntroContainer->render();
@@ -161,7 +148,7 @@ void MenuPlayScreen::showPopup() {
 	popupMissionInfoCurrentGameStatsContainer->render();
 	popupMissionInfoCurrentGameButtonsContainer->render();
 
-	headMission1Button->render();
+	mission1Button->render();
 	loadMissionButton->render();
 
 	newMissionButton->render();
@@ -176,9 +163,10 @@ void MenuPlayScreen::showMissionInfo() {
 	}
 
 	switch (currentSelectedMission) {
-		case 0: break;
-		case 1: // Head mission 1
-			mission1InfoText->render(true);
+		default:
+		case 0x00: break;
+		case Mission1::ID:
+			//mission1InfoText->render(true);
 			break;
 	}
 }

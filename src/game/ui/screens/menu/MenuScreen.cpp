@@ -16,7 +16,7 @@ void MenuScreen::init() {
 }
 
 void MenuScreen::render() {
-	Graphics::drawTexture(background, Vector2(0, 0), Color::WHITE, Vector2(Window::width, Window::height));
+	Graphics::drawTexture(background, Vector2f(0, 0), Color::WHITE, Vector2f(Window::width, Window::height));
 	playNewButton->render();
 }
 

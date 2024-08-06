@@ -1,4 +1,4 @@
 #include "Sound.h"
 
-Sound::Sound(Mix_Chunk *handle): handle(handle) {
+Sound::Sound(Mix_Chunk *handle) : handle(handle) {
 }

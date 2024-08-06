@@ -4,10 +4,10 @@
 #include "../../../../engine/ui/GenericScreen.h"
 #include "../../../../engine/utility/Music.h"
 #include "../../../../engine/utility/Sound.h"
-#include "../../../../engine/Texture.h"
+#include "../../../../engine/utility/Texture.h"
 #include "elements/HeadButton.h"
 #include "elements/ClosePopupButton.h"
-#include "elements/HeadMission1Button.h"
+#include "elements/Mission1Button.h"
 #include "../../../../engine/ui/Text.h"
 #include "elements/NewMissionButton.h"
 #include "elements/LoadMissionButton.h"
@@ -32,7 +32,7 @@ class MenuPlayScreen : public GenericScreen {
 	NewMissionButton *newMissionButton;
 	LoadMissionButton *loadMissionButton;
 
-  HeadMission1Button *headMission1Button;
+  Mission1Button *mission1Button;
 	Text *mission1InfoText;
 
   ClosePopupButton *closePopupButton;

@@ -2,13 +2,13 @@
 #define ASM_SCREEN_H
 
 class GenericScreen {
-public:
-  GenericScreen();
+ public:
+	GenericScreen();
 	~GenericScreen();
 
-  virtual void init() = 0;
-  virtual void render() = 0;
-  virtual void onWindowResized() = 0;
+	virtual void init() = 0;
+	virtual void render() = 0;
+	virtual void onWindowResized() = 0;
 };
 
 #endif //ASM_SCREEN_H

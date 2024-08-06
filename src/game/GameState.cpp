@@ -4,8 +4,6 @@
 #include "ui/screens/menu/MenuScreen.h"
 #include "ui/screens/menu_play/MenuPlayScreen.h"
 
-GameState *GameState::instance = nullptr;
-
 FSM_Transition_t stateTransitions[] = {
 		FSM_STATE(GameState::sMenu, 0, 0),
 
@@ -37,11 +35,6 @@ void GameState::update() {
 	if (*currentState == lastState) {
 		return;
 	}
-
-	/*delete menuScreen;
-	delete introScreen;
-	delete menuPlayScreen;
-	delete playScreen;*/
 
 	switch (*currentState) {
 		case sMenu: {

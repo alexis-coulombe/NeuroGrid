@@ -1,7 +1,5 @@
 #include "Input.h"
 
-Input *Input::instance = nullptr;
-
 Input *Input::getInstance() {
 	if (instance == nullptr) {
 		instance = new Input();
@@ -17,14 +15,14 @@ void Input::pollEvents() {
 	keysDown.clear();
 	keysDownAutorepeat.clear();
 	keysUp.clear();
-	typedText = "";
+	typedText.clear();
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_MOUSEMOTION: {
-				mousePosition = Vector2((float)event.motion.x, (float)event.motion.y);
-				mouseMotion = Vector2((float)event.motion.xrel, (float)event.motion.yrel);
+				mousePosition = Vector2f((float)event.motion.x, (float)event.motion.y);
+				mouseMotion = Vector2f((float)event.motion.xrel, (float)event.motion.yrel);
 				break;
 			}
 			case SDL_MOUSEBUTTONDOWN: {
@@ -57,7 +55,7 @@ void Input::pollEvents() {
 			}
 			case SDL_TEXTINPUT: {
 				std::string text;
-				for (int i = 0; i < SDL_TEXTINPUTEVENT_TEXT_SIZE && event.text.text[i] != '\0'; i++) {
+				for (size_t i = 0; i < SDL_TEXTINPUTEVENT_TEXT_SIZE && event.text.text[i] != '\0'; i++) {
 					text += event.text.text[i];
 				}
 				typedText = text;

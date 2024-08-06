@@ -1,9 +1,9 @@
 #include "Textarea.h"
 
-Textarea::Textarea(Container *parentContainer, Vector2 position, uint8_t cols, uint8_t rows, Color backgroundColor, Color textColor, Color currentLineColor) : parentContainer(parentContainer), cols(cols), rows(rows), backgroundColor(backgroundColor), textColor(textColor), currentLineColor(currentLineColor) {
-	bounds = new Bounds2(position.x, position.y, (float)(cols * fontWidth), (float)(rows * fontSize));
+Textarea::Textarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor) : parentContainer(parentContainer), cols(cols), rows(rows), font(font), textColor(textColor) {
+	bounds = new Bounds2(position.x, position.y, (float)(cols * font->pxSize), (float)(rows * font->pxSize));
 	bounds->position = getRelativePositionWithParentContainer();
-	id = rand() * rand();
+	id = rand() * rand(); // TODO: Implement a better way to generate unique IDs
 	lines = new std::vector<std::string>(rows);
 }
 
@@ -86,29 +86,28 @@ void Textarea::update() {
 	}
 }
 
-void Textarea::render(Font *font) {
+void Textarea::render() {
 	if (inFocus) {
-		fontSize = font->pointsize * 1.33;
 		if (caretAnimation % 4 == 0) {
 			showCaret = !showCaret;
 		}
 
-		std::string caretString = "";
+		std::string caretString;
 		for (uint8_t i = 0; i < caretColumn; i++) {
 			caretString.append(" ");
 		}
 
 		float x = ((caretColumn / cols) * fontWidth) + bounds->position.x;
-		float y = (caretLine / rows) + (caretLine * fontSize + bounds->position.y);
+		float y = (caretLine / rows) + (caretLine * font->pxSize + bounds->position.y);
 
-		Graphics::drawString(font, (char *)(showCaret ? caretString.append("\u0007").c_str() : caretString.append("\u0000").c_str()), Vector2(x, y), Color::WHITE);
+		Graphics::drawString(font, (char *)(showCaret ? caretString.append("\u0007").c_str() : caretString.append("\u0000").c_str()), Vector2f(x, y), Color::WHITE);
 		caretAnimation++;
 	}
 
-	for (uint8_t i = 0; i < rows; i++) {
+	for (size_t i = 0; i < rows; i++) {
 		std::string string = lines->at(i);
 
-		if(string.empty()){
+		if (string.empty()) {
 			continue;
 		}
 
@@ -118,12 +117,12 @@ void Textarea::render(Font *font) {
 		}
 
 		float x = ((i / cols) * fontWidth) + bounds->position.x;
-		float y = (i / rows) + (i * fontSize) + bounds->position.y;
+		float y = (i / rows) + (i * font->pxSize) + bounds->position.y;
 
 		if (lineError == i) {
-			Graphics::drawString(font, (char *)string.c_str(), Vector2(x, y), Color::RED);
+			Graphics::drawString(font, (char *)string.c_str(), Vector2f(x, y), Color::RED);
 		} else {
-			Graphics::drawString(font, (char *)string.c_str(), Vector2(x, y), textColor);
+			Graphics::drawString(font, (char *)string.c_str(), Vector2f(x, y), textColor);
 		}
 	}
 
@@ -208,8 +207,8 @@ void Textarea::moveCaretRight() {
 	caretColumn++;
 }
 
-Vector2 Textarea::getRelativePositionWithParentContainer() {
-	if(parentContainer == nullptr) {
+Vector2f Textarea::getRelativePositionWithParentContainer() {
+	if (parentContainer == nullptr) {
 		return bounds->position;
 	}
 

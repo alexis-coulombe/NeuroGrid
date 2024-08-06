@@ -2,7 +2,7 @@
 #define ASM_BUTTON_H
 
 #include "../utility/Bounds2.h"
-#include "../Texture.h"
+#include "../utility/Texture.h"
 #include "../Graphics.h"
 #include "../utility/Color.h"
 #include "../Input.h"
@@ -21,7 +21,7 @@ class GenericButton {
 	virtual void onClick() = 0;
 	virtual void onHover() = 0;
 
-	Vector2 getRelativePositionWithParentContainer();
+	Vector2f getRelativePositionWithParentContainer();
 	void setBounds(Bounds2 bounds);
 };
 

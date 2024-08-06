@@ -124,32 +124,32 @@ void IntroScreen::checkAction(FSM_action_t action) {
 	}
 }
 
-Vector2 firstScreenPosition = Vector2(0, 0);
+Vector2f firstScreenPosition = Vector2f(0, 0);
 void IntroScreen::renderFirstScreen() {
-	Graphics::drawTexture(backgroundIntro1, Vector2(0, 0) + firstScreenPosition, Color::TRANSPARENT_THIRD, Window::getWindowSize() * 1.6);
+	Graphics::drawTexture(backgroundIntro1, Vector2f(0, 0) + firstScreenPosition, Color::TRANSPARENT_THIRD, Vector2f(Window::width, Window::height));
 	firstScreenPosition.y -= 1 / TARGET_FPS;
 }
 
 void IntroScreen::renderFirstScreenText() {
-	Graphics::drawString(font, (char *)"-    \"Flesh is weak, a frail disguise", Vector2(Window::width / 2 - 250, Window::height / 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"     In steel and wire, salvation lies", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 1), Color::WHITE);
-	Graphics::drawString(font, (char *)"     The heart, it falters, blood runs cold", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 2), Color::WHITE);
-	Graphics::drawString(font, (char *)"     In copper veins, life's strength is bold.\"", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"Oren 12:5", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
+	Graphics::drawString(font, (char *)"-    \"Flesh is weak, a frail disguise", Vector2f(Window::width / 2 - 250, Window::height / 3), Color::WHITE);
+	Graphics::drawString(font, (char *)"     In steel and wire, salvation lies", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 1), Color::WHITE);
+	Graphics::drawString(font, (char *)"     The heart, it falters, blood runs cold", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 2), Color::WHITE);
+	Graphics::drawString(font, (char *)"     In copper veins, life's strength is bold.\"", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 3), Color::WHITE);
+	Graphics::drawString(font, (char *)"Oren 12:5", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
 }
 
-Vector2 secondScreenPosition = Vector2(0, 0);
+Vector2f secondScreenPosition = Vector2f(0, 0);
 void IntroScreen::renderSecondScreen() {
-	Graphics::drawTexture(backgroundIntro2, Vector2(0, -100) + secondScreenPosition, Color::TRANSPARENT_THIRD, Window::getWindowSize() * 1.6);
+	Graphics::drawTexture(backgroundIntro2, Vector2f(0, -100) + secondScreenPosition, Color::TRANSPARENT_THIRD, Vector2f(Window::width, Window::height) * 1.6);
 	secondScreenPosition.x -= 1 / TARGET_FPS;
 }
 
 void IntroScreen::renderSecondScreenText() {
-	Graphics::drawString(font, (char *)"-    \"Veins of oil, a heart of steel", Vector2(Window::width / 2 - 250, Window::height / 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"     No pulsing blood, no pain to feel", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 1), Color::WHITE);
-	Graphics::drawString(font, (char *)"     The path is clear, the choice is plain", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 2), Color::WHITE);
-	Graphics::drawString(font, (char *)"     Leave behind this world of pain.\"", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"Oren 23:12", Vector2(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
+	Graphics::drawString(font, (char *)"-    \"Veins of oil, a heart of steel", Vector2f(Window::width / 2 - 250, Window::height / 3), Color::WHITE);
+	Graphics::drawString(font, (char *)"     No pulsing blood, no pain to feel", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 1), Color::WHITE);
+	Graphics::drawString(font, (char *)"     The path is clear, the choice is plain", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 2), Color::WHITE);
+	Graphics::drawString(font, (char *)"     Leave behind this world of pain.\"", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 3), Color::WHITE);
+	Graphics::drawString(font, (char *)"Oren 23:12", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
 }
 
 float foregroundFading = 255;
@@ -177,5 +177,5 @@ void IntroScreen::renderForeground() {
 		}
 	}
 
-	Graphics::drawTexture(backgroundBlack, Vector2(0, 0), Color(255, 255, 255, std::min(255, (int)foregroundFading)), Vector2(Window::width, Window::height));
+	Graphics::drawTexture(backgroundBlack, Vector2f(0, 0), Color(255, 255, 255, std::min(255, (int)foregroundFading)), Vector2f(Window::width, Window::height));
 }

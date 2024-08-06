@@ -1,35 +1,36 @@
 #include "Text.h"
 #include "../Graphics.h"
 
-Vector2 tmpTextPosition = {0, 0};
 uint8_t animationCounter = 0;
 uint8_t animationTextCounter = 0;
 
-Text::Text(Container *parentContainer, Vector2 position, std::vector<char *> *texts, Font *font, Color color) : parentContainer(parentContainer), position(position), texts(texts), font(font), color(color) {
+Text::Text(Container *parentContainer, Vector2f position, std::vector<std::string> lines, Font *font, Color color) : parentContainer(parentContainer), position(position), lines(lines), font(font), color(color) {
 	this->position = getRelativePositionWithParentContainer();
-	tmpTextPosition = position;
 }
 
-void Text::render(bool animate) {
-	tmpTextPosition = position;
+void Text::render() {
+	for (size_t i = 0; i < lines.size(); i++) {
+		float y = position.y + (font->pxSize + MARGIN) * i;
+		Graphics::drawString(font, (char*)lines.at(i).c_str(), Vector2f(position.x, y), color, Graphics::LEFT, false);
+	}
+}
 
-	if (animate && animationCounter++ >= ANIMATION_SPEED) {
+void Text::renderAnimateScrolling() {
+	if (animationCounter++ >= ANIMATION_SPEED) {
 		animationCounter = 0;
-		if (animationTextCounter < texts->size()) {
+		if (animationTextCounter < lines.size()) {
 			animationTextCounter++;
 		}
-	} else if (!animate) {
-		animationTextCounter = texts->size();
 	}
 
-	for (int i = 0; i < animationTextCounter; i++) {
-		Graphics::drawString(font, texts->at(i), tmpTextPosition, color, Graphics::LEFT, false);
-		tmpTextPosition.y += font->pointsize + MARGIN;
+	for (size_t i = 0; i < animationTextCounter; i++) {
+		float y = position.y + (font->pxSize + MARGIN) * i;
+		Graphics::drawString(font, (char*) lines.at(i).c_str(), Vector2f(position.x, y), color, Graphics::LEFT, false);
 	}
 }
 
-Vector2 Text::getRelativePositionWithParentContainer() {
-	if(parentContainer == nullptr) {
+Vector2f Text::getRelativePositionWithParentContainer() {
+	if (parentContainer == nullptr) {
 		return position;
 	}
 

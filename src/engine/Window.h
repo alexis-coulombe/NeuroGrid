@@ -2,16 +2,16 @@
 #define ASM_WINDOW_H
 
 #include <SDL.h>
-#include <iostream>
-#include "utility/Vector2.h"
+#include "utility/Vector2i.h"
 
 class Window {
-public:
-    static SDL_Window* window;
-    static SDL_Renderer* renderer;
-    static int width, height;
+ public:
+	static inline SDL_Window *window = nullptr;
+	static inline SDL_Renderer *renderer = nullptr;
+	static inline uint32_t width = 0;
+	static inline uint32_t height = 0;
 
-	static Vector2 getWindowSize();
+	static Vector2i getWindowSize();
 };
 
 #endif //ASM_WINDOW_H

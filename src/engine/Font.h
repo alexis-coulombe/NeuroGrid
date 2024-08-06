@@ -6,9 +6,10 @@
 class Font {
 public:
     TTF_Font *handle;
-		uint8_t pointsize;
+		uint8_t pointSize;
+		float pxSize;
 
-    explicit Font(TTF_Font *handle, int pointsize);
+    explicit Font(TTF_Font *handle, uint8_t pointSize);
 };
 
 #endif //ASM_FONT_H

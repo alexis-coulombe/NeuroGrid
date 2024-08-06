@@ -6,7 +6,7 @@
 
 class Nano3Textarea : public Textarea {
  public:
-	Nano3Textarea(Container *parentContainer, Vector2 position, uint8_t cols, uint8_t rows, Color backgroundColor = Color::TRANSPARENT, Color textColor = Color::BLACK, Color currentLineColor = Color::WHITE);
+	Nano3Textarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor);
 
 	void onHover() override;
 };

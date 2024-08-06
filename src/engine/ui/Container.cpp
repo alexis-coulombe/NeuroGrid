@@ -1,23 +1,16 @@
 #include "Container.h"
 #include "../Graphics.h"
 
-SDL_Rect rectToDraw;
-
-Container::Container(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color): parentContainer(parentContainer), bounds(bounds), texture(texture), color(color){
+Container::Container(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color) : parentContainer(parentContainer), bounds(bounds), texture(texture), color(color) {
 	this->bounds.position = getRelativePositionWithParentContainer();
-
-	rectToDraw = {(int)bounds.position.x, (int)bounds.position.y, (int)bounds.size.x, (int)bounds.size.y};
 }
 
 void Container::render() {
-	rectToDraw = {(int)bounds.position.x, (int)bounds.position.y, (int)bounds.size.x, (int)bounds.size.y};
-
 	if (texture != nullptr) {
 		Graphics::drawTexture(texture, bounds.position, color, bounds.size);
 	}
 
-	SDL_SetRenderDrawColor(Window::renderer, 255, 0, 0, 255);
-	SDL_RenderDrawRect(Window::renderer, &rectToDraw);
+	Graphics::drawRectEmpty(bounds, Color::RED);
 }
 
 void Container::setBounds(Bounds2 newBounds) {
@@ -25,7 +18,7 @@ void Container::setBounds(Bounds2 newBounds) {
 	this->bounds.position = getRelativePositionWithParentContainer();
 }
 
-Vector2 Container::getRelativePositionWithParentContainer() {
+Vector2f Container::getRelativePositionWithParentContainer() {
 	if (parentContainer == nullptr) {
 		return bounds.position;
 	}

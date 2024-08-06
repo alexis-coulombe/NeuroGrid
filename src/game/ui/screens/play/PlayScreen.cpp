@@ -1,15 +1,17 @@
 #include "PlayScreen.h"
 #include "../../../../engine/Window.h"
+#include "../../../GameState.h"
+#include "../../../mission/Mission1.h"
 
 PlayScreen::PlayScreen() : GenericScreen() {
-	screenContainer = new Container(nullptr, Bounds2((Window::width / 2) - (std::min(Window::width, 1920) / 2), 0, std::min(Window::width, 1920), std::min(Window::height, 1080)));
+	screenContainer = new Container(nullptr, Bounds2((Window::width / 2) - (std::min((int)Window::width, 1920) / 2), 0, std::min((int)Window::width, 1920), std::min((int)Window::height, 1080)));
 
-	inputContainer = new Container(screenContainer, Bounds2(0, 0, (std::min(Window::width, 1920) / 6), std::min(Window::height, 1080)));
-	gameContainer = new Container(screenContainer, Bounds2((std::min(Window::width, 1920) / 6), 0, (std::min(Window::width, 1920) / 6) * 4, std::min(Window::height, 1080)));
-	outputContainer = new Container(screenContainer, Bounds2((std::min(Window::width, 1920) / 6) * 5, 0, (std::min(Window::width, 1920) / 6), std::min(Window::height, 1080)));
+	inputContainer = new Container(screenContainer, Bounds2(0, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
+	gameContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6), 0, (std::min((int)Window::width, 1920) / 6) * 4, std::min((int)Window::height, 1080)));
+	outputContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6) * 5, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
 
 	nano1Container = new Container(gameContainer, Bounds2(0, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3));
-	nano1Textarea = new Nano1Textarea(nano1Container, Vector2(0, 0), 20, 20, Color::WHITE, Color::WHITE, Color::WHITE);
+	nano1Textarea = new Nano1Textarea(nano1Container, Vector2f(0, 0), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 10), Color::WHITE);
 	nano2Container = new Container(gameContainer, Bounds2((int) gameContainer->bounds.size.x / 3, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3));
 	nano3Container = new Container(gameContainer, Bounds2((int) gameContainer->bounds.size.x / 3 * 2, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3));
 
@@ -37,7 +39,7 @@ void PlayScreen::render() {
 	outputContainer->render();
 
 	nano1Container->render();
-	nano1Textarea->render(Asset::loadFont((char *)"assets/ModernDOS.ttf", 10));
+	nano1Textarea->render();
 	nano2Container->render();
 	nano3Container->render();
 
@@ -51,11 +53,11 @@ void PlayScreen::render() {
 }
 
 void PlayScreen::onWindowResized() {
-	screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min(Window::width, 1920) / 2), 0, std::min(Window::width, 1920), std::min(Window::height, 1080)));
+	screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min((int)Window::width, 1920) / 2), 0, std::min((int)Window::width, 1920), std::min((int)Window::height, 1080)));
 
-	inputContainer->setBounds(Bounds2(0, 0, (std::min(Window::width, 1920) / 6), (int) inputContainer->parentContainer->bounds.size.y));
-	gameContainer->setBounds(Bounds2((std::min(Window::width, 1920) / 6), 0, (std::min(Window::width, 1920) / 6) * 4, (int) inputContainer->parentContainer->bounds.size.y));
-	outputContainer->setBounds(Bounds2((std::min(Window::width, 1920) / 6) * 5, 0, (std::min(Window::width, 1920) / 6), (int) inputContainer->parentContainer->bounds.size.y));
+	inputContainer->setBounds(Bounds2(0, 0, (std::min((int)Window::width, 1920) / 6), (int) inputContainer->parentContainer->bounds.size.y));
+	gameContainer->setBounds(Bounds2((std::min((int)Window::width, 1920) / 6), 0, (std::min((int)Window::width, 1920) / 6) * 4, (int) inputContainer->parentContainer->bounds.size.y));
+	outputContainer->setBounds(Bounds2((std::min((int)Window::width, 1920) / 6) * 5, 0, (std::min((int)Window::width, 1920) / 6), (int) inputContainer->parentContainer->bounds.size.y));
 
 	nano1Container->setBounds(Bounds2(0, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y));
 	nano2Container->setBounds(Bounds2((int) gameContainer->bounds.size.x / 3, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y));
@@ -68,4 +70,15 @@ void PlayScreen::onWindowResized() {
 	output1->setBounds(Bounds2(0, 0, (int) outputContainer->bounds.size.x / 3, (int) outputContainer->bounds.size.y));
 	output2->setBounds(Bounds2((int) outputContainer->bounds.size.x / 3, 0, (int) outputContainer->bounds.size.x / 3, (int) outputContainer->bounds.size.y));
 	output3->setBounds(Bounds2((int) outputContainer->bounds.size.x / 3 * 2, 0, (int) outputContainer->bounds.size.x / 3, (int) outputContainer->bounds.size.y));
+}
+
+void PlayScreen::getMissionInputs() {
+	/*switch(GameState::getInstance()->selectedMission) {
+		default:
+			*GameState::getInstance()->currentState = GameState::sMenu;
+			break;
+		case Mission1::ID:
+			memcpy(inputs, Mission1::inputs, sizeof(Mission1::inputs));
+			break;
+	}*/
 }

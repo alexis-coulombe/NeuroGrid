@@ -1,27 +1,29 @@
-#include "HeadMission1Button.h"
+#include "Mission1Button.h"
+#include "../../../../mission/Mission1.h"
+#include "../../../../GameState.h"
 
-HeadMission1Button::HeadMission1Button(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, texture, color, zLevel) {
+Mission1Button::Mission1Button(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, texture, color, zLevel) {
 
 }
 
-void HeadMission1Button::render() {
+void Mission1Button::render() {
 	Graphics::drawTexture(texture, bounds.position, color, bounds.size);
 
 	onHover();
 	onClick();
 }
 
-void HeadMission1Button::onClick() {
+void Mission1Button::onClick() {
 	if (zLevel != Input::getInstance()->getMouseZLevel()) {
 		return;
 	}
 
 	if (Input::getInstance()->mouseInBounds(bounds) && Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
-		*showMissionInfoTrigger = ID;
+		*showMissionInfoTrigger = Mission1::ID;
 	}
 }
 
-void HeadMission1Button::onHover() {
+void Mission1Button::onHover() {
 	if (zLevel != Input::getInstance()->getMouseZLevel()) {
 		return;
 	}
@@ -31,7 +33,7 @@ void HeadMission1Button::onHover() {
 	}
 }
 
-void HeadMission1Button::linkMissionInfo(uint8_t *missionInfoShowPtr) {
+void Mission1Button::linkMissionInfo(uint8_t *missionInfoShowPtr) {
 	showMissionInfoTrigger = missionInfoShowPtr;
 }
 

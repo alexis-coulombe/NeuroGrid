@@ -6,6 +6,7 @@
 #include "elements/Nano1Textarea.h"
 #include "elements/Nano2Textarea.h"
 #include "elements/Nano3Textarea.h"
+#include "../../../../engine/ui/Text.h"
 
 class PlayScreen : public GenericScreen {
  private:
@@ -25,12 +26,15 @@ class PlayScreen : public GenericScreen {
 	Container *missionDescriptionContainer;
 
 	Container *input1;
+	Text *input1Text;
 	Container *input2;
 	Container *input3;
 
 	Container *output1;
 	Container *output2;
 	Container *output3;
+
+	uint8_t inputs[];
 
  public:
 	PlayScreen();
@@ -39,6 +43,8 @@ class PlayScreen : public GenericScreen {
 	void init() override;
 	void render() override;
 	void onWindowResized() override;
+
+	void getMissionInputs();
 };
 
 #endif //ASM_SRC_GAME_UI_SCREENS_MENU_PLAY_PLAYSCREEN_H_

@@ -10,13 +10,20 @@
 #include "ui/screens/play/PlayScreen.h"
 
 class GameState {
-protected:
-  static GameState *instance;
+ private:
+	FSM_state_t lastState;
+	IntroScreen *introScreen;
+	MenuScreen *menuScreen;
+	MenuPlayScreen *menuPlayScreen;
+	PlayScreen *playScreen;
 
-  GameState() = default;
-  ~GameState() = default;
+ protected:
+	static inline GameState *instance = nullptr;
 
-public:
+	GameState() = default;
+	~GameState() = default;
+
+ public:
 	enum FSMStates {
 		sMenu,
 		sIntro,
@@ -27,24 +34,14 @@ public:
 
 	FSM_state_t *currentState = new FSM_state_t{sMenu};
 
-  GameState(GameState &other) = delete;
+	GameState(GameState &other) = delete;
 
-  void operator=(const GameState &) = delete;
-
-  static GameState *getInstance();
-
-private:
-	FSM_state_t lastState;
-	IntroScreen *introScreen;
-	MenuScreen *menuScreen;
-  MenuPlayScreen *menuPlayScreen;
-	PlayScreen *playScreen;
-
-public:
-  void init();
-  void update();
-  void render();
-  void onWindowResized();
+	void operator=(const GameState &) = delete;
+	static GameState *getInstance();
+	void init();
+	void update();
+	void render();
+	void onWindowResized();
 
 	bool checkCondition(FSM_condition_t condition);
 	void checkAction(FSM_action_t action);

@@ -6,7 +6,7 @@ GenericButton::GenericButton(Container *parentContainer, Bounds2 bounds, Texture
 	this->bounds.position = getRelativePositionWithParentContainer();
 }
 
-Vector2 GenericButton::getRelativePositionWithParentContainer() {
+Vector2f GenericButton::getRelativePositionWithParentContainer() {
 	if (parentContainer == nullptr) {
 		return bounds.position;
 	}

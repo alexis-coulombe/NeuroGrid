@@ -6,7 +6,7 @@
 #define ASM_SRC_GAME_UI_SCREENS_INTRO_INTROSCREEN_H
 
 #include "../../../../engine/ui/GenericScreen.h"
-#include "../../../../engine/Texture.h"
+#include "../../../../engine/utility/Texture.h"
 #include "../../../../engine/Font.h"
 #include "../../../../engine/utility/Music.h"
 #include "../../../../engine/fsm/FSM.h"
