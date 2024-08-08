@@ -6,6 +6,20 @@ GenericButton::GenericButton(Container *parentContainer, Bounds2 bounds, Texture
 	this->bounds.position = getRelativePositionWithParentContainer();
 }
 
+void GenericButton::render() {
+	if(zLevel != Input::getInstance()->getMouseZLevel()){
+	  return;
+  	}
+
+	if (Input::getInstance()->mouseInBounds(bounds)) {
+		onHover();
+
+		if(Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
+			onClick();
+		}
+	}
+}
+
 Vector2f GenericButton::getRelativePositionWithParentContainer() {
 	if (parentContainer == nullptr) {
 		return bounds.position;

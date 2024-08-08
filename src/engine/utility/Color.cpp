@@ -1,8 +1,8 @@
 #include "Color.h"
 
 const Color Color::TRANSPARENT = Color(0, 0, 0, 0);
-const Color Color::TRANSPARENT_HALF = Color(255, 255, 255, 255 / 2);
-const Color Color::TRANSPARENT_THIRD = Color(255, 255, 255, 255 / 3);
+const Color Color::BLACK_TRANSPARENT_HALF = Color(255, 255, 255, 255 / 2);
+const Color Color::BLACK_TRANSPARENT_THIRD = Color(255, 255, 255, 255 / 3);
 const Color Color::WHITE = Color(255, 255, 255);
 const Color Color::BLACK = Color(0, 0, 0);
 const Color Color::RED = Color(255, 0, 0);

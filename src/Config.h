@@ -17,8 +17,4 @@
 #define AUDIO_CHUNKSIZE (1024)
 #define AUDIO_CHANNEL_COUNT (8)
 
-enum MISSION_TYPES {
-	INPUT_OUTPUT = 0
-};
-
 #endif //ASM_SRC_CONFIG_H_

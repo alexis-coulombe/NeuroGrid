@@ -11,6 +11,7 @@
 #include "../../../../engine/ui/Text.h"
 #include "elements/NewMissionButton.h"
 #include "elements/LoadMissionButton.h"
+#include "elements/HeadPopup.h"
 
 class MenuPlayScreen : public GenericScreen {
  private:
@@ -20,17 +21,7 @@ class MenuPlayScreen : public GenericScreen {
   Music *backgroundBuzz;
   Container *screenContainer;
 
-  Container *popupContainer;
-  Container *popupMissionsContainer;
-	Container *popupMissionIntroContainer;
-	Container *popupMissionInfoContainer;
-	Container *popupMissionInfoStatsContainer;
-	Container *popupMissionInfoCurrentGameContainer;
-	Container *popupMissionInfoCurrentGameStatsContainer;
-	Container *popupMissionInfoCurrentGameButtonsContainer;
-
-	NewMissionButton *newMissionButton;
-	LoadMissionButton *loadMissionButton;
+  HeadPopup *headPopup;
 
   Mission1Button *mission1Button;
 	Text *mission1InfoText;

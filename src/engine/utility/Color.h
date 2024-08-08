@@ -16,8 +16,8 @@ class Color {
 	Color withAlpha(uint8_t a) const;
 
 	static const Color TRANSPARENT;
-	static const Color TRANSPARENT_HALF;
-	static const Color TRANSPARENT_THIRD;
+	static const Color BLACK_TRANSPARENT_HALF;
+	static const Color BLACK_TRANSPARENT_THIRD;
 	static const Color WHITE;
 	static const Color BLACK;
 	static const Color RED;
