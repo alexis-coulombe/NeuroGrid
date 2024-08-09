@@ -13,7 +13,7 @@
 class Mission1 {
  public:
 	static const uint8_t ID = 0x01;
-	static const MISSION_TYPES TYPE = INPUT_OUTPUT;
+	static const uint8_t TYPE = 0x00;
 	static const inline char *NAME = "Initial Calibration";
 	static inline std::vector<char*> description = {
 			(char*) "Reading Entry - 0xA3B4C2F1",

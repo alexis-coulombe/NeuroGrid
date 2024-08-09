@@ -7,14 +7,16 @@ GenericButton::GenericButton(Container *parentContainer, Bounds2 bounds, Texture
 }
 
 void GenericButton::render() {
-	if(zLevel != Input::getInstance()->getMouseZLevel()){
-	  return;
-  	}
+	onRender();
+	
+	if (zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
 
 	if (Input::getInstance()->mouseInBounds(bounds)) {
 		onHover();
 
-		if(Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
+		if (Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
 			onClick();
 		}
 	}

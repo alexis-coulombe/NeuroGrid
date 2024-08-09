@@ -10,7 +10,7 @@ protected:
 	~MissionManager() = default;
 
 public:
-	static inline const enum MISSION_TYPE {
+	enum MISSION_TYPE {
 		INPUT_OUTPUT = 0
 	};
 

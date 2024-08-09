@@ -12,7 +12,7 @@ class Mission1Button : GenericButton {
 
   Mission1Button(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color = Color::WHITE, uint8_t zLevel = 0);
 
-  void render() override;
+  void onRender() override;
   void onClick() override;
   void onHover() override;
 	using GenericButton::setBounds;

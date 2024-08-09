@@ -35,7 +35,7 @@ uint8_t backgroundBuzzTimeout = TARGET_FPS; // 1 sec
 bool buzzPlaying = false;
 
 void MenuPlayScreen::init() {
-	headButton->linkPopup(&headPopup);
+	headButton->linkPopup(headPopup);
 
 	//mission1Button->linkMissionInfo(&currentSelectedMission);
 
@@ -58,27 +58,14 @@ void MenuPlayScreen::render() {
 
 	screenContainer->render();
 	headButton->render();
-  headPopup->renderPopup();
+  headPopup->render();
 }
 
 void MenuPlayScreen::onWindowResized() {
-	screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min((int)Window::width, 1920) / 2), 0, std::min((int)Window::width, 1920), std::min((int)Window::height, 1080)));
+	//screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min((int)Window::width, 1920) / 2), 0, std::min((int)Window::width, 1920), std::min((int)Window::height, 1080)));
 	//mission1Button->setBounds(Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100));
 }
 
 void MenuPlayScreen::showPopup() {
 	//mission1Button->render();
-	loadMissionButton->render();
-	newMissionButton->render();
-	showMissionInfo();
-}
-
-void MenuPlayScreen::showMissionInfo() {
-	switch (currentSelectedMission) {
-		default:
-		case 0x00: break;
-		case Mission1::ID:
-			//mission1InfoText->render(true);
-			break;
-	}
 }

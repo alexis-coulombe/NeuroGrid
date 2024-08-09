@@ -4,7 +4,7 @@
 #include "../../../../../engine/ui/GenericButton.h"
 #include "HeadPopup.h"
 
-class HeadButton : GenericButton {
+class HeadButton : public GenericButton {
  public:
   HeadButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color = Color::WHITE, uint8_t zLevel = 0);
 

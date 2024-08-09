@@ -126,7 +126,7 @@ void IntroScreen::checkAction(FSM_action_t action) {
 
 Vector2f firstScreenPosition = Vector2f(0, 0);
 void IntroScreen::renderFirstScreen() {
-	Graphics::drawTexture(backgroundIntro1, Vector2f(0, 0) + firstScreenPosition, Color::TRANSPARENT_THIRD, Vector2f(Window::width, Window::height));
+	Graphics::drawTexture(backgroundIntro1, Vector2f(0, 0) + firstScreenPosition, Color::BLACK_TRANSPARENT_THIRD, Vector2f(Window::width, Window::height));
 	firstScreenPosition.y -= 1 / TARGET_FPS;
 }
 
@@ -140,7 +140,7 @@ void IntroScreen::renderFirstScreenText() {
 
 Vector2f secondScreenPosition = Vector2f(0, 0);
 void IntroScreen::renderSecondScreen() {
-	Graphics::drawTexture(backgroundIntro2, Vector2f(0, -100) + secondScreenPosition, Color::TRANSPARENT_THIRD, Vector2f(Window::width, Window::height) * 1.6);
+	Graphics::drawTexture(backgroundIntro2, Vector2f(0, -100) + secondScreenPosition, Color::BLACK_TRANSPARENT_THIRD, Vector2f(Window::width, Window::height) * 1.6);
 	secondScreenPosition.x -= 1 / TARGET_FPS;
 }
 

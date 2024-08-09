@@ -42,7 +42,6 @@ void Engine::start() {
 	Window::renderer = SDL_CreateRenderer(Window::window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	SDL_RenderSetLogicalSize(renderer, (int) Window::width, (int) Window::height);
 	SDL_SetWindowFullscreen(Window::window, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
-	SDL_SetRenderDrawColor(Window::renderer, 0, 0, 0, 255);
 
 	if (!Window::renderer) {
 		std::cout << "Error creating renderer: " << SDL_GetError() << std::endl;
@@ -86,6 +85,7 @@ void Engine::run() {
 		}
 
 		game.update();
+		SDL_SetRenderDrawColor(Window::renderer, 0, 0, 0, 255);
 		SDL_RenderClear(Window::renderer);
 		game.render();
 		SDL_RenderPresent(Window::renderer);

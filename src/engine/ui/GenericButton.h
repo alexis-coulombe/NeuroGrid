@@ -17,13 +17,13 @@ class GenericButton {
 	Container *parentContainer;
 
 	GenericButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel);
-    void render();
 	Vector2f getRelativePositionWithParentContainer();
 	void setBounds(Bounds2 bounds);
 
 	virtual void onRender() = 0;
 	virtual void onClick() = 0;
 	virtual void onHover() = 0;
+	void render();
 };
 
 #endif //ASM_BUTTON_H

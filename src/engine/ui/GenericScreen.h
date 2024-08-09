@@ -5,7 +5,7 @@
 
 class GenericScreen {
  public:
-	Container screenContainer;
+	Container *screenContainer;
 
 	GenericScreen();
 	~GenericScreen();
