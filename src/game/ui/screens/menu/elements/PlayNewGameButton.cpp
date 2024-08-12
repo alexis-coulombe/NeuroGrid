@@ -10,9 +10,9 @@ void PlayNewGameButton::onRender() {
 
 void PlayNewGameButton::onClick() {
 	if (false) { // if game played once
-		*GameState::getInstance()->currentState = GameState::sIntro;
+		GameState::getInstance()->currentState = GameState::sIntro;
 	} else {
-		*GameState::getInstance()->currentState = GameState::sMenuPlay;
+		GameState::getInstance()->currentState = GameState::sMenuPlay;
 	}
 }
 

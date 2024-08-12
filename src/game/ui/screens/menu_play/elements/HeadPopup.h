@@ -21,6 +21,9 @@ class HeadPopup : public GenericPopup {
 	Container *popupMissionInfoCurrentGameStatsContainer;
 	Container *popupMissionInfoCurrentGameButtonsContainer;
 
+	NewMissionButton *newGameButton;
+	LoadMissionButton *loadGameButton;
+
 	NewMissionButton *newMissionButton;
 	LoadMissionButton *loadMissionButton;
 };

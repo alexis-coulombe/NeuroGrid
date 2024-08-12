@@ -19,6 +19,7 @@ class Text {
 	Color color;
 
 	Text(Container *parentContainer, Vector2f position, std::vector<std::string> lines, Font *font, Color color = Color::WHITE);
+	Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> lines, Font *font, Color color = Color::WHITE);
 
 	void render();
 	void renderAnimateScrolling();

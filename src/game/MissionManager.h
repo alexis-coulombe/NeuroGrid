@@ -1,6 +1,9 @@
 #ifndef ASM_SRC_GAME_MISSIONMANAGER_H_
 #define ASM_SRC_GAME_MISSIONMANAGER_H_
 
+#include <cstdint>
+#include "mission/Mission.h"
+
 class MissionManager
 {
 protected:
@@ -9,12 +12,23 @@ protected:
 	MissionManager() = default;
 	~MissionManager() = default;
 
-public:
+ public:
+	Mission *currentMission = nullptr;
 	enum MISSION_TYPE {
-		INPUT_OUTPUT = 0
+		NONE = 0,
+		INPUT_OUTPUT
 	};
 
 	MissionManager(MissionManager &other) = delete;
+
+	void updateCurrentMission(uint8_t missionID);
+
+	std::vector<uint8_t> getMissionAInputs();
+	std::vector<uint8_t> getMissionBInputs();
+	std::vector<uint8_t> getMissionCInputs();
+	std::vector<uint8_t> getMissionDOutputs();
+	std::vector<uint8_t> getMissionEOutputs();
+	std::vector<uint8_t> getMissionFOutputs();
 
 	void operator=(const MissionManager &) = delete;
 	static MissionManager *getInstance();

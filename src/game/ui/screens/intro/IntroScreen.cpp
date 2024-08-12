@@ -116,7 +116,7 @@ void IntroScreen::checkAction(FSM_action_t action) {
 		case aDrawForeground: renderForeground();
 			break;
 		case aQuit: Audio::stopMusic(0.2f);
-			*GameState::getInstance()->currentState = GameState::sMenuPlay;
+			GameState::getInstance()->currentState = GameState::sMenuPlay;
 			break;
 		case aSwitchScreen: introScene = SECOND_SCREEN;
 			break;

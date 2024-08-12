@@ -4,20 +4,6 @@
 #include "ui/screens/menu/MenuScreen.h"
 #include "ui/screens/menu_play/MenuPlayScreen.h"
 
-FSM_Transition_t stateTransitions[] = {
-		FSM_STATE(GameState::sMenu, 0, 0),
-
-		FSM_STATE(GameState::sIntro, 0, 0),
-
-		FSM_STATE(GameState::sMenuPlay, 0, 0),
-
-		FSM_STATE(GameState::sPlay, 0, 0),
-
-		FSM_STATE(GameState::sEnd, 0, 0),
-};
-//FSM_Object_t *fsmObject;
-//FSM *fsm;
-
 GameState *GameState::getInstance() {
 	if (instance == nullptr) {
 		instance = new GameState();
@@ -26,17 +12,17 @@ GameState *GameState::getInstance() {
 }
 
 void GameState::init() {
-	//fsmObject = new FSM_Object_t{transitions, FSM_GET_TABLE_SIZE(transitions), std::bind(&GameState::checkCondition, this, std::placeholders::_1), std::bind(&GameState::checkAction, this, std::placeholders::_1)};
-	//fsm = new FSM(fsmObject, currentState, sMenu);
-	lastState = -1;
+	lastState = 0xFF;
 }
 
 void GameState::update() {
-	if (*currentState == lastState) {
+	if (currentState == lastState) {
 		return;
 	}
 
-	switch (*currentState) {
+	Input::getInstance()->mouseZLevel = 0;
+
+	switch (currentState) {
 		case sMenu: {
 			menuScreen = new MenuScreen();
 			menuScreen->init();
@@ -60,11 +46,11 @@ void GameState::update() {
 		case sEnd:break;
 	}
 
-	lastState = *currentState;
+	lastState = currentState;
 }
 
 void GameState::render() {
-	switch (*currentState) {
+	switch (currentState) {
 		case sMenu: {
 			menuScreen->render();
 			break;
@@ -86,7 +72,7 @@ void GameState::render() {
 }
 
 void GameState::onWindowResized() {
-	switch (*currentState) {
+	switch (currentState) {
 		case sMenu: {
 			menuScreen->onWindowResized();
 			break;
@@ -105,12 +91,4 @@ void GameState::onWindowResized() {
 		}
 		case sEnd:break;
 	}
-}
-
-bool checkCondition(FSM_condition_t condition) {
-	return true;
-}
-
-void checkAction(FSM_action_t action) {
-
 }

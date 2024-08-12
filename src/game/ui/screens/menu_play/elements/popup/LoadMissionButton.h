@@ -3,7 +3,7 @@
 
 #include "../../../../../../engine/ui/GenericButton.h"
 
-class LoadMissionButton : GenericButton {
+class LoadMissionButton : public GenericButton {
  public:
   LoadMissionButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color = Color::WHITE, uint8_t zLevel = 0);
 

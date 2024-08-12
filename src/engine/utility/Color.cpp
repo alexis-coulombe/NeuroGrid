@@ -23,6 +23,13 @@ Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 	A = a;
 }
 
+Color::Color(const Color &color, uint8_t a) {
+	R = color.R;
+	G = color.G;
+	B = color.B;
+	A = a;
+}
+
 std::string Color::toString() const {
 	return std::to_string(R) + ", " + std::to_string(G) + ", " + std::to_string(B) + ", " + std::to_string(A);
 }

@@ -28,6 +28,13 @@ Token Lexer::next() {
 			token.text.push_back(content.at(cursor));
 			cursor++;
 		}
+
+		if (token.text == "M" || token.text == "RX" || token.text == "N1" || token.text == "N2" || token.text == "N3") {
+			token.type = Token::TOKEN_REGISTER;
+		} else if (token.text == "A" || token.text == "B" || token.text == "C" || token.text == "D" || token.text == "E" || token.text == "F") {
+			token.type = Token::TOKEN_IO;
+		}
+
 		return token;
 	}
 

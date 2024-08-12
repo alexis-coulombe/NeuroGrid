@@ -8,6 +8,14 @@ Text::Text(Container *parentContainer, Vector2f position, std::vector<std::strin
 	this->position = getRelativePositionWithParentContainer();
 }
 
+Text::Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> lines, Font *font, Color color) : parentContainer(parentContainer), position(position), font(font), color(color) {
+	this->position = getRelativePositionWithParentContainer();
+
+	for(size_t i = 0; i < lines.size(); i++) {
+		this->lines.push_back(std::to_string(lines[i]));
+	}
+}
+
 void Text::render() {
 	for (size_t i = 0; i < lines.size(); i++) {
 		float y = position.y + (font->pxSize + MARGIN) * i;

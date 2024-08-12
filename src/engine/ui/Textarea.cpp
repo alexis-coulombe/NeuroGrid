@@ -10,7 +10,7 @@ Textarea::Textarea(Container *parentContainer, Vector2f position, uint8_t cols, 
 void Textarea::update() {
 	onClick();
 
-	if (!inFocus) {
+	if (!inFocus || readonly) {
 		return;
 	}
 
@@ -87,7 +87,12 @@ void Textarea::update() {
 }
 
 void Textarea::render() {
-	if (inFocus) {
+	if(highlightedLine != 0xFF) {
+		Graphics::drawRectSolid(*bounds, Color(0, 0, 0, 0.5));
+		// draw highlight
+	}
+
+	if (inFocus && !readonly) {
 		if (caretAnimation % 4 == 0) {
 			showCaret = !showCaret;
 		}
@@ -137,6 +142,11 @@ void Textarea::onClick() {
 		caretLine = 0;
 		caretColumn = 0;
 	}
+}
+
+void Textarea::setParentContainer(Container *container) {
+	parentContainer = container;
+	bounds->position = getRelativePositionWithParentContainer();
 }
 
 std::string *Textarea::getTextOfCurrentLine() {

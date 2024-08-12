@@ -1,4 +1,5 @@
 #include "HeadPopup.h"
+#include "../../../../../engine/utility/Asset.h"
 
 HeadPopup::HeadPopup(Bounds2 bounds) : GenericPopup(bounds) {
 	popupMissionsContainer = new Container(popupContainer, Bounds2(0, 0, (int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y));
@@ -11,7 +12,16 @@ HeadPopup::HeadPopup(Bounds2 bounds) : GenericPopup(bounds) {
 }
 
 void HeadPopup::onShow() {
-
+	newMissionButton = new NewMissionButton(popupMissionInfoCurrentGameButtonsContainer,
+																					Bounds2(0, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
+																					Asset::loadTexture((char *)"assets/menu/new_game.png"),
+																					Color::WHITE,
+																					1);
+	loadMissionButton = new LoadMissionButton(popupMissionInfoCurrentGameButtonsContainer,
+																						Bounds2((int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
+																						Asset::loadTexture((char *)"assets/menu/new_game.png"),
+																						Color::WHITE,
+																						1);
 }
 
 void HeadPopup::renderPopup() {
@@ -22,6 +32,9 @@ void HeadPopup::renderPopup() {
 	popupMissionInfoCurrentGameContainer->render();
 	popupMissionInfoCurrentGameStatsContainer->render();
 	popupMissionInfoCurrentGameButtonsContainer->render();
+
+	newMissionButton->render();
+	loadMissionButton->render();
 }
 
 void HeadPopup::onHide() {

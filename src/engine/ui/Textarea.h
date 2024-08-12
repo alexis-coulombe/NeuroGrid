@@ -26,6 +26,8 @@ class Textarea {
 	uint8_t fontWidth = 8;
 
 	bool inFocus = false;
+	bool readonly = false;
+	uint8_t highlightedLine = 0xFF;
 
 	uint8_t lineError = -1;
 	uint8_t caretLine = 0;
@@ -42,6 +44,7 @@ class Textarea {
 	virtual void onLineEnter(uint8_t line) = 0;
 	virtual void onLineChange(uint8_t line) = 0;
 
+	void setParentContainer(Container *container);
 	std::vector<std::string> *getLines();
 	std::string getFullText();
 	std::string *getTextOfCurrentLine();

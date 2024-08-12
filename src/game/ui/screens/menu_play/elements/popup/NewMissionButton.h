@@ -4,7 +4,7 @@
 #include "../../../../../../engine/ui/Container.h"
 #include "../../../../../../engine/ui/GenericButton.h"
 
-class NewMissionButton : GenericButton {
+class NewMissionButton : public GenericButton {
  public:
   NewMissionButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color = Color::WHITE, uint8_t zLevel = 0);
 

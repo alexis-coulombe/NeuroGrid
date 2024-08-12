@@ -62,10 +62,4 @@ void MenuPlayScreen::render() {
 }
 
 void MenuPlayScreen::onWindowResized() {
-	//screenContainer->setBounds(Bounds2((Window::width / 2) - (std::min((int)Window::width, 1920) / 2), 0, std::min((int)Window::width, 1920), std::min((int)Window::height, 1080)));
-	//mission1Button->setBounds(Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100));
-}
-
-void MenuPlayScreen::showPopup() {
-	//mission1Button->render();
 }

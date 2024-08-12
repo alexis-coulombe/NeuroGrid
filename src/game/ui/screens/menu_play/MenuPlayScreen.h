@@ -26,8 +26,6 @@ class MenuPlayScreen : public GenericScreen {
   void init() override;
   void render() override;
   void onWindowResized() override;
-
-  void showPopup();
 };
 
 #endif //ASM_SRC_GAME_UI_SCREENS_MENU_PLAY_MENUPLAYSCREEN_H_

@@ -2,7 +2,6 @@
 #define ASM_GAMESTATE_H
 
 #include "../engine/Window.h"
-#include "../engine/fsm/FSM.h"
 #include "../engine/ui/GenericScreen.h"
 #include "ui/screens/intro/IntroScreen.h"
 #include "ui/screens/menu/MenuScreen.h"
@@ -11,7 +10,7 @@
 
 class GameState {
  private:
-	FSM_state_t lastState;
+	uint8_t lastState;
 	IntroScreen *introScreen;
 	MenuScreen *menuScreen;
 	MenuPlayScreen *menuPlayScreen;
@@ -32,7 +31,7 @@ class GameState {
 		sEnd
 	};
 
-	FSM_state_t *currentState = new FSM_state_t{sMenu};
+	uint8_t currentState = sMenu;
 
 	GameState(GameState &other) = delete;
 
@@ -42,9 +41,6 @@ class GameState {
 	void update();
 	void render();
 	void onWindowResized();
-
-	bool checkCondition(FSM_condition_t condition);
-	void checkAction(FSM_action_t action);
 };
 
 #endif //ASM_GAMESTATE_H

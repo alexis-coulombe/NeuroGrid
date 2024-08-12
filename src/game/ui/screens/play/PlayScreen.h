@@ -3,27 +3,26 @@
 
 #include "../../../../engine/ui/GenericScreen.h"
 #include "../../../../engine/ui/Container.h"
-#include "elements/Nano1Textarea.h"
-#include "elements/Nano2Textarea.h"
-#include "elements/Nano3Textarea.h"
 #include "../../../../engine/ui/Text.h"
+#include "../../../logic/Nano.h"
+#include "elements/PlayStepButton.h"
 
 class PlayScreen : public GenericScreen {
  private:
-	Container *screenContainer;
+	Mission *mission;
 
 	Container *inputContainer;
 	Container *gameContainer;
 	Container *outputContainer;
 
 	Container *nano1Container;
-	Nano1Textarea *nano1Textarea;
 	Container *nano2Container;
-	Nano2Textarea *nano2Textarea;
 	Container *nano3Container;
-	Nano3Textarea *nano3Textarea;
 
-	Container *missionDescriptionContainer;
+	Container *missionContainer;
+	Container *missionActionContainer;
+	PlayStepButton *playStepButton;
+	Container *missionBriefContainer;
 
 	Container *input1;
 	Text *input1Text;
@@ -31,10 +30,9 @@ class PlayScreen : public GenericScreen {
 	Container *input3;
 
 	Container *output1;
+	Text *output1Text;
 	Container *output2;
 	Container *output3;
-
-	uint8_t inputs[];
 
  public:
 	PlayScreen();
@@ -43,8 +41,8 @@ class PlayScreen : public GenericScreen {
 	void init() override;
 	void render() override;
 	void onWindowResized() override;
-
-	void getMissionInputs();
+ private:
+	void renderContainers();
 };
 
 #endif //ASM_SRC_GAME_UI_SCREENS_MENU_PLAY_PLAYSCREEN_H_
