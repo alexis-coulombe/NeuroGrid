@@ -1,0 +1,17 @@
+#ifndef ASM_OPERATIONTYPE_H
+#define ASM_OPERATIONTYPE_H
+
+enum OPERATION_TYPE {
+	MOV = 0,
+	ADD,
+	SUB,
+	MOD,
+	JMP,
+	JGT,
+	JLT,
+	JEQ,
+	NOP,
+	INVALID_OP
+};
+
+#endif
