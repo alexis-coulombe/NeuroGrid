@@ -85,7 +85,7 @@ void Engine::run() {
 		}
 
 		game.update();
-		SDL_SetRenderDrawColor(Window::renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(Window::renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(Window::renderer);
 		game.render();
 		SDL_RenderPresent(Window::renderer);

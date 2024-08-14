@@ -2,7 +2,7 @@
 #include "../../language/Token.h"
 #include "../../language/Lexer.h"
 
-Nano::Nano(Textarea *code) : code(code) {
+Nano::Nano(NanoTextarea *code) : code(code) {
 }
 
 void Nano::setParentContainer(Container *container) {

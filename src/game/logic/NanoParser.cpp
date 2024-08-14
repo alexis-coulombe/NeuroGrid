@@ -4,13 +4,23 @@
 NanoParser::NanoParser(Nano *nano1, Nano *nano2, Nano *nano3) : currentCycle(0), nano1(nano1), nano2(nano2), nano3(nano3) {
 }
 
+void NanoParser::step() {
+	parseLine(nano1, currentCycle);
+	parseLine(nano2, currentCycle);
+	parseLine(nano3, currentCycle);
+
+	currentCycle++;
+}
+
 void NanoParser::parseLine(Nano *currentNano, uint8_t currentLine) {
 	std::string line = currentNano->code->getLines()->at(currentLine);
-	
+
 	Lexer lexer = Lexer(line);
 	Token token = lexer.next();
 
-	if(token.type == Token::TOKEN_COMMENT || token.type == Token::TOKEN_END) {
+	currentNano->code->highlightedLine = currentLine;
+
+	if (token.type == Token::TOKEN_COMMENT || token.type == Token::TOKEN_END) {
 		currentLine++;
 		return;
 	}
@@ -19,10 +29,10 @@ void NanoParser::parseLine(Nano *currentNano, uint8_t currentLine) {
 		OPERATION_TYPE operation = parseSymbol(token.text);
 		auto operationHandler = OperationFactory::createOperation(operation);
 
-		if(operationHandler != nullptr) {
+		if (operationHandler != nullptr) {
 			operationHandler->execute(currentNano, lexer, currentLine);
 		} else {
-			currentNano->code->error = new ParserError("Unknown operation", "Operation not supported", ParserError::ERROR_TYPE::UNKNOWN_OPERATION, currentLine);
+			currentNano->code->error = ParserError("Unknown operation", "Operation not supported", ParserError::ERROR_TYPE::UNKNOWN_OPERATION, currentLine);
 		}
 
 		currentLine++;
@@ -30,8 +40,8 @@ void NanoParser::parseLine(Nano *currentNano, uint8_t currentLine) {
 	}
 }
 
-NanoParser::OPERATION_TYPE NanoParser::parseSymbol(std::string symbol){
-	if(symbol == "MOV") {
+OPERATION_TYPE NanoParser::parseSymbol(const std::string& symbol) {
+	if (symbol == "MOV") {
 		return OPERATION_TYPE::MOV;
 	} else if (symbol == "ADD") {
 		return OPERATION_TYPE::ADD;

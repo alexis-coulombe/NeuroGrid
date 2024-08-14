@@ -4,7 +4,6 @@ Textarea::Textarea(Container *parentContainer, Vector2f position, uint8_t cols, 
 	bounds = new Bounds2(position.x, position.y, (float)(cols * font->pxSize), (float)(rows * font->pxSize));
 	bounds->position = getRelativePositionWithParentContainer();
 	lines = new std::vector<std::string>(rows);
-	*input = Input::getInstance();
 }
 
 void Textarea::update() {
@@ -20,39 +19,39 @@ void Textarea::update() {
 		lastLine = caretLine;
 	}
 
-	if (input->getKeyDown(Input::Backspace)) {
+	if (Input::getInstance()->getKeyDown(Input::Backspace)) {
 		if (!getTextOfCurrentLine()->empty() && caretColumn != 0) {
 			getTextOfCurrentLine()->erase(caretColumn - 1, 1);
 			moveCaretLeft();
 		}
 	}
 
-	if (input->getKeyDown(Input::Delete)) {
+	if (Input::getInstance()->getKeyDown(Input::Delete)) {
 		if (!getTextOfCurrentLine()->empty() && caretColumn != getTextOfCurrentLine()->length()) {
 			getTextOfCurrentLine()->erase(caretColumn, 1);
 		}
 	}
 
-	if (input->getKeyDown(Input::Home)) {
+	if (Input::getInstance()->getKeyDown(Input::Home)) {
 		caretColumn = 0;
 	}
 
-	if (input->getKeyDown(Input::End)) {
+	if (Input::getInstance()->getKeyDown(Input::End)) {
 		caretColumn = (uint8_t)getTextOfCurrentLine()->length();
 	}
 
-	if (input->getKeyDown(Input::PageUp)) {
+	if (Input::getInstance()->getKeyDown(Input::PageUp)) {
 		caretLine = 0;
 		moveCaretUp(); // move caret to the beginning of the first line
 	}
 
-	if (input->getKeyDown(Input::PageDown)) {
+	if (Input::getInstance()->getKeyDown(Input::PageDown)) {
 		caretLine = rows;
 		moveCaretDown(); // move caret to end of the last line
 	}
 
-	if (!input->typedText.empty() && getTextOfCurrentLine()->length() < cols) {
-		char c = input->typedText[0];
+	if (!Input::getInstance()->typedText.empty() && getTextOfCurrentLine()->length() < cols) {
+		char c = Input::getInstance()->typedText[0];
 
 		if (c >= 'a' && c <= 'z') {
 			c ^= 0x20; // Toggle uppercase
@@ -67,29 +66,24 @@ void Textarea::update() {
 		moveCaretRight();
 	}
 
-	if (input->getKeyDown(Input::Up)) {
+	if (Input::getInstance()->getKeyDown(Input::Up)) {
 		moveCaretUp();
 	}
 
-	if (input->getKeyDown(Input::Down)) {
+	if (Input::getInstance()->getKeyDown(Input::Down)) {
 		moveCaretDown();
 	}
 
-	if (input->getKeyDown(Input::Left)) {
+	if (Input::getInstance()->getKeyDown(Input::Left)) {
 		moveCaretLeft();
 	}
 
-	if (input->getKeyDown(Input::Right)) {
+	if (Input::getInstance()->getKeyDown(Input::Right)) {
 		moveCaretRight();
 	}
 }
 
 void Textarea::render() {
-	if(highlightedLine != 0xFF) {
-		Graphics::drawRectSolid(*bounds, Color(Color::WHITE, 0.5));
-		// draw highlight
-	}
-
 	if (inFocus && !readonly) {
 		if (caretAnimation % 4 == 0) {
 			showCaret = !showCaret;
@@ -107,7 +101,7 @@ void Textarea::render() {
 		caretAnimation++;
 	}
 
-	for (size_t line = 0; i < rows; line++) {
+	for (size_t line = 0; line < rows; line++) {
 		std::string string = lines->at(line);
 
 		if (string.empty()) {
@@ -122,7 +116,16 @@ void Textarea::render() {
 		float x = ((line / cols) * font->pxSize) + bounds->position.x;
 		float y = (line / rows) + (line * font->pxSize) + bounds->position.y;
 
+		if(highlightedLine == line) {
+			Graphics::drawRectSolid(Bounds2(x, y, bounds->size.x, font->pxSize), Color::WHITE);
+			textColor = Color::BLACK;
+		} else {
+			textColor = Color::WHITE;
+		}
+
 		Graphics::drawString(font, (char *)string.c_str(), Vector2f(x, y), textColor);
+
+		onRender(line);
 	}
 
 	update();

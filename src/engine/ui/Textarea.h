@@ -24,7 +24,6 @@ class Textarea {
 	uint8_t cols, rows;
 	Bounds2 *bounds;
 	Container *parentContainer;
-	Input *input;
 
 	Font *font;
 	Color textColor;

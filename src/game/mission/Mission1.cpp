@@ -4,7 +4,7 @@ Mission1::Mission1() : Mission() {
 }
 
 void Mission1::setParsing(bool parsing) {
-	parsingMode = parsing;
+	this->parsing = parsing;
 
 	if(parsing) {
 		nano1.code->readonly = true;

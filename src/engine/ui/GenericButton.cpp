@@ -13,12 +13,16 @@ void GenericButton::render() {
 		return;
 	}
 
-	if (Input::getInstance()->mouseInBounds(bounds)) {
+	if (!disabled && Input::getInstance()->mouseInBounds(bounds)) {
 		onHover();
 
 		if (Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
 			onClick();
 		}
+	}
+
+	if(disabled) {
+		Graphics::drawRectSolid(bounds, Color(Color::BLACK, 0xFF / 2));
 	}
 }
 

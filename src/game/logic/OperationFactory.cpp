@@ -1,13 +1,21 @@
 #include "OperationFactory.h"
+#include "operators/MovOperation.h"
+#include "operators/NopOperation.h"
 
 std::unique_ptr<Operation> OperationFactory::createOperation(OPERATION_TYPE operation) {
-    switch(operation) {
-        case OPERATION_TYPE::MOV:
-            return std::make_unique<MovOperation>();
-        case OPERATION_TYPE::ADD:
-            //return std::make_unique<AddOperation>();
-        // Add other operations here
-        default:
-            return nullptr;
-    }
+	switch (operation) {
+		case OPERATION_TYPE::NOP: {
+			std::make_unique<NopOperation>();
+			break;
+		}
+		case OPERATION_TYPE::MOV: {
+			std::make_unique<MovOperation>();
+			break;
+		}
+		default: {
+			return nullptr;
+		}
+	}
+
+	return nullptr;
 }

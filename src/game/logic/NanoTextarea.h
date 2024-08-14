@@ -17,5 +17,4 @@ class NanoTextarea : public Textarea {
 	void onLineChange(uint8_t line) override;
 };
 
-
 #endif //ASM_NANOTEXTAREA_H

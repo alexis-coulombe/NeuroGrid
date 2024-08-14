@@ -12,7 +12,11 @@ void PlayStepButton::onRender() {
 }
 
 void PlayStepButton::onClick() {
-	mission->setParsing(true);
+	if(!mission->getParsing()) {
+		mission->setParsing(true);
+	}
+
+	mission->nanoParser.step();
 }
 
 void PlayStepButton::onHover() {

@@ -2,7 +2,7 @@
 #define ASM_SRC_GAME_NANO_H_
 
 #include <cstdint>
-#include "../../engine/ui/Textarea.h"
+#include "NanoTextarea.h"
 
 class Nano {
  public:
@@ -11,11 +11,11 @@ class Nano {
 	uint8_t rx = 0;
 	uint16_t cycles = 0;
 
-	Textarea *code;
+	NanoTextarea *code;
 
 	uint8_t currentParseLine = 0;
 
-	explicit Nano(Textarea *code);
+	explicit Nano(NanoTextarea *code);
 	void setParentContainer(Container *container);
 	void render();
 };

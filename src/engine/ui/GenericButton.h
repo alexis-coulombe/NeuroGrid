@@ -15,6 +15,7 @@ class GenericButton {
 	Color color;
 	uint8_t zLevel;
 	Container *parentContainer;
+	bool disabled = false;
 
 	GenericButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel);
 	Vector2f getRelativePositionWithParentContainer();

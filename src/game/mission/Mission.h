@@ -5,13 +5,15 @@
 #include <vector>
 #include "../logic/Nano.h"
 #include "../logic/NanoTextarea.h"
+#include "../logic/NanoParser.h"
 
 class Mission {
  protected:
+	bool parsing = false;
+
 	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(0, 0), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 10), Color::WHITE));
 	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(0, 0), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 10), Color::WHITE));;
 	Nano nano3 = Nano(new NanoTextarea(nullptr, Vector2f(0, 0), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 10), Color::WHITE));;
-
  public:
 	enum NANOS {
 		NANO1 = 0,
@@ -19,7 +21,10 @@ class Mission {
 		NANO3
 	};
 
+	NanoParser nanoParser = NanoParser(&nano1, &nano2, &nano3);
+
 	virtual void setParsing(bool parsing) = 0;
+	bool getParsing() { return parsing; };
 	virtual void setNanoParentContainer(NANOS nano, Container *container) = 0;
 	virtual void render(NANOS nano) = 0;
 

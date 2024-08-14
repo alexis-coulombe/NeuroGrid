@@ -6,6 +6,7 @@
 #include "../../../../engine/ui/Text.h"
 #include "../../../logic/Nano.h"
 #include "elements/PlayStepButton.h"
+#include "elements/PlayStopButton.h"
 
 class PlayScreen : public GenericScreen {
  private:
@@ -22,6 +23,7 @@ class PlayScreen : public GenericScreen {
 	Container *missionContainer;
 	Container *missionActionContainer;
 	PlayStepButton *playStepButton;
+	PlayStopButton *playStopButton;
 	Container *missionBriefContainer;
 
 	Container *input1;

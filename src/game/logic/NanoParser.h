@@ -16,8 +16,9 @@ class NanoParser {
 
 	NanoParser(Nano *nano1, Nano *nano2, Nano *nano3);
 
+	void step();
 	void parseLine(Nano *currentNano, uint8_t currentLine);
-	OPERATION_TYPE parseSymbol(std::string symbol);
+	OPERATION_TYPE parseSymbol(const std::string& symbol);
 };
 
 #endif //ASM_SRC_GAME_LOGIC_NANOPARSER_H_

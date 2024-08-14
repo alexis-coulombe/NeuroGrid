@@ -6,8 +6,8 @@
 #include "operators/OperationType.h"
 
 class OperationFactory {
-    public:  
-        std::unique_ptr<Operation> createOperation(OPERATION_TYPE operation);
-}
+ public:
+	static std::unique_ptr<Operation> createOperation(OPERATION_TYPE operation);
+};
 
 #endif

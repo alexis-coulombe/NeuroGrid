@@ -153,7 +153,7 @@ class Input {
 	};
 
 	Input(Input &other) = delete;
-	void operator=(const Input &) = delete;
+	Input operator=(const Input &) = delete;
 	static Input *getInstance();
 
 	void pollEvents();

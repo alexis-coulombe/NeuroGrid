@@ -8,7 +8,6 @@
 
 #include "../../Config.h"
 #include "Mission.h"
-#include "../logic/NanoParser.h"
 
 class Mission1: public Mission {
  public:
@@ -68,12 +67,9 @@ class Mission1: public Mission {
 			0,0,0,0,0,0,0,0,0,0
 	};
 
-	NanoParser nanoParser = NanoParser(&nano1, &nano2, &nano3);
-	bool parsingMode = false;
-
 	Mission1();
 
-	void setParsing(bool parsing);
+	void setParsing(bool parsing) override;
 	void setNanoParentContainer(NANOS nano, Container *container) override;
 	void render(NANOS nano) override;
 
