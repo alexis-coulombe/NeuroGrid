@@ -22,7 +22,7 @@ class MenuPlayScreen : public GenericScreen {
 
  public:
   MenuPlayScreen();
-	~MenuPlayScreen();
+	~MenuPlayScreen() = default;
   void init() override;
   void render() override;
   void onWindowResized() override;

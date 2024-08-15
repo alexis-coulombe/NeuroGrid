@@ -23,6 +23,7 @@ class Text {
 
 	void render();
 	void renderAnimateScrolling();
+	void updateText(std::vector<std::string> lines);
 	Vector2f getRelativePositionWithParentContainer();
 };
 

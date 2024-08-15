@@ -13,18 +13,18 @@ class Mission1: public Mission {
  public:
 	static const uint8_t ID = 0x01;
 	static const inline char *NAME = "Initial Calibration";
-	static inline std::vector<char*> description = {
-			(char*) "Reading Entry - 0xA3B4C2F1",
-			(char*) "",
-			(char*) "This foundational task will set everything that follows.",
-			(char*) "The processors will learn to cooperate, to adapt.",
-			(char*) "This initial calibration is just the beginning,",
-			(char*) "it will be the proof that our vision is attainable.",
-			(char*) "",
-			(char*) "Every algorithm must be meticulously inscribed.",
-			(char*) "Each line is a prayer to the purity of the machine.",
-			(char*) "This is not mere preparation—it is a consecration.",
-			(char*) "Success is our only creed; failure is heresy.",
+	static inline std::vector<std::string> description = {
+			"Reading Entry - 0xA3B4C2F1",
+			"",
+			"This foundational task will set everything that follows.",
+			"The processors will learn to cooperate, to adapt.",
+			"This initial calibration is just the beginning,",
+			"it will be the proof that our vision is attainable.",
+			"",
+			"Every algorithm must be meticulously inscribed.",
+			"Each line is a prayer to the purity of the machine.",
+			"This is not mere preparation—it is a consecration.",
+			"Success is our only creed; failure is heresy.",
 	};
 	static const inline char *instruction = "Copy all inputs in their respective outputs.";
 	static const inline std::vector<uint8_t> Ainputs = {

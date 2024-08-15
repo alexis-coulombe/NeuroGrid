@@ -12,26 +12,44 @@ HeadPopup::HeadPopup(Bounds2 bounds) : GenericPopup(bounds) {
 }
 
 void HeadPopup::onShow() {
+	popupMissionInfoText = new Text(popupMissionIntroContainer, Vector2f(), std::vector<std::string>{""}, Asset::loadFont((char *)"assets/ModernDOS.ttf", 12));
+
 	newMissionButton = new NewMissionButton(popupMissionInfoCurrentGameButtonsContainer,
 																					Bounds2(0, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
 																					Asset::loadTexture((char *)"assets/menu/new_game.png"),
 																					Color::WHITE,
-																					1);
+																					zLevel);
 	loadMissionButton = new LoadMissionButton(popupMissionInfoCurrentGameButtonsContainer,
 																						Bounds2((int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
 																						Asset::loadTexture((char *)"assets/menu/new_game.png"),
 																						Color::WHITE,
-																						1);
+																						zLevel);
+
+	mission1Button = new Mission1Button(popupMissionsContainer,
+																			Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100),
+																			Asset::loadTexture((char *)"assets/menu/new_game.png"),
+																			Color::WHITE,
+																			zLevel);
+
+	mission1Button->linkMissionDescription(missionDescription);
 }
 
 void HeadPopup::renderPopup() {
+	if(missionDescription != nullptr) {
+		popupMissionInfoText->updateText(*missionDescription);
+	}
+
 	popupMissionsContainer->render();
 	popupMissionIntroContainer->render();
 	popupMissionInfoContainer->render();
+	popupMissionInfoText->renderAnimateScrolling();
+
 	popupMissionInfoStatsContainer->render();
 	popupMissionInfoCurrentGameContainer->render();
 	popupMissionInfoCurrentGameStatsContainer->render();
 	popupMissionInfoCurrentGameButtonsContainer->render();
+
+	mission1Button->render();
 
 	newMissionButton->render();
 	loadMissionButton->render();
