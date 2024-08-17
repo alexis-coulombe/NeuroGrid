@@ -6,9 +6,10 @@
 
 class NewMissionButton : public GenericButton {
  public:
-  NewMissionButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color = Color::WHITE, uint8_t zLevel = 0);
+  NewMissionButton(Container *parentContainer, Bounds2 bounds, Color color = Color::WHITE, uint8_t zLevel = 0);
 
   void onRender() override;
+	void onPress() override;
   void onClick() override;
   void onHover() override;
 	using GenericButton::setBounds;

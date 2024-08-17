@@ -10,7 +10,7 @@ void GenericPopup::show() {
     isVisible = true;
     Input::getInstance()->mouseZLevel++;
     zLevel = Input::getInstance()->mouseZLevel;
-		closeButton = new CloseButton(popupContainer, Bounds2((uint32_t) popupContainer->bounds.size.x - 40, 0, 40, 40), Asset::loadTexture((char *)"assets/menu/new_game.png"), Color::WHITE, zLevel);
+		closeButton = new CloseButton(popupContainer, Bounds2((uint32_t) popupContainer->bounds.size.x - 40, 0, 40, 40), Color::WHITE, zLevel);
 		closeButton->linkPopup(this);
 
     onShow();
@@ -36,7 +36,7 @@ void GenericPopup::hide() {
     onHide();
 }
 
-CloseButton::CloseButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel): GenericButton(parentContainer, bounds, texture, color, zLevel) {
+CloseButton::CloseButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel): GenericButton(parentContainer, bounds, color, zLevel) {
 
 }
 
@@ -45,7 +45,11 @@ void CloseButton::linkPopup(GenericPopup *linkPopup) {
 }
 
 void CloseButton::onRender() {
-		Graphics::drawTexture(texture, bounds.position, color, bounds.size);
+		//Graphics::drawTexture(const_cast<Texture *>(texture), bounds.position, color, bounds.size);
+}
+
+void CloseButton::onPress() {
+		//Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_ROUNDED_OPENED), bounds.position, color, bounds.size);
 }
 
 void CloseButton::onClick() {

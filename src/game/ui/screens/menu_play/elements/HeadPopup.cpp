@@ -1,9 +1,10 @@
 #include "HeadPopup.h"
 #include "../../../../../engine/utility/Asset.h"
+#include "../../../../AssetLibrary.h"
 
 HeadPopup::HeadPopup(Bounds2 bounds) : GenericPopup(bounds) {
-	popupMissionsContainer = new Container(popupContainer, Bounds2(0, 0, (int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y));
-	popupMissionIntroContainer = new Container(popupContainer, Bounds2((int)popupContainer->bounds.size.x / 3, 0, (int)popupContainer->bounds.size.x / 3 * 2, (int)popupContainer->bounds.size.y / 2));
+	popupMissionsContainer = new Container(popupContainer, Bounds2(0, 0, (int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSIONS);
+	popupMissionIntroContainer = new Container(popupContainer, Bounds2((int)popupContainer->bounds.size.x / 3, 0, (int)popupContainer->bounds.size.x / 3 * 2, (int)popupContainer->bounds.size.y / 2), AssetLibrary::CONTAINER_MISSION_INTRO);
 	popupMissionInfoContainer = new Container(popupContainer, Bounds2((int)popupContainer->bounds.size.x / 3, (int)popupContainer->bounds.size.y / 2, (int)popupContainer->bounds.size.x / 3 * 2, (int)popupContainer->bounds.size.y / 2));
 	popupMissionInfoStatsContainer = new Container(popupMissionInfoContainer, Bounds2(0, 0, (int)popupMissionInfoContainer->bounds.size.x, (int)popupMissionInfoContainer->bounds.size.y / 2));
 	popupMissionInfoCurrentGameContainer = new Container(popupMissionInfoContainer, Bounds2(0, (int)popupMissionInfoContainer->bounds.size.y / 2, (int)popupMissionInfoContainer->bounds.size.x, (int)popupMissionInfoContainer->bounds.size.y / 2));
@@ -12,22 +13,19 @@ HeadPopup::HeadPopup(Bounds2 bounds) : GenericPopup(bounds) {
 }
 
 void HeadPopup::onShow() {
-	popupMissionInfoText = new Text(popupMissionIntroContainer, Vector2f(), std::vector<std::string>{""}, Asset::loadFont((char *)"assets/ModernDOS.ttf", 12));
+	popupMissionIntroText = new Text(popupMissionIntroContainer, Vector2f(40, 30), std::vector<std::string>{""}, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color(72,222,184,255));
 
 	newMissionButton = new NewMissionButton(popupMissionInfoCurrentGameButtonsContainer,
 																					Bounds2(0, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
-																					Asset::loadTexture((char *)"assets/menu/new_game.png"),
 																					Color::WHITE,
 																					zLevel);
 	loadMissionButton = new LoadMissionButton(popupMissionInfoCurrentGameButtonsContainer,
 																						Bounds2((int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),
-																						Asset::loadTexture((char *)"assets/menu/new_game.png"),
 																						Color::WHITE,
 																						zLevel);
 
 	mission1Button = new Mission1Button(popupMissionsContainer,
 																			Bounds2(0, 0, (int)popupMissionsContainer->bounds.size.x, 100),
-																			Asset::loadTexture((char *)"assets/menu/new_game.png"),
 																			Color::WHITE,
 																			zLevel);
 
@@ -36,13 +34,13 @@ void HeadPopup::onShow() {
 
 void HeadPopup::renderPopup() {
 	if(missionDescription != nullptr) {
-		popupMissionInfoText->updateText(*missionDescription);
+		popupMissionIntroText->updateText(*missionDescription);
 	}
 
 	popupMissionsContainer->render();
 	popupMissionIntroContainer->render();
 	popupMissionInfoContainer->render();
-	popupMissionInfoText->renderAnimateScrolling();
+	popupMissionIntroText->renderAnimateScrolling();
 
 	popupMissionInfoStatsContainer->render();
 	popupMissionInfoCurrentGameContainer->render();

@@ -3,7 +3,7 @@
 #include "../../../../engine/utility/Asset.h"
 
 MenuScreen::MenuScreen() : GenericScreen() {
-	playNewButton = new PlayNewGameButton(nullptr, Bounds2(Window::width / 2, 100, 200, 100), Asset::loadTexture((char *)"assets/menu/new_game.png"));
+	playNewButton = new PlayNewGameButton(nullptr, Bounds2(Window::width / 2, 100, 200, 100));
 	background = Asset::loadTexture((char *)"assets/menu/background.png");
 }
 

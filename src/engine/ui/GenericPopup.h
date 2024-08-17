@@ -30,10 +30,11 @@ class GenericPopup {
 
 class CloseButton : public GenericButton {
  public:
-	CloseButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel);
+	CloseButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel);
 	void linkPopup(GenericPopup *popup);
 
 	void onRender() override;
+	void onPress() override;
 	void onClick() override;
 	void onHover() override;
  private:

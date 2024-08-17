@@ -36,9 +36,11 @@ file(GLOB SOURCE_FILES
 
 file(GLOB ASSETS
         "assets/*" ,
-        "assets/menu/*"
-        "assets/music/*"
-        "assets/sound/*"
+        "assets/ui/button/*" ,
+        "assets/ui/container/*" ,
+        "assets/menu/*" ,
+        "assets/music/*" ,
+        "assets/sound/*" ,
 )
 
 # Add your executable

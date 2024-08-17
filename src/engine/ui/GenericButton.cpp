@@ -1,7 +1,7 @@
 #include "GenericButton.h"
 #include "Container.h"
 
-GenericButton::GenericButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel = 0) : bounds(bounds), texture(texture), color(color), zLevel(zLevel) {
+GenericButton::GenericButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel = 0) : bounds(bounds), color(color), zLevel(zLevel) {
 	this->parentContainer = parentContainer;
 	this->bounds.position = getRelativePositionWithParentContainer();
 }
@@ -16,9 +16,16 @@ void GenericButton::render() {
 	if (!disabled && Input::getInstance()->mouseInBounds(bounds)) {
 		onHover();
 
-		if (Input::getInstance()->getMouseButtonDown(Input::MouseButton::LEFT)) {
+		if (Input::getInstance()->getMouseButtonHeld(Input::MouseButton::LEFT)) {
+			isPressed = true;
+			onPress();
+		}
+
+		if(isPressed && Input::getInstance()->getMouseButtonUp(Input::MouseButton::LEFT)) {
 			onClick();
 		}
+	} else {
+		isPressed = false;
 	}
 
 	if(disabled) {

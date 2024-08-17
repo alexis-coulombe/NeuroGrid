@@ -14,8 +14,8 @@ PlayScreen::PlayScreen() : GenericScreen() {
 
 	missionContainer = new Container(gameContainer, Bounds2(0, (int) gameContainer->bounds.size.y / 4 * 3, (int) gameContainer->bounds.size.x, (int) gameContainer->bounds.size.y / 4));
 	missionActionContainer = new Container(missionContainer, Bounds2(0, 0, (int) missionContainer->bounds.size.x, (int) missionContainer->bounds.size.y / 3));
-	playStepButton = new PlayStepButton(missionActionContainer, Bounds2(0, 0, (int) missionActionContainer->bounds.size.x / 4, (int) missionActionContainer->bounds.size.y), Asset::loadTexture((char *)"assets/menu/play_step.png"), Color::WHITE, 0);
-	playStopButton = new PlayStopButton(missionActionContainer, Bounds2((int) missionActionContainer->bounds.size.x / 4, 0, (int) missionActionContainer->bounds.size.x / 4, (int) missionActionContainer->bounds.size.y), Asset::loadTexture((char *)"assets/menu/play_stop.png"), Color::WHITE, 0);
+	playStepButton = new PlayStepButton(missionActionContainer, Bounds2(0, 0, (int) missionActionContainer->bounds.size.x / 4, (int) missionActionContainer->bounds.size.y), Color::WHITE, 0);
+	playStopButton = new PlayStopButton(missionActionContainer, Bounds2((int) missionActionContainer->bounds.size.x / 4, 0, (int) missionActionContainer->bounds.size.x / 4, (int) missionActionContainer->bounds.size.y), Color::WHITE, 0);
 
 	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int) missionContainer->bounds.size.x / 3, (int) missionContainer->bounds.size.x / 3 * 2, (int) missionContainer->bounds.size.y));
 

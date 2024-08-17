@@ -8,10 +8,11 @@ class PlayStopButton: public GenericButton {
  public:
 	Mission *mission;
 
-	PlayStopButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel);
+	PlayStopButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel);
 
 	void linkMission(Mission *mission);
 	void onRender() override;
+	void onPress() override;
 	void onClick() override;
 	void onHover() override;
 };

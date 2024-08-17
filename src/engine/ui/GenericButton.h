@@ -9,19 +9,21 @@
 #include "Container.h"
 
 class GenericButton {
+ private:
+	bool isPressed = false;
  public:
 	Bounds2 bounds;
-	Texture *texture;
 	Color color;
 	uint8_t zLevel;
 	Container *parentContainer;
 	bool disabled = false;
 
-	GenericButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel);
+	GenericButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel);
 	Vector2f getRelativePositionWithParentContainer();
 	void setBounds(Bounds2 bounds);
 
 	virtual void onRender() = 0;
+	virtual void onPress() = 0;
 	virtual void onClick() = 0;
 	virtual void onHover() = 0;
 	void render();

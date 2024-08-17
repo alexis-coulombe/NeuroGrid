@@ -9,9 +9,7 @@ MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 	backgroundBuzz = new Music(Asset::loadMusic((char *)"assets/sound/electric_transformer_loop.mp3"));
 
   headPopup = new HeadPopup(Bounds2((Window::width / 2) - 500, (Window::height / 2) - 350, 1000, 700));
-	headButton = new HeadButton(screenContainer,
-															Bounds2(40, 40, 40, 40),
-															Asset::loadTexture((char *)"assets/menu/new_game.png"));
+	headButton = new HeadButton(screenContainer, Bounds2(40, 40, 40, 40));
 }
 
 uint8_t backgroundBuzzTimeout = TARGET_FPS; // 1 sec

@@ -9,7 +9,7 @@
 
 class Text {
  private:
-	static const uint8_t MARGIN = 10;
+	static const uint8_t MARGIN = 0;
 	static const uint8_t ANIMATION_SPEED = TARGET_FPS / 6;
  public:
 	Container *parentContainer;

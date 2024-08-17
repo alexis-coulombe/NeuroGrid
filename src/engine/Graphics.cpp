@@ -78,7 +78,7 @@ void Graphics::drawTexture(Texture *texture, Vector2f position, Color color, Vec
 
 Bounds2 Graphics::drawString(Font *font, char *text, Vector2f position, Color color, Graphics::TextAlignement alignement, bool measureOnly) {
 	SDL_Color white = SDL_Color{255, 255, 255, 255};
-	SDL_Surface *surface = TTF_RenderText_Blended(font->handle, text, white);
+	SDL_Surface *surface = TTF_RenderText_Solid(font->handle, text, white);
 	SDL_Texture *handle = SDL_CreateTextureFromSurface(Window::renderer, surface);
 	SDL_FreeSurface(surface);
 
@@ -93,7 +93,7 @@ Bounds2 Graphics::drawString(Font *font, char *text, Vector2f position, Color co
 	}
 
 	if (!measureOnly) {
-		Texture texture = Texture(handle, width * 2, height * 2);
+		Texture texture = Texture(handle, width, height);
 		drawTexture(&texture, position, color);
 	}
 

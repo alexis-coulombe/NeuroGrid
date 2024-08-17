@@ -1,10 +1,13 @@
 #include "Game.h"
+#include "AssetLibrary.h"
 
 Game::Game() {
 	state = GameState::getInstance();
 }
 
 void Game::init() {
+	AssetLibrary::init();
+
 	state->init();
 }
 

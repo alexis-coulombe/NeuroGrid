@@ -4,6 +4,7 @@
 #include "../utility/Bounds2.h"
 #include "../utility/Color.h"
 #include "../utility/Texture.h"
+#include "../Font.h"
 
 class Container {
  protected:
@@ -12,10 +13,11 @@ class Container {
  public:
 	Container *parentContainer;
 	Bounds2 bounds;
-	Texture *texture;
+	const Texture *texture;
 	Color color;
+	Font *font;
 
-	Container(Container *parentContainer, Bounds2 bounds, Texture *texture = nullptr, Color color = Color::WHITE);
+	Container(Container *parentContainer, Bounds2 bounds, const Texture *texture = nullptr, Color color = Color::WHITE);
 	void render();
 	void setBounds(Bounds2 bounds);
 };

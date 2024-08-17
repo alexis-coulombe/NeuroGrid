@@ -20,7 +20,7 @@ class HeadPopup : public GenericPopup {
 	Container *popupMissionsContainer;
 	Container *popupMissionIntroContainer;
 	Container *popupMissionInfoContainer;
-	Text *popupMissionInfoText;
+	Text *popupMissionIntroText;
 
 	Container *popupMissionInfoStatsContainer;
 	Container *popupMissionInfoCurrentGameContainer;

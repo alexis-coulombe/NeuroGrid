@@ -2,13 +2,18 @@
 #include "../../../../../GameState.h"
 #include "../../../../../MissionManager.h"
 #include "../../../../../mission/Mission1.h"
+#include "../../../../../AssetLibrary.h"
 
-NewMissionButton::NewMissionButton(Container *parentContainer, Bounds2 bounds, Texture *texture, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, texture, color, zLevel) {
+NewMissionButton::NewMissionButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {
 
 }
 
 void NewMissionButton::onRender() {
-	Graphics::drawTexture(texture, bounds.position, color, bounds.size);
+	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_NEW_GAME_IDLE), bounds.position, color, bounds.size);
+}
+
+void NewMissionButton::onPress() {
+	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_NEW_GAME_PRESS), bounds.position, color, bounds.size);
 }
 
 void NewMissionButton::onClick() {
@@ -17,6 +22,6 @@ void NewMissionButton::onClick() {
 }
 
 void NewMissionButton::onHover() {
-	Graphics::drawRectSolid(bounds, Color::RED);
+	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_NEW_GAME_HOVER), bounds.position, color, bounds.size);
 }
 
