@@ -24,6 +24,7 @@ public:
     Engine();
     void start();
     void run();
+		void stop();
 };
 
 #endif //ASM_ENGINE_H

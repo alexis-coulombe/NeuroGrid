@@ -1,6 +1,6 @@
 #include "PlayScreen.h"
 #include "../../../GameState.h"
-#include "../../../mission/Mission1.h"
+#include "../../../mission/Mission1-7/Mission1.h"
 #include "../../../MissionManager.h"
 #include "../../../../engine/utility/Timer.h"
 #include "../../../../engine/fileIO/SaveFileManager.h"

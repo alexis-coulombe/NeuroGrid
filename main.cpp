@@ -3,11 +3,10 @@
 #include "src/engine/fileIO/SaveFileManager.h"
 
 int main(int argc, char** args) {
-    //Engine engine = Engine();
-    //engine.start();
-    //engine.run();
-
-		SaveFileManager::saveGame();
+    Engine engine = Engine();
+    engine.start();
+    engine.run();
+		engine.stop();
 
 		return 0;
 }

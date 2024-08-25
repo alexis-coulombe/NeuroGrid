@@ -1,7 +1,7 @@
 #include "NewMissionButton.h"
 #include "../../../../../GameState.h"
 #include "../../../../../MissionManager.h"
-#include "../../../../../mission/Mission1.h"
+#include "../../../../../mission/Mission1-7/Mission1.h"
 #include "../../../../../AssetLibrary.h"
 
 NewMissionButton::NewMissionButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {

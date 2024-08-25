@@ -96,3 +96,12 @@ void Engine::run() {
 		}
 	}
 }
+
+void Engine::stop() {
+	SDL_DestroyRenderer(Window::renderer);
+	SDL_DestroyWindow(Window::window);
+	Mix_CloseAudio();
+	Mix_Quit();
+	TTF_Quit();
+	SDL_Quit();
+}

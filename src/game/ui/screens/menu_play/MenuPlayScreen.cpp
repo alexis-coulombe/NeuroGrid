@@ -1,7 +1,7 @@
 #include "MenuPlayScreen.h"
 #include "../../../../engine/utility/Asset.h"
 #include "../../../../engine/Audio.h"
-#include "../../../mission/Mission1.h"
+#include "../../../mission/Mission1-7/Mission1.h"
 
 MenuPlayScreen::MenuPlayScreen() : GenericScreen() {
 	backgroundBlack = Asset::loadTexture((char *)"assets/menu/background_black.png");
