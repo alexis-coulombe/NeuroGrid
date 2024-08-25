@@ -18,6 +18,7 @@ file(GLOB SOURCE_FILES
         "src/engine/ui/*.cpp" ,
         "src/engine/ui/popup/*.cpp" ,
         "src/engine/utility/*.cpp" ,
+        "src/engine/fileIO/*.cpp" ,
         "src/game/*.cpp" ,
         "src/game/logic/*.cpp" ,
         "src/game/logic/operators/*.cpp" ,

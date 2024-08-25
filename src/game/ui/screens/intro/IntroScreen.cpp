@@ -62,16 +62,34 @@ IntroScreen::IntroScreen() : GenericScreen() {
 	backgroundBlack = Asset::loadTexture((char *)"assets/menu/background_black.png");
 	backgroundIntro1 = Asset::loadTexture((char *)"assets/menu/background_intro_1.png");
 	backgroundIntro2 = Asset::loadTexture((char *)"assets/menu/background_intro_2.png");
-	font = Asset::loadFont((char *)"assets/ModernDOS.ttf", 12);
 	backgroundMusic = new Music(Asset::loadMusic((char *)"assets/music/intro_ambient.mp3"));
+	font = Asset::loadFont((char *)"assets/ModernDOS.ttf", 20);
+	firstScreenText = new Text(nullptr, Vector2f(Window::width / 2 - 250, Window::height / 3), {
+			"-    \"Flesh is weak, a frail disguise",
+			"     In steel and wire, salvation lies",
+			"     The heart, it falters, blood runs cold",
+			"     In copper veins, life's strength is bold.\"",
+			"",
+			"Oren 12:5"
+		}, font, Color::WHITE);
+	secondScreenText = new Text(nullptr, Vector2f(Window::width / 2 - 250, Window::height / 3), {
+			"-    \"Veins of oil, a heart of steel",
+			"     No pulsing blood, no pain to feel",
+			"     The path is clear, the choice is plain",
+			"     Leave behind this world of pain.\"",
+			"",
+			"Oren 23:12"
+		}, font, Color::WHITE);
 };
 
 IntroScreen::~IntroScreen() {
 	delete backgroundBlack;
 	delete backgroundIntro1;
 	delete backgroundIntro2;
-	delete font;
 	delete backgroundMusic;
+	delete font;
+	delete firstScreenText;
+	delete secondScreenText;
 
 	delete fsmObject;
 	delete fsm;
@@ -126,30 +144,22 @@ void IntroScreen::checkAction(FSM_action_t action) {
 
 Vector2f firstScreenPosition = Vector2f(0, 0);
 void IntroScreen::renderFirstScreen() {
-	Graphics::drawTexture(backgroundIntro1, Vector2f(0, 0) + firstScreenPosition, Color::BLACK_TRANSPARENT_THIRD, Vector2f(Window::width, Window::height));
-	firstScreenPosition.y -= 1 / TARGET_FPS;
+	Graphics::drawTexture(backgroundIntro1, Vector2f(0, 0) + firstScreenPosition, Color::BLACK_TRANSPARENT_THIRD, Vector2f(Window::width, Window::height) * 1.6);
+	firstScreenPosition.y -= 10.0 / TARGET_FPS;
 }
 
 void IntroScreen::renderFirstScreenText() {
-	Graphics::drawString(font, (char *)"-    \"Flesh is weak, a frail disguise", Vector2f(Window::width / 2 - 250, Window::height / 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"     In steel and wire, salvation lies", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 1), Color::WHITE);
-	Graphics::drawString(font, (char *)"     The heart, it falters, blood runs cold", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 2), Color::WHITE);
-	Graphics::drawString(font, (char *)"     In copper veins, life's strength is bold.\"", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"Oren 12:5", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
+	firstScreenText->render();
 }
 
 Vector2f secondScreenPosition = Vector2f(0, 0);
 void IntroScreen::renderSecondScreen() {
 	Graphics::drawTexture(backgroundIntro2, Vector2f(0, -100) + secondScreenPosition, Color::BLACK_TRANSPARENT_THIRD, Vector2f(Window::width, Window::height) * 1.6);
-	secondScreenPosition.x -= 1 / TARGET_FPS;
+	secondScreenPosition.x -= 10.0 / TARGET_FPS;
 }
 
 void IntroScreen::renderSecondScreenText() {
-	Graphics::drawString(font, (char *)"-    \"Veins of oil, a heart of steel", Vector2f(Window::width / 2 - 250, Window::height / 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"     No pulsing blood, no pain to feel", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 1), Color::WHITE);
-	Graphics::drawString(font, (char *)"     The path is clear, the choice is plain", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 2), Color::WHITE);
-	Graphics::drawString(font, (char *)"     Leave behind this world of pain.\"", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 3), Color::WHITE);
-	Graphics::drawString(font, (char *)"Oren 23:12", Vector2f(Window::width / 2 - 250, Window::height / 3 + 30 * 5), Color::WHITE);
+	secondScreenText->render();
 }
 
 float foregroundFading = 255;
@@ -158,7 +168,6 @@ bool fading = true;
 void IntroScreen::renderForeground() {
 	if (fading) {
 		foregroundFading -= (255.0 / 2) / TARGET_FPS;
-		printf("foregroundFading: %f\n", foregroundFading);
 		if ((uint8_t) foregroundFading == 0) {
 			fading = false;
 			standbyFading = (TARGET_FPS * 10.0); // Reset standby fading when transition starts, 10 secs
@@ -166,10 +175,8 @@ void IntroScreen::renderForeground() {
 	} else {
 		if (standbyFading > 0) {
 			standbyFading -= 1.0;
-			printf("standbyFading: %f\n", standbyFading);
 		} else {
 			foregroundFading += (255.0 / 2) / TARGET_FPS;
-			printf("foregroundFading: %f\n", foregroundFading);
 			if ((uint8_t) foregroundFading == 255) {
 				fsm->terminate(fsmObject, currentState); // Terminate FSM state once fully faded in
 				fading = true; // Reset for next fade cycle

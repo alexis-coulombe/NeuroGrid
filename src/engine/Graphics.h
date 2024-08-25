@@ -6,6 +6,7 @@
 #include "utility/Bounds2.h"
 #include "Window.h"
 #include <SDL_render.h>
+#include <map>
 #include "utility/Texture.h"
 #include "Font.h"
 
@@ -40,7 +41,8 @@ class Graphics {
 	static void drawTexture(Texture *texture, Vector2f position, Color color = Color::WHITE, Vector2f size = Vector2f(-1, -1), float rotation = 0, Vector2f pivot = Vector2f(-1, -1), TextureMirror mirror = NONE, Bounds2 source = Bounds2(-1, -1, -1, -1), TextureBlendMode blendMode = NORMAL, TextureScaleMode scaleMode = NEAREST);
 
 	// Fonts
-	static Bounds2 drawString(Font *font, char *text, Vector2f position, Color color, TextAlignement alignement = LEFT, bool measureOnly = false);
+	static inline std::map<std::string, SDL_Texture*> textCache = {};
+	static Bounds2 drawString(Font *font, std::string text, Vector2f position, Color color, TextAlignement alignement = LEFT, bool measureOnly = false);
  private:
 	static void drawPrimitiveSetup(Color color);
 	static void drawTextureSetup(SDL_Texture *textureHandle, Color color, TextureBlendMode blendMode, TextureScaleMode scaleMode);

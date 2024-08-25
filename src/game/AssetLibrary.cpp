@@ -2,6 +2,10 @@
 #include "../engine/utility/Asset.h"
 
 void AssetLibrary::init() {
+	BUTTON_POPUP_CLOSE_IDLE = Asset::loadTexture((char *)"assets/ui/button/close_popup_idle.png");
+	BUTTON_POPUP_CLOSE_HOVER = BUTTON_POPUP_CLOSE_IDLE;
+	BUTTON_POPUP_CLOSE_PRESS = BUTTON_POPUP_CLOSE_IDLE;
+
 	BUTTON_LOAD_GAME_IDLE = Asset::loadTexture((char *)"assets/ui/button/load_game_idle.png");
 	BUTTON_LOAD_GAME_HOVER = Asset::loadTexture((char *)"assets/ui/button/load_game_hover.png");
 	BUTTON_LOAD_GAME_PRESS = Asset::loadTexture((char *)"assets/ui/button/load_game_press.png");

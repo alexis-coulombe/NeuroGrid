@@ -8,6 +8,10 @@ class AssetLibrary {
  public:
 	static void init();
 
+	static inline const Texture *BUTTON_POPUP_CLOSE_IDLE = nullptr;
+	static inline const Texture *BUTTON_POPUP_CLOSE_HOVER = nullptr;
+	static inline const Texture *BUTTON_POPUP_CLOSE_PRESS = nullptr;
+
 	static inline const Texture *BUTTON_LOAD_GAME_IDLE = nullptr;
 	static inline const Texture *BUTTON_LOAD_GAME_HOVER = nullptr;
 	static inline const Texture *BUTTON_LOAD_GAME_PRESS = nullptr;

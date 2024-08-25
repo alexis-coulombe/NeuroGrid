@@ -11,14 +11,17 @@
 #include "../../../../engine/utility/Music.h"
 #include "../../../../engine/fsm/FSM.h"
 #include "../../../../engine/ui/Container.h"
+#include "../../../../engine/ui/Text.h"
 
 class IntroScreen : public GenericScreen {
  private:
   Texture *backgroundBlack;
   Texture *backgroundIntro1;
   Texture *backgroundIntro2;
-  Font *font;
   Music *backgroundMusic;
+	Font *font;
+	Text *firstScreenText;
+	Text *secondScreenText;
 
   void renderFirstScreen();
   void renderFirstScreenText();

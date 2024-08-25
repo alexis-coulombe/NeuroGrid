@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "Timer.h"
 
 Timer::Timer(uint32_t timeout, bool enabledByDefault, Timer_callback callback) : timeout(timeout), enabledByDefault(enabledByDefault), callback(callback) {

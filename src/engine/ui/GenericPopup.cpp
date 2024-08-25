@@ -1,59 +1,60 @@
 #include "GenericPopup.h"
 #include "../utility/Asset.h"
+#include "../../game/AssetLibrary.h"
 
-GenericPopup::GenericPopup(Bounds2 bounds): bounds(bounds) {
-    popupContainer = new Container(nullptr, bounds);
-    backgroundOverlay = Asset::loadTexture((char *)"assets/menu/background_black.png");
+GenericPopup::GenericPopup(Bounds2 bounds) : bounds(bounds) {
+	popupContainer = new Container(nullptr, bounds);
+	backgroundOverlay = Asset::loadTexture((char *)"assets/menu/background_black.png");
 }
 
 void GenericPopup::show() {
-    isVisible = true;
-    Input::getInstance()->mouseZLevel++;
-    zLevel = Input::getInstance()->mouseZLevel;
-		closeButton = new CloseButton(popupContainer, Bounds2((uint32_t) popupContainer->bounds.size.x - 40, 0, 40, 40), Color::WHITE, zLevel);
-		closeButton->linkPopup(this);
+	isVisible = true;
+	Input::getInstance()->mouseZLevel++;
+	zLevel = Input::getInstance()->mouseZLevel;
+	closeButton = new CloseButton(popupContainer, Bounds2((uint32_t)popupContainer->bounds.size.x - 40, 0, 40, 40), Color::WHITE, zLevel);
+	closeButton->linkPopup(this);
 
-    onShow();
+	onShow();
 }
 
 void GenericPopup::render() {
-    if(!isVisible) {
-        return;
-    }
+	if (!isVisible) {
+		return;
+	}
 
-    Graphics::drawTexture(backgroundOverlay, Vector2f(0, 0), Color::BLACK_TRANSPARENT_HALF, Vector2f(Window::width, Window::height));    
-    popupContainer->render();
-    closeButton->render();
+	Graphics::drawTexture(backgroundOverlay, Vector2f(0, 0), Color::BLACK_TRANSPARENT_HALF, Vector2f(Window::width, Window::height));
+	popupContainer->render();
 
-    renderPopup();
+	renderPopup();
+	closeButton->render();
 }
 
 void GenericPopup::hide() {
-    isVisible = false;
-    Input::getInstance()->mouseZLevel--;
-    zLevel = 0;
+	isVisible = false;
+	Input::getInstance()->mouseZLevel--;
+	zLevel = 0;
 
-    onHide();
+	onHide();
 }
 
-CloseButton::CloseButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel): GenericButton(parentContainer, bounds, color, zLevel) {
+CloseButton::CloseButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {
 
 }
 
 void CloseButton::linkPopup(GenericPopup *linkPopup) {
-		this->popup = linkPopup;
+	this->popup = linkPopup;
 }
 
 void CloseButton::onRender() {
-		//Graphics::drawTexture(const_cast<Texture *>(texture), bounds.position, color, bounds.size);
+	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_POPUP_CLOSE_IDLE), bounds.position, color, bounds.size);
 }
 
 void CloseButton::onPress() {
-		//Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_ROUNDED_OPENED), bounds.position, color, bounds.size);
+
 }
 
 void CloseButton::onClick() {
-		popup->hide();
+	popup->hide();
 }
 
 void CloseButton::onHover() {

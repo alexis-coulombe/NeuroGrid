@@ -2,6 +2,11 @@
 #include "../../../GameState.h"
 #include "../../../mission/Mission1.h"
 #include "../../../MissionManager.h"
+#include "../../../../engine/utility/Timer.h"
+#include "../../../../engine/fileIO/SaveFileManager.h"
+
+void handleTimer();
+Timer timer = Timer(5 * 60 * TARGET_FPS, true, handleTimer);
 
 PlayScreen::PlayScreen() : GenericScreen() {
 	inputContainer = new Container(screenContainer, Bounds2(0, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
@@ -62,6 +67,8 @@ void PlayScreen::render() {
 	mission->render(Mission::NANO1);
 	mission->render(Mission::NANO2);
 	mission->render(Mission::NANO3);
+
+	timer.tick();
 }
 
 void PlayScreen::onWindowResized() {
@@ -81,4 +88,8 @@ void PlayScreen::renderContainers() {
 	missionContainer->render();
 	missionActionContainer->render();
 	missionBriefContainer->render();
+}
+
+void handleTimer() {
+	SaveFileManager::saveGame();
 }

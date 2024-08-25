@@ -1,5 +1,6 @@
 #include "PlayNewGameButton.h"
 #include "../../../../GameState.h"
+#include "../../../../../engine/fileIO/SaveFileManager.h"
 
 PlayNewGameButton::PlayNewGameButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {
 }
@@ -13,7 +14,7 @@ void PlayNewGameButton::onPress() {
 }
 
 void PlayNewGameButton::onClick() {
-	if (false) { // if game played once
+	if (!SaveFileManager::hasSaveFile()) {
 		GameState::getInstance()->currentState = GameState::sIntro;
 	} else {
 		GameState::getInstance()->currentState = GameState::sMenuPlay;

@@ -20,11 +20,32 @@ void Textarea::update() {
 	}
 
 	if (Input::getInstance()->getKeyDown(Input::Backspace)) {
+		if(caretColumn == 0 && caretLine == 0) {
+			return;
+		}
+
 		if (!getTextOfCurrentLine()->empty() && caretColumn != 0) {
 			getTextOfCurrentLine()->erase(caretColumn - 1, 1);
 			moveCaretLeft();
 		}
 	}
+
+//	if (Input::getInstance()->getKeyDown(Input::Return)) {
+//		if (caretLine == rows) {
+//			return;
+//		}
+//
+//		if (!lines->at(rows - 1).empty()) {
+//			return;
+//		}
+//
+//		std::string newLine = getTextOfCurrentLine()->substr(caretColumn, getTextOfCurrentLine()->length());
+//		getTextOfCurrentLine()->erase(caretColumn, getTextOfCurrentLine()->length());
+//		lines->insert(lines->begin() + caretLine, newLine);
+//
+//		caretLine++;
+//		caretColumn = 0;
+//	}
 
 	if (Input::getInstance()->getKeyDown(Input::Delete)) {
 		if (!getTextOfCurrentLine()->empty() && caretColumn != getTextOfCurrentLine()->length()) {
@@ -97,7 +118,7 @@ void Textarea::render() {
 		float x = ((caretColumn / cols) * font->pxSize) + bounds->position.x;
 		float y = (caretLine / rows) + (caretLine * font->pxSize + bounds->position.y);
 
-		Graphics::drawString(font, (char *)(showCaret ? caretString.append("\u0007").c_str() : caretString.append("\u0000").c_str()), Vector2f(x, y), Color::WHITE);
+		Graphics::drawString(font, (showCaret ? caretString.append("\u0007") : caretString.append("\u0000")), Vector2f(x, y), Color::WHITE);
 		caretAnimation++;
 	}
 
@@ -116,14 +137,14 @@ void Textarea::render() {
 		float x = ((line / cols) * font->pxSize) + bounds->position.x;
 		float y = (line / rows) + (line * font->pxSize) + bounds->position.y;
 
-		if(highlightedLine == line) {
+		if (highlightedLine == line) {
 			Graphics::drawRectSolid(Bounds2(x, y, bounds->size.x, font->pxSize), Color::WHITE);
 			textColor = Color::BLACK;
 		} else {
 			textColor = Color::WHITE;
 		}
 
-		Graphics::drawString(font, (char *)string.c_str(), Vector2f(x, y), textColor);
+		Graphics::drawString(font, string, Vector2f(x, y), textColor);
 
 		onRender(line);
 	}

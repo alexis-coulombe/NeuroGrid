@@ -76,10 +76,18 @@ void Graphics::drawTexture(Texture *texture, Vector2f position, Color color, Vec
 	SDL_RenderCopyEx(Window::renderer, texture->handle, &src, &dest, rotation, &center, (SDL_RendererFlip)mirror);
 }
 
-Bounds2 Graphics::drawString(Font *font, char *text, Vector2f position, Color color, Graphics::TextAlignement alignement, bool measureOnly) {
+Bounds2 Graphics::drawString(Font *font, std::string text, Vector2f position, Color color, Graphics::TextAlignement alignement, bool measureOnly) {
 	SDL_Color white = SDL_Color{255, 255, 255, 255};
-	SDL_Surface *surface = TTF_RenderText_Solid(font->handle, text, white);
-	SDL_Texture *handle = SDL_CreateTextureFromSurface(Window::renderer, surface);
+	SDL_Surface *surface = TTF_RenderText_Solid(font->handle, text.c_str(), white);
+	SDL_Texture *handle = nullptr;
+
+	if (textCache.find(text) != textCache.end()) {
+		handle = textCache[text];
+	} else {
+		handle = SDL_CreateTextureFromSurface(Window::renderer, surface);
+		textCache[text] = handle;
+	}
+
 	SDL_FreeSurface(surface);
 
 	uint format;
