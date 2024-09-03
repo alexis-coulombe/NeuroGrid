@@ -18,7 +18,7 @@ Text::Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> l
 
 void Text::render() {
 	for (size_t i = 0; i < lines.size(); i++) {
-		float y = position.y + (font->pxSize + MARGIN) * i;
+		float y = position.y + (font->textHeight + MARGIN) * i;
 		Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, Graphics::LEFT, false);
 	}
 }
@@ -32,7 +32,7 @@ void Text::renderAnimateScrolling() {
 	}
 
 	for (size_t i = 0; i < animationTextCounter; i++) {
-		float y = position.y + (font->pxSize + MARGIN) * i;
+		float y = position.y + (font->textHeight + MARGIN) * i;
 		Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, Graphics::LEFT, false);
 	}
 }

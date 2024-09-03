@@ -1,5 +1,5 @@
 #include "Font.h"
 
 Font::Font(TTF_Font *handle, uint8_t pointSize) : handle(handle), pointSize(pointSize) {
-	pxSize = (float) (pointSize * 1.33);
+	TTF_SizeText(handle, "A", reinterpret_cast<int *>(&textWidth), reinterpret_cast<int *>(&textHeight));
 }

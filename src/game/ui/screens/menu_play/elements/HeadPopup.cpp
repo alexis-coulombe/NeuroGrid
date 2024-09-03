@@ -13,7 +13,7 @@ HeadPopup::HeadPopup(Bounds2 bounds) : GenericPopup(bounds) {
 }
 
 void HeadPopup::onShow() {
-	popupMissionIntroText = new Text(popupMissionIntroContainer, Vector2f(40, 30), std::vector<std::string>{""}, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color(72,222,184,255));
+	popupMissionIntroText = new Text(popupMissionIntroContainer, Vector2f(40, 30), std::vector<std::string>{""}, Asset::loadFont((char *)"assets/ModernDOS.ttf", 14), Color(72,222,184,255));
 
 	newMissionButton = new NewMissionButton(popupMissionInfoCurrentGameButtonsContainer,
 																					Bounds2(0, 0, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.x / 2, (int)popupMissionInfoCurrentGameButtonsContainer->bounds.size.y),

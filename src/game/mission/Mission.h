@@ -11,9 +11,9 @@ class Mission {
  protected:
 	bool parsing = false;
 
-	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE));
-	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE));;
-	Nano nano3 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE));;
+	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));
+	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
+	Nano nano3 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
  public:
 	enum NANOS {
 		NANO1 = 0,
@@ -24,6 +24,7 @@ class Mission {
 	NanoParser nanoParser = NanoParser(&nano1, &nano2, &nano3);
 
 	virtual void setParsing(bool parsing) = 0;
+	virtual void stepParsing() = 0;
 	bool getParsing() { return parsing; };
 	virtual void setNanoParentContainer(NANOS nano, Container *container) = 0;
 	virtual void render(NANOS nano) = 0;

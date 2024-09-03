@@ -3,10 +3,24 @@
 
 #include "../engine/utility/Texture.h"
 #include "../engine/utility/Asset.h"
+#include "../engine/utility/Music.h"
 
 class AssetLibrary {
  public:
 	static void init();
+
+	static inline const Music *MUSIC_1 = nullptr;
+	static inline const Music *MUSIC_2 = nullptr;
+	static inline const Music *MUSIC_3 = nullptr;
+	static inline const Music *MUSIC_4 = nullptr;
+	static inline const Music *MUSIC_5 = nullptr;
+	static inline const Music *MUSIC_6 = nullptr;
+	static inline const Music *MUSIC_7 = nullptr;
+	static inline const Music *MUSIC_8 = nullptr;
+	static inline const Music *MUSIC_9 = nullptr;
+	static inline const Music *MUSIC_10 = nullptr;
+	static inline const Music *MUSIC_11 = nullptr;
+	static inline const Music *MUSIC_12 = nullptr;
 
 	static inline const Texture *BUTTON_POPUP_CLOSE_IDLE = nullptr;
 	static inline const Texture *BUTTON_POPUP_CLOSE_HOVER = nullptr;
@@ -19,6 +33,10 @@ class AssetLibrary {
 	static inline const Texture *BUTTON_NEW_GAME_IDLE = nullptr;
 	static inline const Texture *BUTTON_NEW_GAME_HOVER = nullptr;
 	static inline const Texture *BUTTON_NEW_GAME_PRESS = nullptr;
+
+	static inline const Texture *BUTTON_PLAY_CODE_IDLE = nullptr;
+	static inline const Texture *BUTTON_PLAY_CODE_HOVER = nullptr;
+	static inline const Texture *BUTTON_PLAY_CODE_PRESS = nullptr;
 
 	static inline const Texture *BUTTON_MISSION1_IDLE = nullptr;
 	static inline const Texture *BUTTON_MISSION1_HOVER = nullptr;

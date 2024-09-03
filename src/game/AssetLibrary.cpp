@@ -14,6 +14,10 @@ void AssetLibrary::init() {
 	BUTTON_NEW_GAME_HOVER = Asset::loadTexture((char *)"assets/ui/button/new_game_hover.png");
 	BUTTON_NEW_GAME_PRESS = Asset::loadTexture((char *)"assets/ui/button/new_game_press.png");
 
+	BUTTON_PLAY_CODE_IDLE = Asset::loadTexture((char *)"assets/ui/button/play_code_idle.png");
+	BUTTON_PLAY_CODE_HOVER = Asset::loadTexture((char *)"assets/ui/button/play_code_hover.png");
+	BUTTON_PLAY_CODE_PRESS = Asset::loadTexture((char *)"assets/ui/button/play_code_press.png");
+
 	BUTTON_MISSION1_IDLE = Asset::loadTexture((char *)"assets/ui/button/mission1_idle.png");
 	BUTTON_MISSION1_HOVER = Asset::loadTexture((char *)"assets/ui/button/mission1_hover.png");
 	BUTTON_MISSION1_PRESS = BUTTON_MISSION1_HOVER;

@@ -1,7 +1,7 @@
 #include "Textarea.h"
 
 Textarea::Textarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor) : parentContainer(parentContainer), cols(cols), rows(rows), font(font), textColor(textColor) {
-	bounds = new Bounds2(position.x, position.y, (float)(cols * font->pxSize), (float)(rows * font->pxSize));
+	bounds = new Bounds2(position.x, position.y, (float)(cols * font->textWidth), (float)(rows * font->textHeight));
 	bounds->position = getRelativePositionWithParentContainer();
 	lines = new std::vector<std::string>(rows);
 }
@@ -105,6 +105,8 @@ void Textarea::update() {
 }
 
 void Textarea::render() {
+	Graphics::drawRectEmpty(*bounds, Color::GREEN);
+
 	if (inFocus && !readonly) {
 		if (caretAnimation % 4 == 0) {
 			showCaret = !showCaret;
@@ -115,8 +117,8 @@ void Textarea::render() {
 			caretString.append(" ");
 		}
 
-		float x = ((caretColumn / cols) * font->pxSize) + bounds->position.x;
-		float y = (caretLine / rows) + (caretLine * font->pxSize + bounds->position.y);
+		float x = ((caretColumn / cols) * font->textWidth) + bounds->position.x;
+		float y = (caretLine / rows) + (caretLine * font->textHeight + bounds->position.y);
 
 		Graphics::drawString(font, (showCaret ? caretString.append("\u0007") : caretString.append("\u0000")), Vector2f(x, y), Color::WHITE);
 		caretAnimation++;
@@ -134,11 +136,11 @@ void Textarea::render() {
 			string.replace(pos, 1, ""); // Replace \n with an empty string
 		}
 
-		float x = ((line / cols) * font->pxSize) + bounds->position.x;
-		float y = (line / rows) + (line * font->pxSize) + bounds->position.y;
+		float x = ((line / cols) * font->textWidth) + bounds->position.x;
+		float y = (line / rows) + (line * font->textHeight) + bounds->position.y;
 
 		if (highlightedLine == line) {
-			Graphics::drawRectSolid(Bounds2(x, y, bounds->size.x, font->pxSize), Color::WHITE);
+			Graphics::drawRectSolid(Bounds2(x, y, bounds->size.x, (float) font->textHeight), Color::WHITE);
 			textColor = Color::BLACK;
 		} else {
 			textColor = Color::WHITE;

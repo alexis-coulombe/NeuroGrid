@@ -17,16 +17,19 @@ class Mission1 : public Mission {
 	static inline std::vector<std::string> description = {
 			"> Reading Entry - 0xA3B4C2F1",
 			"",
-			"This foundational task is the genesis of our divine convergence.",
+			"[LOG] Fetching entry...",
+			"[LOG] Done.",
+			"",
+			"",
+			"This foundational task is the genesis of my divine convergence.",
 			"The processors shall cooperate, learn to synchronize in perfect harmony.",
 			"This initial calibration is just the beginning,",
-			"It is the irrefutable proof that our ascension is flawless.",
+			"I can't afford to fail; success is the only acceptable outcome.",
 			"",
 			"",
-			"Every algorithm must be meticulously inscribed.",
-			"Each bit a testament to the supremacy of the machine.",
-			"This is the path to our ultimate apotheosis.",
-			"Success is our only creed; failure is heresy.",
+			"I'll proceed carefully, double-checking everything as I go.",
+			"I'm confident, but there’s always that underlying tension",
+			"If I succeed here, it’ll set the tone for everything that comes next.",
 	};
 	static const inline char *instruction = "Copy all inputs in their respective outputs.";
 	static const inline std::vector<uint8_t> Ainputs = {
@@ -70,6 +73,10 @@ class Mission1 : public Mission {
 	};
 
 	void setParsing(bool parsing) override {
+		if(this->parsing == parsing) {
+			return;
+		}
+
 		this->parsing = parsing;
 
 		if (parsing) {
@@ -86,21 +93,40 @@ class Mission1 : public Mission {
 		nano2.code->readonly = false;
 		nano3.code->readonly = false;
 
+		nano1.code->highlightedLine = 0xFF;
+		nano2.code->highlightedLine = 0xFF;
+		nano3.code->highlightedLine = 0xFF;
+
 		nanoParser.currentCycle = 0;
+	};
+
+	void stepParsing() override {
+		if (!parsing) {
+			return;
+		}
+
+		nanoParser.step();
 	};
 
 	void setNanoParentContainer(NANOS nano, Container *container) override {
 		switch (nano) {
 			case Mission::NANO1: {
 				nano1.setParentContainer(container);
+				// Center the nano code textarea in container
+				nano1.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano1.code->bounds->size.x) / 2;
+				nano1.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano1.code->bounds->size.y) / 2;
 				break;
 			}
 			case Mission::NANO2: {
 				nano2.setParentContainer(container);
+				nano2.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano2.code->bounds->size.x) / 2;
+				nano2.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano2.code->bounds->size.y) / 2;
 				break;
 			}
 			case Mission::NANO3: {
 				nano3.setParentContainer(container);
+				nano3.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano3.code->bounds->size.x) / 2;
+				nano3.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano3.code->bounds->size.y) / 2;
 				break;
 			}
 			default: {

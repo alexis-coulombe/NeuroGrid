@@ -18,7 +18,7 @@ class Container {
 	Font *font;
 
 	Container(Container *parentContainer, Bounds2 bounds, const Texture *texture = nullptr, Color color = Color::WHITE);
-	void render();
+	void render(bool drawBounds = false);
 	void setBounds(Bounds2 bounds);
 };
 

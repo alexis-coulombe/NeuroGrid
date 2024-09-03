@@ -80,10 +80,6 @@ void Engine::run() {
 			game.onWindowResized();
 		}
 
-		if (Input::getInstance()->getKeyDown(Input::Key::Escape)) {
-			running = false;
-		}
-
 		game.update();
 		SDL_SetRenderDrawColor(Window::renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(Window::renderer);

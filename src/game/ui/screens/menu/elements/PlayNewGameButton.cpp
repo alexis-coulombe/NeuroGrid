@@ -1,11 +1,15 @@
 #include "PlayNewGameButton.h"
 #include "../../../../GameState.h"
 #include "../../../../../engine/fileIO/SaveFileManager.h"
+#include "../../../../mission/Mission1-7/Mission1.h"
+#include "../../../../MissionManager.h"
 
 PlayNewGameButton::PlayNewGameButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {
 }
 
 void PlayNewGameButton::onRender() {
+	MissionManager::getInstance()->updateCurrentMission(Mission1::ID);
+	GameState::getInstance()->currentState = GameState::sPlay;
 	//Graphics::drawTexture(const_cast<Texture *>(texture), bounds.position, color, bounds.size);
 }
 
