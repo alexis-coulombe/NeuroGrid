@@ -18,11 +18,13 @@ class Text {
 	Font *font;
 	Color color;
 
+	Text(Container *parentContainer, Vector2f position, std::string line, Font *font, Color color = Color::WHITE);
 	Text(Container *parentContainer, Vector2f position, std::vector<std::string> lines, Font *font, Color color = Color::WHITE);
 	Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> lines, Font *font, Color color = Color::WHITE);
 
 	void render();
 	void renderAnimateScrolling();
+	void updateText(std::string line);
 	void updateText(std::vector<std::string> lines);
 	Vector2f getRelativePositionWithParentContainer();
 };

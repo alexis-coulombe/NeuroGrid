@@ -52,6 +52,8 @@ class Textarea {
 	void moveCaretRight();
 	std::string *getTextOfCurrentLine();
 	std::vector<std::string> *getLines();
+	uint8_t getNonEmptyLines();
+	void setText(uint8_t line, std::string text);
 	void setParentContainer(Container *container);
 	Vector2f getRelativePositionWithParentContainer();
 };

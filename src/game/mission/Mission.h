@@ -40,6 +40,23 @@ class Mission {
 	virtual void setDOutput(uint8_t index, uint8_t value) = 0;
 	virtual void setEOutput(uint8_t index, uint8_t value) = 0;
 	virtual void setFOutput(uint8_t index, uint8_t value) = 0;
+
+	Nano *getNano(NANOS nano) {
+		switch (nano) {
+			case NANO1: {
+				return &nano1;
+			}
+			case NANO2: {
+				return &nano2;
+			}
+			case NANO3: {
+				return &nano3;
+			}
+			default: {
+				return nullptr;
+			}
+		}
+	};
 };
 
 #endif //ASM_SRC_GAME_MISSION_MISSION_H_

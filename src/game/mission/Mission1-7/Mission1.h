@@ -83,9 +83,6 @@ class Mission1 : public Mission {
 			nano1.code->readonly = true;
 			nano2.code->readonly = true;
 			nano3.code->readonly = true;
-
-			nanoParser.currentCycle = 0;
-
 			return;
 		}
 
@@ -96,8 +93,6 @@ class Mission1 : public Mission {
 		nano1.code->highlightedLine = 0xFF;
 		nano2.code->highlightedLine = 0xFF;
 		nano3.code->highlightedLine = 0xFF;
-
-		nanoParser.currentCycle = 0;
 	};
 
 	void stepParsing() override {

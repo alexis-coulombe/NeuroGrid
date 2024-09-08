@@ -1,8 +1,14 @@
 #include "Text.h"
 #include "../Graphics.h"
+#include "../utility/Asset.h"
 
 uint8_t animationCounter = 0;
 uint8_t animationTextCounter = 0;
+
+Text::Text(Container *parentContainer, Vector2f position, std::string line, Font *font, Color color): parentContainer(parentContainer), position(position), font(font), color(color) {
+	this->lines = std::vector<std::string>{line};
+	this->position = getRelativePositionWithParentContainer();
+}
 
 Text::Text(Container *parentContainer, Vector2f position, std::vector<std::string> lines, Font *font, Color color) : parentContainer(parentContainer), position(position), lines(lines), font(font), color(color) {
 	this->position = getRelativePositionWithParentContainer();
@@ -35,6 +41,10 @@ void Text::renderAnimateScrolling() {
 		float y = position.y + (font->textHeight + MARGIN) * i;
 		Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, Graphics::LEFT, false);
 	}
+}
+
+void Text::updateText(std::string line) {
+	this->lines = std::vector<std::string>{line};
 }
 
 void Text::updateText(std::vector<std::string> lines) {

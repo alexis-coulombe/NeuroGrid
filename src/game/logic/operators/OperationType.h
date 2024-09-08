@@ -5,11 +5,6 @@ enum OPERATION_TYPE {
 	MOV = 0,
 	ADD,
 	SUB,
-	MOD,
-	JMP,
-	JGT,
-	JLT,
-	JEQ,
 	NOP,
 	INVALID_OP
 };

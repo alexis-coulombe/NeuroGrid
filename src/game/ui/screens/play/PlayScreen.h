@@ -22,39 +22,57 @@ class PlayScreen : public GenericScreen {
 	// Nano 1 - Nano Info
 	Container *nano1InfoContainer;
 	Container *nano1MemoryContainer;
+	Text *nano1MemoryText;
 	Container *nano1TestContainer;
+	Text *nano1TestText;
 	Container *nano1RxContainer;
+	Text *nano1RxText;
 	// Nano 1 - Stats
 	Container *nano1StatsContainer;
 	Container *nano1CyclesContainer;
+	Text *nano1CyclesText;
 	Container *nano1LinesContainer;
+	Text *nano1LinesText;
 	Container *nano1ComplexityContainer;
+	Text *nano1ComplexityText;
 
 	Container *nano2Container;
 	Container *nano2TextareaContainer;
 	// Nano 2 - Nano Info
 	Container *nano2InfoContainer;
 	Container *nano2MemoryContainer;
+	Text *nano2MemoryText;
 	Container *nano2TestContainer;
+	Text *nano2TestText;
 	Container *nano2RxContainer;
+	Text *nano2RxText;
 	// Nano 2 - Stats
 	Container *nano2StatsContainer;
 	Container *nano2CyclesContainer;
+	Text *nano2CyclesText;
 	Container *nano2LinesContainer;
+	Text *nano2LinesText;
 	Container *nano2ComplexityContainer;
+	Text *nano2ComplexityText;
 
 	Container *nano3Container;
 	Container *nano3TextareaContainer;
 	// Nano 3 - Nano Info
 	Container *nano3InfoContainer;
 	Container *nano3MemoryContainer;
+	Text *nano3MemoryText;
 	Container *nano3TestContainer;
+	Text *nano3TestText;
 	Container *nano3RxContainer;
+	Text *nano3RxText;
 	// Nano 3 - Stats
 	Container *nano3StatsContainer;
 	Container *nano3CyclesContainer;
+	Text *nano3CyclesText;
 	Container *nano3LinesContainer;
+	Text *nano3LinesText;
 	Container *nano3ComplexityContainer;
+	Text *nano3ComplexityText;
 
 	Container *missionContainer;
 	Container *missionActionContainer;

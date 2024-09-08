@@ -25,6 +25,8 @@ void AssetLibrary::init() {
 	CONTAINER_MISSION_INTRO = Asset::loadTexture((char *)"assets/ui/container/mission_info.png");
 	CONTAINER_MISSIONS = Asset::loadTexture((char *)"assets/ui/container/missions.png");
 
+	CONTAINER_MISSION_PLAY = Asset::loadTexture((char *)"assets/ui/container/mission_play.png");
+
 	ANIMATION_RED_BARS_1 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_1.png");
 	ANIMATION_RED_BARS_2 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_2.png");
 	ANIMATION_RED_BARS_3 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_3.png");

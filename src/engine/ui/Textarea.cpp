@@ -105,7 +105,8 @@ void Textarea::update() {
 }
 
 void Textarea::render() {
-	Graphics::drawRectEmpty(*bounds, Color::GREEN);
+	//Graphics::drawRectEmpty(*bounds, Color::GREEN);
+	//Graphics::drawString(font, bounds->size.toString(), bounds->position, Color::GREEN);
 
 	if (inFocus && !readonly) {
 		if (caretAnimation % 4 == 0) {
@@ -175,6 +176,22 @@ std::string *Textarea::getTextOfCurrentLine() {
 
 std::vector<std::string> *Textarea::getLines() {
 	return lines;
+}
+
+uint8_t Textarea::getNonEmptyLines() {
+	uint8_t count = 0;
+
+	for (size_t i = 0; i < lines->size(); i++) {
+		if (!lines->at(i).empty()) {
+			count++;
+		}
+	}
+
+	return count;
+}
+
+void Textarea::setText(uint8_t line, std::string text) {
+	lines->at(line) = text;
 }
 
 void Textarea::moveCaretUp() {

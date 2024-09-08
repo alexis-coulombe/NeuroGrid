@@ -45,6 +45,8 @@ class AssetLibrary {
 	static inline const Texture *CONTAINER_MISSION_INTRO = nullptr;
 	static inline const Texture *CONTAINER_MISSIONS = nullptr;
 
+	static inline const Texture *CONTAINER_MISSION_PLAY = nullptr;
+
 	static inline const Texture *ANIMATION_RED_BARS_1 = nullptr;
 	static inline const Texture *ANIMATION_RED_BARS_2 = nullptr;
 	static inline const Texture *ANIMATION_RED_BARS_3 = nullptr;

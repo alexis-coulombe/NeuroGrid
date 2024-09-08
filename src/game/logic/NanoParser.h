@@ -8,8 +8,6 @@
 
 class NanoParser {
  public:
-	uint8_t currentCycle = 0;
-
 	Nano *nano1;
 	Nano *nano2;
 	Nano *nano3;
@@ -17,7 +15,7 @@ class NanoParser {
 	NanoParser(Nano *nano1, Nano *nano2, Nano *nano3);
 
 	void step();
-	void parseLine(Nano *currentNano, uint8_t currentLine);
+	void parseLine(Nano *currentNano);
 	OPERATION_TYPE parseSymbol(const std::string& symbol);
 };
 

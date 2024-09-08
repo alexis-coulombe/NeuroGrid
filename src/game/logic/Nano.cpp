@@ -12,3 +12,11 @@ void Nano::setParentContainer(Container *container) {
 void Nano::render() {
 	code->render();
 }
+
+void Nano::increaseParseLine() {
+	currentParseLine++;
+
+	if (currentParseLine >= code->getNonEmptyLines()) {
+		currentParseLine = 0;
+	}
+}

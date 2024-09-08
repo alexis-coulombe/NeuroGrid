@@ -11,13 +11,15 @@ class Nano {
 	uint8_t rx = 0;
 	uint16_t cycles = 0;
 
-	NanoTextarea *code;
-
+	// Parser variables
 	uint8_t currentParseLine = 0;
+
+	NanoTextarea *code;
 
 	explicit Nano(NanoTextarea *code);
 	void setParentContainer(Container *container);
 	void render();
+	void increaseParseLine();
 };
 
 #endif //ASM_SRC_GAME_NANO_H_
