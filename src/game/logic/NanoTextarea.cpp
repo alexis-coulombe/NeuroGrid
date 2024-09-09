@@ -8,7 +8,7 @@ NanoTextarea::NanoTextarea(Container *parentContainer, Vector2f position, uint8_
 
 void NanoTextarea::onRender(uint8_t line) {
 	if (error.type != ParserError::NONE && line == error.line) {
-		// show error for error.line
+		Graphics::drawRectSolid(Bounds2(bounds->position.x, bounds->position.y + (line * font->textHeight), bounds->size.x, (float) font->textHeight), Color::RED);
 	}
 }
 

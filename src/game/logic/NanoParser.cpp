@@ -52,6 +52,8 @@ OPERATION_TYPE NanoParser::parseSymbol(const std::string &symbol) {
 		return OPERATION_TYPE::ADD;
 	} else if (symbol == "SUB") {
 		return OPERATION_TYPE::SUB;
+	} else if (symbol == "NOP") {
+		return OPERATION_TYPE::NOP;
 	} else {
 		return OPERATION_TYPE::INVALID_OP;
 	}

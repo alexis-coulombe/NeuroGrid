@@ -78,17 +78,17 @@ void Graphics::drawTexture(Texture *texture, Vector2f position, Color color, Vec
 
 Bounds2 Graphics::drawString(Font *font, std::string text, Vector2f position, Color color, Graphics::TextAlignement alignement, bool measureOnly) {
 	SDL_Color white = SDL_Color{255, 255, 255, 255};
-	SDL_Surface *surface = TTF_RenderText_Solid(font->handle, text.c_str(), white);
 	SDL_Texture *handle = nullptr;
 
-	if (textCache.find(text) != textCache.end()) {
-		handle = textCache[text];
+	if (textCache.find(text + std::to_string(font->pointSize)) != textCache.end()) {
+		handle = textCache[text + std::to_string(font->pointSize)];
 	} else {
+		SDL_Surface *surface = TTF_RenderText_Solid(font->handle, text.c_str(), white);
 		handle = SDL_CreateTextureFromSurface(Window::renderer, surface);
-		textCache[text] = handle;
-	}
+		SDL_FreeSurface(surface);
 
-	SDL_FreeSurface(surface);
+		textCache[text + std::to_string(font->pointSize)] = handle;
+	}
 
 	uint format;
 	int access, width, height;

@@ -101,11 +101,11 @@ void PlayScreen::init() {
 	nano3LinesText = new Text(nano3LinesContainer, Vector2f(nano3LinesContainer->bounds.size.x / 2 - 5, nano3LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2 - 5, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
-	mission->getNano(Mission::NANO1)->code->setText(0, "MOV A, D");
-	mission->getNano(Mission::NANO1)->code->setText(1, "MOV A, D");
+	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 10");
+	mission->getNano(Mission::NANO1)->code->setText(1, "SUB M1 M1 5");
 	mission->getNano(Mission::NANO1)->code->setText(2, "# A COMMENT WOW");
 	mission->getNano(Mission::NANO1)->code->setText(3, "#MOV A, D");
-	mission->getNano(Mission::NANO1)->code->setText(4, "MOV A, D");
+	mission->getNano(Mission::NANO1)->code->setText(4, "NOP");
 }
 
 void PlayScreen::render() {
