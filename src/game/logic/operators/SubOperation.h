@@ -1,7 +1,7 @@
 #ifndef ASM_SUBOPERATION_H
 #define ASM_SUBOPERATION_H
 
-#include "../Operator.h"
+#include "../Operation.h"
 
 class SubOperation : public Operation {
  public:

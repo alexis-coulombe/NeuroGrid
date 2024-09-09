@@ -1,7 +1,7 @@
 #ifndef ASM_MOVOPERATION_H
 #define ASM_MOVOPERATION_H
 
-#include "../Operator.h"
+#include "../Operation.h"
 
 class MovOperation : public Operation {
  public:

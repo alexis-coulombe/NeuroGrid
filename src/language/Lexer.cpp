@@ -22,6 +22,19 @@ Token Lexer::next() {
 		return token;
 	}
 
+	if(content.at(cursor) == '.') {
+		token.type = Token::TOKEN_LABEL;
+		cursor++;
+		while (cursor < content.length() && isSymbol(content.at(cursor))) {
+			token.text.push_back(content.at(cursor));
+			cursor++;
+		}
+		if (cursor < content.length() && content.at(cursor) != ' ') {
+			token.type = Token::TOKEN_INVALID;
+		}
+		return token;
+	}
+
 	if (isSymbolStart(content.at(cursor))) {
 		token.type = Token::TOKEN_SYMBOL;
 		while (cursor < content.length() && isSymbol(content.at(cursor))) {
@@ -40,19 +53,14 @@ Token Lexer::next() {
 
 	if (isdigit(content.at(cursor))) {
 		token.type = Token::TOKEN_NUMBER;
-		while (cursor < content.length()) {
-			if (isdigit(content.at(cursor))) {
-				token.text.push_back(content.at(cursor));
-				cursor++;
-			} else if (content.at(cursor) == ' ') {
-				return token;
-			} else {
-				token.type = Token::TOKEN_INVALID;
-				return token;
-			}
+		while (cursor < content.length() && isdigit(content.at(cursor))) {
+			token.text.push_back(content.at(cursor));
+			cursor++;
 		}
-
-		return token;
+		if (cursor < content.length() && content.at(cursor) != ' ') {
+			token.type = Token::TOKEN_INVALID;
+		}
+    	return token;
 	}
 
 	token.type = Token::TOKEN_INVALID;

@@ -1,7 +1,7 @@
 #ifndef ASM_SRC_GAME_LOGIC_OPERATORS_NOPOPERATION_H_
 #define ASM_SRC_GAME_LOGIC_OPERATORS_NOPOPERATION_H_
 
-#include "../Operator.h"
+#include "../Operation.h"
 
 class NopOperation : public Operation {
  public:
