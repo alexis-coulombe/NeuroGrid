@@ -13,17 +13,17 @@ void AddOperation::execute(Nano *currentNano, Lexer &lexer, uint8_t currentLine)
 }
 
 void AddOperation::add(Nano *currentNano, Token operand1, Token operand2, Token operand3, uint8_t currentLine) {
-	uint8_t addition = parseOperand(currentNano, operand2, currentLine);
+	uint8_t addition = getParseOperand(currentNano, operand2, currentLine);
 
- 	if (currentNano->code->error) {
+ 	if (currentNano->code->error.type != ParserError::ERROR_TYPE::NONE) {
 		return;
 	}
 
-	addition += parseOperand(currentNano, operand3, currentLine);
+	addition += getParseOperand(currentNano, operand3, currentLine);
 
- 	if (currentNano->code->error) {
+ 	if (currentNano->code->error.type != ParserError::ERROR_TYPE::NONE) {
 		return;
 	}
 
-	currentNano->memory = addition;
+	setParseOperand(currentNano, operand1, addition, currentLine);
 }

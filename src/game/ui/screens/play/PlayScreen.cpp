@@ -30,9 +30,9 @@ PlayScreen::PlayScreen() : GenericScreen() {
 	nano2Container = new Container(gameContainer, Bounds2((int) gameContainer->bounds.size.x / 3, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
 	nano2TextareaContainer = new Container(nano2Container, Bounds2(20, 20, (int) nano2Container->bounds.size.x - 120, (int) nano2Container->bounds.size.y - 120));
 	nano2InfoContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x - 100, (int)nano2Container->bounds.size.y / 2 - 300, 100, 300));
-	nano2MemoryContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x - 100, 0, 100, 100));
-	nano2TestContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x - 100, 100, 100, 100));
-	nano2RxContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x - 100, 200, 100, 100));
+	nano2MemoryContainer = new Container(nano2InfoContainer, Bounds2(0, 0, 100, 100));
+	nano2TestContainer = new Container(nano2InfoContainer, Bounds2(0, 100, 100, 100));
+	nano2RxContainer = new Container(nano2InfoContainer, Bounds2(0, 200, 100, 100));
 	nano2StatsContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x / 2 - 150, (int) nano2Container->bounds.size.y - 100, 300, 100));
 	nano2CyclesContainer = new Container(nano2StatsContainer, Bounds2(0, 0, 100, 100));
 	nano2LinesContainer = new Container(nano2StatsContainer, Bounds2(100, 0, 100, 100));
@@ -41,9 +41,9 @@ PlayScreen::PlayScreen() : GenericScreen() {
 	nano3Container = new Container(gameContainer, Bounds2((int) gameContainer->bounds.size.x / 3 * 2, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
 	nano3TextareaContainer = new Container(nano3Container, Bounds2(20, 20, (int) nano3Container->bounds.size.x - 120, (int) nano3Container->bounds.size.y - 120));
 	nano3InfoContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x - 100, (int)nano3Container->bounds.size.y / 2 - 300, 100, 300));
-	nano3MemoryContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x - 100, 0, 100, 100));
-	nano3TestContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x - 100, 100, 100, 100));
-	nano3RxContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x - 100, 200, 100, 100));
+	nano3MemoryContainer = new Container(nano3InfoContainer, Bounds2(0, 0, 100, 100));
+	nano3TestContainer = new Container(nano3InfoContainer, Bounds2(0, 100, 100, 100));
+	nano3RxContainer = new Container(nano3InfoContainer, Bounds2(0, 200, 100, 100));
 	nano3StatsContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x / 2 - 150, (int) nano3Container->bounds.size.y - 100, 300, 100));
 	nano3CyclesContainer = new Container(nano3StatsContainer, Bounds2(0, 0, 100, 100));
 	nano3LinesContainer = new Container(nano3StatsContainer, Bounds2(100, 0, 100, 100));
@@ -101,11 +101,22 @@ void PlayScreen::init() {
 	nano3LinesText = new Text(nano3LinesContainer, Vector2f(nano3LinesContainer->bounds.size.x / 2 - 5, nano3LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2 - 5, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
-	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 10");
-	mission->getNano(Mission::NANO1)->code->setText(1, "SUB M1 M1 5");
-	mission->getNano(Mission::NANO1)->code->setText(2, "# A COMMENT WOW");
-	mission->getNano(Mission::NANO1)->code->setText(3, "#MOV A, D");
-	mission->getNano(Mission::NANO1)->code->setText(4, "NOP");
+	//mission->getNano(Mission::NANO1)->code->setText(0, "ADD N2 M1 10");
+	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(1, "# A COMMENT WOW");
+	mission->getNano(Mission::NANO1)->code->setText(2, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(3, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(4, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(5, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(6, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(7, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(8, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(9, "MOV N2 M1");
+
+
+	mission->getNano(Mission::NANO2)->code->setText(0, "NOP");
+	mission->getNano(Mission::NANO2)->code->setText(1, "MOV M1 RX");
+	mission->getNano(Mission::NANO2)->code->setText(2, "SUB M1 M1 1");
 }
 
 void PlayScreen::render() {
@@ -122,22 +133,31 @@ void PlayScreen::render() {
 	nano1CyclesText->render();
 	nano1CyclesText->updateText(std::to_string(mission->getNano(Mission::NANO1)->cycles));
 	nano1LinesText->render();
+	nano1LinesText->updateText(std::to_string(mission->getNano(Mission::NANO1)->code->getNonEmptyLines()));
 	nano1ComplexityText->render();
 
 	nano2MemoryText->render();
 	nano2MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO2)->memory));
 	nano2TestText->render();
+	nano2TestText->updateText(std::to_string(mission->getNano(Mission::NANO2)->test));
 	nano2RxText->render();
+	nano2RxText->updateText(std::to_string(mission->getNano(Mission::NANO2)->rx));
 	nano2CyclesText->render();
+	nano2CyclesText->updateText(std::to_string(mission->getNano(Mission::NANO2)->cycles));
 	nano2LinesText->render();
+	nano2LinesText->updateText(std::to_string(mission->getNano(Mission::NANO2)->code->getNonEmptyLines()));
 	nano2ComplexityText->render();
 
 	nano3MemoryText->render();
 	nano3MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO3)->memory));
 	nano3TestText->render();
+	nano3TestText->updateText(std::to_string(mission->getNano(Mission::NANO3)->test));
 	nano3RxText->render();
+	nano3RxText->updateText(std::to_string(mission->getNano(Mission::NANO3)->rx));
 	nano3CyclesText->render();
+	nano3CyclesText->updateText(std::to_string(mission->getNano(Mission::NANO3)->cycles));
 	nano3LinesText->render();
+	nano3LinesText->updateText(std::to_string(mission->getNano(Mission::NANO3)->code->getNonEmptyLines()));
 	nano3ComplexityText->render();
 
 	input1->render();

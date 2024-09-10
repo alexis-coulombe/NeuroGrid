@@ -2,7 +2,7 @@
 #define ASM_OPERATIONFACTORY_H_
 
 #include <memory>
-#include "Operator.h"
+#include "Operation.h"
 #include "operators/OperationType.h"
 
 class OperationFactory {

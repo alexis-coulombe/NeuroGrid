@@ -86,6 +86,30 @@ class Mission1 : public Mission {
 			return;
 		}
 
+		nano1.memory = 0;
+		nano2.memory = 0;
+		nano3.memory = 0;
+
+		nano1.rx = 0;
+		nano2.rx = 0;
+		nano3.rx = 0;
+
+		nano1.test = 0;
+		nano2.test = 0;
+		nano3.test = 0;
+
+		nano1.cycles = 0;
+		nano2.cycles = 0;
+		nano3.cycles = 0;
+
+		nano1.currentParseLine = 0;
+		nano2.currentParseLine = 0;
+		nano3.currentParseLine = 0;
+
+		nano1.code->blocking = false;
+		nano2.code->blocking = false;
+		nano3.code->blocking = false;
+
 		nano1.code->readonly = false;
 		nano2.code->readonly = false;
 		nano3.code->readonly = false;

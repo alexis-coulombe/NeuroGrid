@@ -6,7 +6,8 @@
 
 class NanoTextarea : public Textarea {
  public:
-	ParserError error;
+	ParserError error = ParserError("", "", ParserError::ERROR_TYPE::NONE, 0);
+	bool blocking = false;
 
 	NanoTextarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor);
 

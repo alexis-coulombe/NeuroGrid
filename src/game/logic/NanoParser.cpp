@@ -35,12 +35,15 @@ void NanoParser::parseLine(Nano *currentNano) {
 
 		if (operationHandler != nullptr) {
 			operationHandler->execute(currentNano, lexer, currentNano->currentParseLine);
-			currentNano->cycles++;
+
+			if(!currentNano->code->blocking) {
+				currentNano->cycles++;
+				currentNano->increaseParseLine();
+			}
 		} else {
 			currentNano->code->error = ParserError("Unknown operation", "Operation not supported", ParserError::ERROR_TYPE::UNKNOWN_OPERATION, currentNano->currentParseLine);
 		}
 
-		currentNano->increaseParseLine();
 		return;
 	}
 }
