@@ -56,6 +56,7 @@ class Textarea {
 	void setText(uint8_t line, std::string text);
 	void setParentContainer(Container *container);
 	Vector2f getRelativePositionWithParentContainer();
+	uint8_t getLineOfLabel(std::string label);
 };
 
 #endif //ASM_TEXTAREA_H

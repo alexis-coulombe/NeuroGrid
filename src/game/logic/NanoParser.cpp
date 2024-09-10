@@ -11,6 +11,10 @@ void NanoParser::step() {
 }
 
 void NanoParser::parseLine(Nano *currentNano) {
+	if(currentNano->code->getNonEmptyLines() <= 0) {
+		return;
+	}
+
 	std::string line = currentNano->code->getLines()->at(currentNano->currentParseLine);
 
 	Lexer lexer = Lexer(line);
@@ -20,10 +24,17 @@ void NanoParser::parseLine(Nano *currentNano) {
 
 	if (token.type == Token::TOKEN_END) {
 		currentNano->increaseParseLine();
+		parseLine(currentNano);
 		return;
 	}
 
 	if (token.type == Token::TOKEN_COMMENT) {
+		currentNano->increaseParseLine();
+		parseLine(currentNano);
+		return;
+	}
+
+	if (token.type == Token::TOKEN_LABEL) {
 		currentNano->increaseParseLine();
 		parseLine(currentNano);
 		return;
@@ -36,7 +47,7 @@ void NanoParser::parseLine(Nano *currentNano) {
 		if (operationHandler != nullptr) {
 			operationHandler->execute(currentNano, lexer, currentNano->currentParseLine);
 
-			if(!currentNano->code->blocking) {
+			if (!currentNano->code->blocking) {
 				currentNano->cycles++;
 				currentNano->increaseParseLine();
 			}
@@ -57,6 +68,8 @@ OPERATION_TYPE NanoParser::parseSymbol(const std::string &symbol) {
 		return OPERATION_TYPE::SUB;
 	} else if (symbol == "NOP") {
 		return OPERATION_TYPE::NOP;
+	} else if (symbol == "JMP") {
+		return OPERATION_TYPE::JMP;
 	} else {
 		return OPERATION_TYPE::INVALID_OP;
 	}

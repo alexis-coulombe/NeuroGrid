@@ -8,6 +8,7 @@ class ParserError {
 	enum ERROR_TYPE {
 		NONE = 0,
 		INVALID_OPERANDS,
+		LABEL_NOT_FOUND,
 		UNKNOWN_OPERATION,
 	};
 

@@ -20,6 +20,7 @@ class Nano {
 	void setParentContainer(Container *container);
 	void render();
 	void increaseParseLine();
+	void reset();
 };
 
 #endif //ASM_SRC_GAME_NANO_H_

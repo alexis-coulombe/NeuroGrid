@@ -6,6 +6,7 @@ enum OPERATION_TYPE {
 	ADD,
 	SUB,
 	NOP,
+	JMP,
 	INVALID_OP
 };
 

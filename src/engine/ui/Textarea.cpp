@@ -251,3 +251,13 @@ Vector2f Textarea::getRelativePositionWithParentContainer() {
 
 	return bounds->position + parentContainer->bounds.position;
 }
+
+uint8_t Textarea::getLineOfLabel(std::string label) {
+	for (size_t i = 0; i < lines->size(); i++) {
+		if (lines->at(i) == std::string("." + label)) {
+			return i;
+		}
+	}
+
+	return 0xFF;
+}

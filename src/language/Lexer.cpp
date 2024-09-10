@@ -42,7 +42,9 @@ Token Lexer::next() {
 			cursor++;
 		}
 
-		if (token.text == "M0" || token.text == "M1" || token.text == "PC" || token.text == "RX" || token.text == "N1" || token.text == "N2" || token.text == "N3") {
+		if (token.text == "M0" || token.text == "M1" || token.text == "PC" ||
+			  token.text == "RX" || token.text == "N1" || token.text == "N2" ||
+				token.text == "N3") {
 			token.type = Token::TOKEN_REGISTER;
 		} else if (token.text == "A" || token.text == "B" || token.text == "C" || token.text == "D" || token.text == "E" || token.text == "F") {
 			token.type = Token::TOKEN_IO;

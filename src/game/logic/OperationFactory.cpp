@@ -3,6 +3,7 @@
 #include "operators/NopOperation.h"
 #include "operators/AddOperation.h"
 #include "operators/SubOperation.h"
+#include "operators/JmpOperation.h"
 
 std::unique_ptr<Operation> OperationFactory::createOperation(OPERATION_TYPE operation) {
 	switch (operation) {
@@ -17,6 +18,9 @@ std::unique_ptr<Operation> OperationFactory::createOperation(OPERATION_TYPE oper
 		}
 		case OPERATION_TYPE::SUB: {
 			return std::make_unique<SubOperation>();
+		}
+		case OPERATION_TYPE::JMP: {
+			return std::make_unique<JmpOperation>();
 		}
 		default: {
 			return nullptr;
