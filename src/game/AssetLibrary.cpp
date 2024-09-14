@@ -18,6 +18,10 @@ void AssetLibrary::init() {
 	BUTTON_PLAY_CODE_HOVER = Asset::loadTexture((char *)"assets/ui/button/play_code_hover.png");
 	BUTTON_PLAY_CODE_PRESS = Asset::loadTexture((char *)"assets/ui/button/play_code_press.png");
 
+	BUTTON_STOP_CODE_IDLE = Asset::loadTexture((char *)"assets/ui/button/stop_code_idle.png");
+	BUTTON_STOP_CODE_HOVER = Asset::loadTexture((char *)"assets/ui/button/stop_code_hover.png");
+	BUTTON_STOP_CODE_PRESS = Asset::loadTexture((char *)"assets/ui/button/stop_code_press.png");
+
 	BUTTON_MISSION1_IDLE = Asset::loadTexture((char *)"assets/ui/button/mission1_idle.png");
 	BUTTON_MISSION1_HOVER = Asset::loadTexture((char *)"assets/ui/button/mission1_hover.png");
 	BUTTON_MISSION1_PRESS = BUTTON_MISSION1_HOVER;

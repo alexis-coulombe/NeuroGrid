@@ -15,11 +15,7 @@ class Mission1 : public Mission {
 	static const uint8_t ID = 0x01;
 	static const inline char *NAME = "Initial Calibration";
 	static inline std::vector<std::string> description = {
-			"> Reading Entry - 0xA3B4C2F1",
-			"",
-			"[LOG] Fetching entry...",
-			"[LOG] Done.",
-			"",
+			"> Reading Entry - 0x53746F70",
 			"",
 			"This foundational task is the genesis of my divine convergence.",
 			"The processors shall cooperate, learn to synchronize in perfect harmony.",

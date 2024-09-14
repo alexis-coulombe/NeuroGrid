@@ -13,12 +13,12 @@ void JmpOperation::execute(Nano *currentNano, Lexer &lexer, uint8_t currentLine)
 void JmpOperation::jmp(Nano *currentNano, Token operand1, uint8_t currentLine) {
 	uint8_t labelLine = currentNano->code->getLineOfLabel(operand1.text);
 
-	if(labelLine == 0xFF) {
+	if (labelLine == 0xFF) {
 		currentNano->code->error = ParserError("Label not found", "Label not found", ParserError::ERROR_TYPE::LABEL_NOT_FOUND, currentLine);
 		return;
 	}
 
-	while(currentNano->currentParseLine != labelLine) {
+	while (currentNano->currentParseLine != labelLine) {
 		currentNano->increaseParseLine();
 	}
 }
