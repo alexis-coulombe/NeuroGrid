@@ -18,6 +18,7 @@ class Timer {
     void tick();
     void enable();
     void disable();
+		void reset();
 };
 
 #endif //ASM_TIMER_H

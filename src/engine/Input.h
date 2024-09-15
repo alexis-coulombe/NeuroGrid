@@ -173,7 +173,6 @@ class Input {
 	std::unordered_set<MouseButton> mouseButtonsHeld;
 	std::unordered_set<MouseButton> mouseButtonsUp;
 	std::unordered_set<Key> keysDown;
-	std::unordered_set<Key> keysDownAutorepeat;
 	std::unordered_set<Key> keysHeld;
 	std::unordered_set<Key> keysUp;
 };

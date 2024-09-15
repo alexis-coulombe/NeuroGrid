@@ -27,3 +27,8 @@ void Timer::enable() {
 void Timer::disable() {
     enabled = false;
 }
+
+void Timer::reset() {
+		timerValue = 0;
+		expired = false;
+}

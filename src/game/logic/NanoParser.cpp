@@ -1,5 +1,8 @@
 #include "NanoParser.h"
 #include "../../language/Lexer.h"
+#include "../MissionManager.h"
+#include "../AssetLibrary.h"
+#include "../../engine/Audio.h"
 
 NanoParser::NanoParser(Nano *nano1, Nano *nano2, Nano *nano3) : nano1(nano1), nano2(nano2), nano3(nano3) {
 }
@@ -8,6 +11,15 @@ void NanoParser::step() {
 	parseLine(nano1);
 	parseLine(nano2);
 	parseLine(nano3);
+
+	if(nano1->code->error.type != ParserError::ERROR_TYPE::NONE || nano2->code->error.type != ParserError::ERROR_TYPE::NONE || nano3->code->error.type != ParserError::ERROR_TYPE::NONE) {
+		MissionManager::getInstance()->currentMission->setParsing(false);
+		Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
+		return;
+	}
+}
+
+void NanoParser::stop() {
 }
 
 void NanoParser::parseLine(Nano *currentNano) {
@@ -22,19 +34,13 @@ void NanoParser::parseLine(Nano *currentNano) {
 
 	currentNano->code->highlightedLine = currentNano->currentParseLine;
 
-	if (token.type == Token::TOKEN_END) {
-		currentNano->increaseParseLine();
-		parseLine(currentNano);
+	if(token.type == Token::TOKEN_INVALID) {
+		currentNano->code->error = ParserError("Invalid token", "Invalid token", ParserError::ERROR_TYPE::INVALID_TOKEN, currentNano->currentParseLine);
 		return;
 	}
 
-	if (token.type == Token::TOKEN_COMMENT) {
-		currentNano->increaseParseLine();
-		parseLine(currentNano);
-		return;
-	}
-
-	if (token.type == Token::TOKEN_LABEL) {
+	// Skip these tokens
+	if (token.type == Token::TOKEN_END || token.type == Token::TOKEN_COMMENT || token.type == Token::TOKEN_LABEL) {
 		currentNano->increaseParseLine();
 		parseLine(currentNano);
 		return;

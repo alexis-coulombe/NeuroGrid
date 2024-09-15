@@ -1,6 +1,7 @@
 #include "Mission1Button.h"
 #include "../../../../mission/Mission1-7/Mission1.h"
 #include "../../../../AssetLibrary.h"
+#include "../../../../MissionManager.h"
 
 Mission1Button::Mission1Button(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {
 }
@@ -10,7 +11,8 @@ void Mission1Button::onRender() {
 }
 
 void Mission1Button::onClick() {
-	*missionDescription = Mission1::description;
+	MissionManager::getInstance()->updateCurrentMission(Mission1::ID);
+	*missionDescription = MissionManager::getInstance()->currentMission->getIntro();
 }
 
 void Mission1Button::onPress() {

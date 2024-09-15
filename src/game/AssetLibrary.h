@@ -4,6 +4,7 @@
 #include "../engine/utility/Texture.h"
 #include "../engine/utility/Asset.h"
 #include "../engine/utility/Music.h"
+#include "../engine/utility/Sound.h"
 
 class AssetLibrary {
  public:
@@ -51,10 +52,7 @@ class AssetLibrary {
 
 	static inline const Texture *CONTAINER_MISSION_PLAY = nullptr;
 
-	static inline const Texture *ANIMATION_RED_BARS_1 = nullptr;
-	static inline const Texture *ANIMATION_RED_BARS_2 = nullptr;
-	static inline const Texture *ANIMATION_RED_BARS_3 = nullptr;
-	static inline const Texture *ANIMATION_RED_BARS_4 = nullptr;
+	static inline const Sound   *ERROR_SOUND = nullptr;
 };
 
 #endif //ASM_SRC_ENGINE_ASSETLIBRARY_H_

@@ -29,7 +29,7 @@ Token Lexer::next() {
 			token.text.push_back(content.at(cursor));
 			cursor++;
 		}
-		if (cursor < content.length() && content.at(cursor) != ' ') {
+		if (cursor < content.length() && content.at(cursor) == ' ') {
 			token.type = Token::TOKEN_INVALID;
 		}
 		return token;

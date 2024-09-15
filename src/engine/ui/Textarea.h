@@ -8,6 +8,8 @@
 #include "../Graphics.h"
 #include "../utility/Asset.h"
 #include "Container.h"
+#include "../utility/Timer.h"
+#include "../../Config.h"
 #include <sstream>
 
 class Textarea {
@@ -19,6 +21,11 @@ class Textarea {
 	uint8_t caretAnimation = 0;
 	bool showCaret = true;
 	uint8_t lastLine;
+
+	static inline bool keyWasPressed = false;
+	static inline bool resetTimer = false;
+	static void handleKeyPressed();
+ 	Timer *timer;
 
  public:
 	uint8_t cols, rows;
@@ -41,7 +48,8 @@ class Textarea {
 
 	virtual void onClick();
 	virtual void onHover() = 0;
-	virtual void onRender(uint8_t line) = 0;
+	virtual void onBeforeRender(uint8_t line) = 0;
+	virtual void onAfterRender(uint8_t line) = 0;
 	virtual void onLineExit(uint8_t line) = 0;
 	virtual void onLineEnter(uint8_t line) = 0;
 	virtual void onLineChange(uint8_t line) = 0;
@@ -57,6 +65,18 @@ class Textarea {
 	void setParentContainer(Container *container);
 	Vector2f getRelativePositionWithParentContainer();
 	uint8_t getLineOfLabel(std::string label);
+
+	void onKeyUp();
+	void onKeyDown();
+	void onKeyLeft();
+	void onKeyRight();
+	void onKeyEnter();
+	void onKeyBackspace();
+	void onKeyDelete();
+	void onKeyHome();
+	void onKeyEnd();
+	void onKeyPageUp();
+	void onKeyPageDown();
 };
 
 #endif //ASM_TEXTAREA_H

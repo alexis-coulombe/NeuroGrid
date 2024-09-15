@@ -15,6 +15,7 @@ class NanoParser {
 	NanoParser(Nano *nano1, Nano *nano2, Nano *nano3);
 
 	void step();
+	void stop();
 	void parseLine(Nano *currentNano);
 	OPERATION_TYPE parseSymbol(const std::string& symbol);
 };

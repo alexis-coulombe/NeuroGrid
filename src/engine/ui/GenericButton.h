@@ -21,6 +21,7 @@ class GenericButton {
 	GenericButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel);
 	Vector2f getRelativePositionWithParentContainer();
 	void setBounds(Bounds2 bounds);
+	void click();
 
 	virtual void onRender() = 0;
 	virtual void onPress() = 0;

@@ -27,6 +27,6 @@ void Nano::reset() {
 	memory = 0;
 	rx = 0;
 	test = 0;
-	code->error = ParserError("", "", ParserError::ERROR_TYPE::NONE, 0);
 	code->highlightedLine = 0xFF;
+	code->readonly = false;
 }

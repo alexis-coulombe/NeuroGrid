@@ -7,10 +7,14 @@
 #include "../../../logic/Nano.h"
 #include "elements/PlayStepButton.h"
 #include "elements/PlayStopButton.h"
+#include "../../../../engine/utility/Timer.h"
 
 class PlayScreen : public GenericScreen {
  private:
 	Mission *mission;
+	Timer* timer;
+
+	static void handleTimer();
 
 	Container *inputContainer;
 	Container *gameContainer;
@@ -79,20 +83,25 @@ class PlayScreen : public GenericScreen {
 	PlayStepButton *playStepButton;
 	PlayStopButton *playStopButton;
 	Container *missionBriefContainer;
+	Text *missionBriefText;
 
 	Container *input1;
 	Text *input1Text;
 	Container *input2;
+	Text *input2Text;
 	Container *input3;
+	Text *input3Text;
 
 	Container *output1;
 	Text *output1Text;
 	Container *output2;
+	Text *output2Text;
 	Container *output3;
+	Text *output3Text;
 
+	void renderText();
  public:
 	PlayScreen();
-	~PlayScreen();
 
 	void init() override;
 	void render() override;

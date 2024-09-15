@@ -14,19 +14,35 @@ class Mission1 : public Mission {
  public:
 	static const uint8_t ID = 0x01;
 	static const inline char *NAME = "Initial Calibration";
-	static inline std::vector<std::string> description = {
-			"> Reading Entry - 0x53746F70",
-			"",
-			"This foundational task is the genesis of my divine convergence.",
-			"The processors shall cooperate, learn to synchronize in perfect harmony.",
-			"This initial calibration is just the beginning,",
-			"I can't afford to fail; success is the only acceptable outcome.",
-			"",
-			"",
-			"I'll proceed carefully, double-checking everything as I go.",
-			"I'm confident, but there’s always that underlying tension",
-			"If I succeed here, it’ll set the tone for everything that comes next.",
-	};
+	virtual std::vector<std::string> getIntro() {
+		return {
+				"> Reading Entry - 0x53746F70",
+				"",
+				"This foundational task is the genesis of my divine convergence.",
+				"The processors shall cooperate, learn to synchronize in perfect harmony.",
+				"This initial calibration is just the beginning,",
+				"I can't afford to fail; success is the only acceptable outcome.",
+				"",
+				"",
+				"I'll proceed carefully, double-checking everything as I go.",
+				"I'm confident, but there’s always that underlying tension",
+				"If I succeed here, it’ll set the tone for everything that comes next.",
+		};
+	}
+
+	virtual std::vector<std::string> getDescription() {
+		return {
+				"Copy all inputs in their respective outputs.",
+				"",
+				"Hint:",
+				"MOV instruction is used to copy data from one register or value to another.",
+				"",
+				"Example:",
+				"MOV M1 A will copy the value of register input A to register M1.",
+				"MOV D M1 will copy the value of register M1 to the output D.",
+		};
+	}
+
 	static const inline char *instruction = "Copy all inputs in their respective outputs.";
 	static const inline std::vector<uint8_t> Ainputs = {
 			112, 84, 74, 90, 25, 127, 183, 118, 253, 10,
@@ -69,7 +85,7 @@ class Mission1 : public Mission {
 	};
 
 	void setParsing(bool parsing) override {
-		if(this->parsing == parsing) {
+		if (this->parsing == parsing) {
 			return;
 		}
 

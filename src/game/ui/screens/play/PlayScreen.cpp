@@ -2,72 +2,71 @@
 #include "../../../GameState.h"
 #include "../../../mission/Mission1-7/Mission1.h"
 #include "../../../MissionManager.h"
-#include "../../../../engine/utility/Timer.h"
 #include "../../../../engine/fileIO/SaveFileManager.h"
 #include "../../../AssetLibrary.h"
 
-void handleTimer();
-Timer timer = Timer(5 * 60 * TARGET_FPS, true, handleTimer);
-
 PlayScreen::PlayScreen() : GenericScreen() {
+	timer = new Timer(5 * 60 * TARGET_FPS, true, handleTimer);
+
 	inputContainer = new Container(screenContainer, Bounds2(0, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
 	gameContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6), 0, (std::min((int)Window::width, 1920) / 6) * 4, std::min((int)Window::height, 1080)));
 	outputContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6) * 5, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
 
-	nano1Container = new Container(gameContainer, Bounds2(0, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
-	nano1TextareaContainer = new Container(nano1Container, Bounds2(20, 20, (int) nano1Container->bounds.size.x - 120, (int) nano1Container->bounds.size.y - 120));
+	nano1Container = new Container(gameContainer, Bounds2(0, 0, (int)gameContainer->bounds.size.x / 3, (int)gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
+	nano1TextareaContainer = new Container(nano1Container, Bounds2(20, 20, (int)nano1Container->bounds.size.x - 120, (int)nano1Container->bounds.size.y - 120));
 	// Nano 1 - Nano Info
-	nano1InfoContainer = new Container(nano1Container, Bounds2((int) nano1Container->bounds.size.x - 100, (int)nano1Container->bounds.size.y / 2 - 300, 100, 300));
+	nano1InfoContainer = new Container(nano1Container, Bounds2((int)nano1Container->bounds.size.x - 100, (int)nano1Container->bounds.size.y / 2 - 300, 100, 300));
 	nano1MemoryContainer = new Container(nano1InfoContainer, Bounds2(0, 0, 100, 100));
 	nano1TestContainer = new Container(nano1InfoContainer, Bounds2(0, 100, 100, 100));
 	nano1RxContainer = new Container(nano1InfoContainer, Bounds2(0, 200, 100, 100));
 	// Nano 1 - Stats
-	nano1StatsContainer = new Container(nano1Container, Bounds2((int) nano1Container->bounds.size.x / 2 - 150, (int) nano1Container->bounds.size.y - 100, 300, 100));
+	nano1StatsContainer = new Container(nano1Container, Bounds2((int)nano1Container->bounds.size.x / 2 - 150, (int)nano1Container->bounds.size.y - 100, 300, 100));
 	nano1CyclesContainer = new Container(nano1StatsContainer, Bounds2(0, 0, 100, 100));
 	nano1LinesContainer = new Container(nano1StatsContainer, Bounds2(100, 0, 100, 100));
 	nano1ComplexityContainer = new Container(nano1StatsContainer, Bounds2(200, 0, 100, 100));
 
-	nano2Container = new Container(gameContainer, Bounds2((int) gameContainer->bounds.size.x / 3, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
-	nano2TextareaContainer = new Container(nano2Container, Bounds2(20, 20, (int) nano2Container->bounds.size.x - 120, (int) nano2Container->bounds.size.y - 120));
-	nano2InfoContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x - 100, (int)nano2Container->bounds.size.y / 2 - 300, 100, 300));
+	nano2Container = new Container(gameContainer, Bounds2((int)gameContainer->bounds.size.x / 3, 0, (int)gameContainer->bounds.size.x / 3, (int)gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
+	nano2TextareaContainer = new Container(nano2Container, Bounds2(20, 20, (int)nano2Container->bounds.size.x - 120, (int)nano2Container->bounds.size.y - 120));
+	nano2InfoContainer = new Container(nano2Container, Bounds2((int)nano2Container->bounds.size.x - 100, (int)nano2Container->bounds.size.y / 2 - 300, 100, 300));
 	nano2MemoryContainer = new Container(nano2InfoContainer, Bounds2(0, 0, 100, 100));
 	nano2TestContainer = new Container(nano2InfoContainer, Bounds2(0, 100, 100, 100));
 	nano2RxContainer = new Container(nano2InfoContainer, Bounds2(0, 200, 100, 100));
-	nano2StatsContainer = new Container(nano2Container, Bounds2((int) nano2Container->bounds.size.x / 2 - 150, (int) nano2Container->bounds.size.y - 100, 300, 100));
+	nano2StatsContainer = new Container(nano2Container, Bounds2((int)nano2Container->bounds.size.x / 2 - 150, (int)nano2Container->bounds.size.y - 100, 300, 100));
 	nano2CyclesContainer = new Container(nano2StatsContainer, Bounds2(0, 0, 100, 100));
 	nano2LinesContainer = new Container(nano2StatsContainer, Bounds2(100, 0, 100, 100));
 	nano2ComplexityContainer = new Container(nano2StatsContainer, Bounds2(200, 0, 100, 100));
 
-	nano3Container = new Container(gameContainer, Bounds2((int) gameContainer->bounds.size.x / 3 * 2, 0, (int) gameContainer->bounds.size.x / 3, (int) gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
-	nano3TextareaContainer = new Container(nano3Container, Bounds2(20, 20, (int) nano3Container->bounds.size.x - 120, (int) nano3Container->bounds.size.y - 120));
-	nano3InfoContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x - 100, (int)nano3Container->bounds.size.y / 2 - 300, 100, 300));
+	nano3Container = new Container(gameContainer, Bounds2((int)gameContainer->bounds.size.x / 3 * 2, 0, (int)gameContainer->bounds.size.x / 3, (int)gameContainer->bounds.size.y / 4 * 3), AssetLibrary::CONTAINER_MISSION_PLAY);
+	nano3TextareaContainer = new Container(nano3Container, Bounds2(20, 20, (int)nano3Container->bounds.size.x - 120, (int)nano3Container->bounds.size.y - 120));
+	nano3InfoContainer = new Container(nano3Container, Bounds2((int)nano3Container->bounds.size.x - 100, (int)nano3Container->bounds.size.y / 2 - 300, 100, 300));
 	nano3MemoryContainer = new Container(nano3InfoContainer, Bounds2(0, 0, 100, 100));
 	nano3TestContainer = new Container(nano3InfoContainer, Bounds2(0, 100, 100, 100));
 	nano3RxContainer = new Container(nano3InfoContainer, Bounds2(0, 200, 100, 100));
-	nano3StatsContainer = new Container(nano3Container, Bounds2((int) nano3Container->bounds.size.x / 2 - 150, (int) nano3Container->bounds.size.y - 100, 300, 100));
+	nano3StatsContainer = new Container(nano3Container, Bounds2((int)nano3Container->bounds.size.x / 2 - 150, (int)nano3Container->bounds.size.y - 100, 300, 100));
 	nano3CyclesContainer = new Container(nano3StatsContainer, Bounds2(0, 0, 100, 100));
 	nano3LinesContainer = new Container(nano3StatsContainer, Bounds2(100, 0, 100, 100));
 	nano3ComplexityContainer = new Container(nano3StatsContainer, Bounds2(200, 0, 100, 100));
 
-	missionContainer = new Container(gameContainer, Bounds2(0, (int) gameContainer->bounds.size.y / 4 * 3, (int) gameContainer->bounds.size.x, (int) gameContainer->bounds.size.y / 4));
-	missionActionContainer = new Container(missionContainer, Bounds2(0, 0, (int) missionContainer->bounds.size.x, (int) missionContainer->bounds.size.y / 3));
-	playStepButton = new PlayStepButton(missionActionContainer, Bounds2(0, 0, (int) missionActionContainer->bounds.size.x / 4, (int) missionActionContainer->bounds.size.y), Color::WHITE, 0);
-	playStopButton = new PlayStopButton(missionActionContainer, Bounds2((int) missionActionContainer->bounds.size.x / 4, 0, (int) missionActionContainer->bounds.size.x / 4, (int) missionActionContainer->bounds.size.y), Color::WHITE, 0);
+	missionContainer = new Container(gameContainer, Bounds2(0, (int)gameContainer->bounds.size.y / 4 * 3, (int)gameContainer->bounds.size.x, (int)gameContainer->bounds.size.y / 4));
+	missionActionContainer = new Container(missionContainer, Bounds2(0, 0, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3));
+	playStepButton = new PlayStepButton(missionActionContainer, Bounds2(0, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
+	playStopButton = new PlayStopButton(missionActionContainer, Bounds2((int)missionActionContainer->bounds.size.x / 4, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
 
-	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int) missionContainer->bounds.size.x / 3, (int) missionContainer->bounds.size.x / 3 * 2, (int) missionContainer->bounds.size.y));
+	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int)missionContainer->bounds.size.y / 3, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3 * 2));
 
-	input1 = new Container(inputContainer, Bounds2(0, 0, (int) inputContainer->bounds.size.x / 3, (int) inputContainer->bounds.size.y));
+	input1 = new Container(inputContainer, Bounds2(0, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
 	input1Text = new Text(input1, Vector2f(), Mission1::Ainputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
-	input2 = new Container(inputContainer, Bounds2((int) inputContainer->bounds.size.x / 3, 0, (int) inputContainer->bounds.size.x / 3, (int) inputContainer->bounds.size.y));
-	input3 = new Container(inputContainer, Bounds2((int) inputContainer->bounds.size.x / 3 * 2, 0, (int) inputContainer->bounds.size.x / 3, (int) inputContainer->bounds.size.y));
+	input2 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
+	input2Text = new Text(input2, Vector2f(), Mission1::Binputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
+	input3 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3 * 2, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
+	input3Text = new Text(input3, Vector2f(), Mission1::Cinputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 
-	output1 = new Container(outputContainer, Bounds2(0, 0, (int) outputContainer->bounds.size.x / 3, (int) outputContainer->bounds.size.y));
+	output1 = new Container(outputContainer, Bounds2(0, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
 	output1Text = new Text(output1, Vector2f(), Mission1::Doutputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
-	output2 = new Container(outputContainer, Bounds2((int) outputContainer->bounds.size.x / 3, 0, (int) outputContainer->bounds.size.x / 3, (int) outputContainer->bounds.size.y));
-	output3 = new Container(outputContainer, Bounds2((int) outputContainer->bounds.size.x / 3 * 2, 0, (int) outputContainer->bounds.size.x / 3, (int) outputContainer->bounds.size.y));
-}
-
-PlayScreen::~PlayScreen() {
+	output2 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
+	output2Text = new Text(output2, Vector2f(), Mission1::Doutputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
+	output3 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3 * 2, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
+	output3Text = new Text(output3, Vector2f(), Mission1::Doutputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 }
 
 void PlayScreen::init() {
@@ -101,6 +100,8 @@ void PlayScreen::init() {
 	nano3LinesText = new Text(nano3LinesContainer, Vector2f(nano3LinesContainer->bounds.size.x / 2 - 5, nano3LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2 - 5, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
+	missionBriefText = new Text(missionBriefContainer, Vector2f(), mission->getDescription(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 18));
+
 	//mission->getNano(Mission::NANO1)->code->setText(0, "ADD N2 M1 10");
 	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 1");
 	mission->getNano(Mission::NANO1)->code->setText(1, "# A COMMENT WOW");
@@ -117,12 +118,60 @@ void PlayScreen::init() {
 	//mission->getNano(Mission::NANO2)->code->setText(2, "SUB M1 M1 1");
 }
 
+uint8_t memory = 0;
+
 void PlayScreen::render() {
 	nano1Container->render();
 	nano2Container->render();
 	nano3Container->render();
 
+	missionBriefContainer->render(true);
+
+	renderText();
+
+	input1->render();
+	input2->render();
+	input3->render();
+
+	output1->render();
+	output2->render();
+	output3->render();
+
+	playStepButton->render();
+	playStopButton->render();
+
+	mission->render(Mission::NANO1);
+	mission->render(Mission::NANO2);
+	mission->render(Mission::NANO3);
+
+	if (Input::getInstance()->getKeyDown(Input::Tab)) {
+		playStepButton->click();
+	}
+
+	if (Input::getInstance()->getKeyDown(Input::Escape)) {
+		playStopButton->click();
+	}
+
+	timer->tick();
+}
+
+void PlayScreen::onWindowResized() {
+
+}
+
+void PlayScreen::renderText() {
+	input1Text->render();
+	input2Text->render();
+	input3Text->render();
+
+	output1Text->render();
+	output2Text->render();
+	output3Text->render();
+
+	missionBriefText->render();
+
 	nano1MemoryText->render();
+	nano1MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO1)->memory));
 	nano1MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO1)->memory));
 	nano1TestText->render();
 	nano1TestText->updateText(std::to_string(mission->getNano(Mission::NANO1)->test));
@@ -157,40 +206,8 @@ void PlayScreen::render() {
 	nano3LinesText->render();
 	nano3LinesText->updateText(std::to_string(mission->getNano(Mission::NANO3)->code->getNonEmptyLines()));
 	nano3ComplexityText->render();
-
-	input1->render();
-	input1Text->render();
-	input2->render();
-	input3->render();
-
-	output1->render();
-	output1Text->render();
-	output2->render();
-	output3->render();
-
-	playStepButton->render();
-	playStopButton->render();
-
-	mission->render(Mission::NANO1);
-	mission->render(Mission::NANO2);
-	mission->render(Mission::NANO3);
-
-	if(Input::getInstance()->getKeyDown(Input::Tab)) {
-		mission->setParsing(true);
-		mission->stepParsing();
-	}
-
-	if(Input::getInstance()->getKeyDown(Input::Escape)) {
-		mission->setParsing(false);
-	}
-
-	timer.tick();
 }
 
-void PlayScreen::onWindowResized() {
-
-}
-
-void handleTimer() {
+void PlayScreen::handleTimer() {
 	SaveFileManager::saveGame();
 }

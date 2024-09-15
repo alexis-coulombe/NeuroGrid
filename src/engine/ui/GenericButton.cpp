@@ -45,3 +45,15 @@ void GenericButton::setBounds(Bounds2 newBounds) {
 	this->bounds = newBounds;
 	this->bounds.position = getRelativePositionWithParentContainer();
 }
+
+void GenericButton::click() {
+	if (zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
+
+	if(disabled) {
+		return;
+	}
+
+	onClick();
+}

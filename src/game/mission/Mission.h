@@ -23,6 +23,9 @@ class Mission {
 
 	NanoParser nanoParser = NanoParser(&nano1, &nano2, &nano3);
 
+	virtual std::vector<std::string> getIntro() = 0;
+	virtual std::vector<std::string> getDescription() = 0;
+
 	virtual void setParsing(bool parsing) = 0;
 	virtual void stepParsing() = 0;
 	bool getParsing() { return parsing; };

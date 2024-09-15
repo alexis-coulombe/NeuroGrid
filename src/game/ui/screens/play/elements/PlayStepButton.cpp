@@ -10,6 +10,10 @@ void PlayStepButton::linkMission(Mission *mission) {
 
 void PlayStepButton::onRender() {
 	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_PLAY_CODE_IDLE), bounds.position, color, bounds.size);
+
+	disabled = mission->getNano(Mission::NANO1)->code->error.type != ParserError::NONE ||
+			 	     mission->getNano(Mission::NANO2)->code->error.type != ParserError::NONE ||
+						 mission->getNano(Mission::NANO3)->code->error.type != ParserError::NONE;	;
 }
 
 void PlayStepButton::onPress() {

@@ -4,13 +4,13 @@
 #include "SDL_ttf.h"
 
 class Font {
-public:
-    TTF_Font *handle;
-		uint8_t pointSize;
-		uint8_t textWidth;
+ public:
+	TTF_Font *handle;
+	uint8_t pointSize;
+	uint8_t textWidth;
 	uint8_t textHeight;
 
-    explicit Font(TTF_Font *handle, uint8_t pointSize);
+	explicit Font(TTF_Font *handle, uint8_t pointSize);
 };
 
 #endif //ASM_FONT_H

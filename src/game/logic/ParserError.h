@@ -10,6 +10,7 @@ class ParserError {
 		INVALID_OPERANDS,
 		LABEL_NOT_FOUND,
 		UNKNOWN_OPERATION,
+		INVALID_TOKEN
 	};
 
 	std::string title;

@@ -6,10 +6,14 @@ Lexer *lexer;
 NanoTextarea::NanoTextarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor) : Textarea(parentContainer, position, cols, rows, font, textColor) {
 }
 
-void NanoTextarea::onRender(uint8_t line) {
+void NanoTextarea::onBeforeRender(uint8_t line) {
 	if (error.type != ParserError::NONE && line == error.line) {
-		Graphics::drawRectSolid(Bounds2(bounds->position.x, bounds->position.y + (line * font->textHeight), bounds->size.x, (float) font->textHeight), Color::RED);
+		Graphics::drawRectSolid(Bounds2(bounds->position.x, bounds->position.y + (line * font->textHeight), bounds->size.x, (float) font->textHeight), Color(Color::RED, 255/3));
 	}
+}
+
+void NanoTextarea::onAfterRender(uint8_t line) {
+
 }
 
 void NanoTextarea::onHover() {
@@ -17,7 +21,7 @@ void NanoTextarea::onHover() {
 }
 
 void NanoTextarea::onLineExit(uint8_t line) {
-	// check line validity
+	// TODO: validate line ?
 }
 
 void NanoTextarea::onLineEnter(uint8_t line) {
@@ -25,5 +29,7 @@ void NanoTextarea::onLineEnter(uint8_t line) {
 }
 
 void NanoTextarea::onLineChange(uint8_t line) {
-	// parse
+	if(line == error.line) {
+		error = ParserError("", "", ParserError::ERROR_TYPE::NONE, 0);
+	}
 }

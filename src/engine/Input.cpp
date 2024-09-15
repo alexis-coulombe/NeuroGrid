@@ -13,7 +13,6 @@ void Input::pollEvents() {
 	mouseScroll = 0;
 
 	keysDown.clear();
-	keysDownAutorepeat.clear();
 	keysUp.clear();
 	typedText.clear();
 
@@ -42,9 +41,8 @@ void Input::pollEvents() {
 			case SDL_KEYDOWN: {
 				if (event.key.repeat == 0) {
 					keysDown.insert((Key)event.key.keysym.sym);
-					keysHeld.insert((Key)event.key.keysym.sym);
 				} else {
-					keysDownAutorepeat.insert((Key)event.key.keysym.sym);
+					keysHeld.insert((Key)event.key.keysym.sym);
 				}
 				break;
 			}

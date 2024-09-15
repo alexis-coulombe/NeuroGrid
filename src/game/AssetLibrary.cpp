@@ -31,8 +31,5 @@ void AssetLibrary::init() {
 
 	CONTAINER_MISSION_PLAY = Asset::loadTexture((char *)"assets/ui/container/mission_play.png");
 
-	ANIMATION_RED_BARS_1 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_1.png");
-	ANIMATION_RED_BARS_2 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_2.png");
-	ANIMATION_RED_BARS_3 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_3.png");
-	ANIMATION_RED_BARS_4 = Asset::loadTexture((char *)"assets/ui/animation/red_bars_4.png");
+	ERROR_SOUND = new Sound(Asset::loadSound((char *)"assets/sound/error.mp3"));
 }
