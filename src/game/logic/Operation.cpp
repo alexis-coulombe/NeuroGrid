@@ -10,10 +10,26 @@ uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t cur
 			return getRegisterValue(currentNano, operand.text, currentLine);
 		}
 		case Token::TOKEN_IO: {
-			if (operand.text == "IN") {
-				// TODO: get current input from mission
-				return 0; // Placeholder
+			if (operand.text == "A") {
+				uint8_t value = std::stoi(MissionManager::getInstance()->currentMission->getInputAText()->lines.at(currentNano->currentInputALine));
+				currentNano->increaseInputLine(Nano::INPUTS::A);
+				return value;
 			}
+
+			if (operand.text == "B") {
+				uint8_t value = std::stoi(MissionManager::getInstance()->currentMission->getInputAText()->lines.at(currentNano->currentInputBLine));
+				currentNano->increaseInputLine(Nano::INPUTS::B);
+				return value;
+			}
+
+			if (operand.text == "C") {
+				uint8_t value = std::stoi(MissionManager::getInstance()->currentMission->getInputAText()->lines.at(currentNano->currentInputCLine));
+				currentNano->increaseInputLine(Nano::INPUTS::C);
+				return value;
+			}
+
+			currentNano->code->error = ParserError("Invalid operands", "Can't read from output register", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+			return 0;
 		}
 		default: {
 			currentNano->code->error = ParserError("Invalid operands", "Invalid operand type for SUB operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
@@ -29,9 +45,22 @@ void Operation::setParseOperand(Nano *currentNano, Token operand, uint8_t value,
 			break;
 		}
 		case Token::TOKEN_IO: {
-			if (operand.text == "OUT") {
-				// TODO
+			if (operand.text == "D") {
+				MissionManager::getInstance()->currentMission->getOutputDText()->lines.at(currentNano->currentOutputDLine) = std::to_string(value);
+				break;
 			}
+
+			if (operand.text == "E") {
+				MissionManager::getInstance()->currentMission->getOutputEText()->lines.at(currentNano->currentOutputELine) = std::to_string(value);
+				break;
+			}
+
+			if (operand.text == "F") {
+				MissionManager::getInstance()->currentMission->getOutputFText()->lines.at(currentNano->currentOutputFLine) = std::to_string(value);
+				break;
+			}
+
+			currentNano->code->error = ParserError("Invalid operands", "Can't write to input register", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 			break;
 		}
 		default: {
@@ -56,7 +85,7 @@ uint8_t Operation::getRegisterValue(Nano *currentNano, const std::string &reg, u
 	if (reg == "RX") {
 		uint8_t value = currentNano->rx;
 
-		if(value == 0) {
+		if (value == 0) {
 			currentNano->code->blocking = true;
 			return 0;
 		} else {

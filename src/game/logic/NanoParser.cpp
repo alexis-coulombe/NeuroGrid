@@ -33,6 +33,12 @@ void NanoParser::parseLine(Nano *currentNano) {
 	Token token = lexer.next();
 
 	currentNano->code->highlightedLine = currentNano->currentParseLine;
+	MissionManager::getInstance()->currentMission->getInputAText()->highlightedLine = currentNano->currentInputALine;
+	MissionManager::getInstance()->currentMission->getInputBText()->highlightedLine = currentNano->currentInputBLine;
+	MissionManager::getInstance()->currentMission->getInputCText()->highlightedLine = currentNano->currentInputCLine;
+	MissionManager::getInstance()->currentMission->getOutputDText()->highlightedLine = currentNano->currentOutputDLine;
+	MissionManager::getInstance()->currentMission->getOutputEText()->highlightedLine = currentNano->currentOutputELine;
+	MissionManager::getInstance()->currentMission->getOutputFText()->highlightedLine = currentNano->currentOutputFLine;
 
 	if(token.type == Token::TOKEN_INVALID) {
 		currentNano->code->error = ParserError("Invalid token", "Invalid token", ParserError::ERROR_TYPE::INVALID_TOKEN, currentNano->currentParseLine);

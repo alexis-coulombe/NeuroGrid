@@ -13,8 +13,13 @@ void JmpOperation::execute(Nano *currentNano, Lexer &lexer, uint8_t currentLine)
 void JmpOperation::jmp(Nano *currentNano, Token operand1, uint8_t currentLine) {
 	uint8_t labelLine = currentNano->code->getLineOfLabel(operand1.text);
 
-	if (labelLine == 0xFF) {
+	if (labelLine == Textarea::NOT_FOUND) {
 		currentNano->code->error = ParserError("Label not found", "Label not found", ParserError::ERROR_TYPE::LABEL_NOT_FOUND, currentLine);
+		return;
+	}
+
+	if(labelLine == Textarea::DUPLICATE) {
+		currentNano->code->error = ParserError("Duplicate label", "Duplicate label", ParserError::ERROR_TYPE::DUPLICATE_LABEL, currentLine);
 		return;
 	}
 

@@ -28,6 +28,9 @@ class Textarea {
  	Timer *timer;
 
  public:
+	static const uint8_t NOT_FOUND = 0xFF;
+	static const uint8_t DUPLICATE = 0xFF;
+
 	uint8_t cols, rows;
 	Bounds2 *bounds;
 	Container *parentContainer;
@@ -39,7 +42,7 @@ class Textarea {
 
 	bool inFocus = false;
 	bool readonly = false;
-	uint8_t highlightedLine = 0xFF;
+	uint8_t highlightedLine = NOT_FOUND;
 
 	Textarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor = Color::BLACK);
 

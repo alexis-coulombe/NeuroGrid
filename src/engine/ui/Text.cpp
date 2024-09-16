@@ -5,7 +5,7 @@
 uint8_t animationCounter = 0;
 uint8_t animationTextCounter = 0;
 
-Text::Text(Container *parentContainer, Vector2f position, std::string line, Font *font, Color color): parentContainer(parentContainer), position(position), font(font), color(color) {
+Text::Text(Container *parentContainer, Vector2f position, std::string line, Font *font, Color color) : parentContainer(parentContainer), position(position), font(font), color(color) {
 	this->lines = std::vector<std::string>{line};
 	this->position = getRelativePositionWithParentContainer();
 }
@@ -17,15 +17,24 @@ Text::Text(Container *parentContainer, Vector2f position, std::vector<std::strin
 Text::Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> lines, Font *font, Color color) : parentContainer(parentContainer), position(position), font(font), color(color) {
 	this->position = getRelativePositionWithParentContainer();
 
-	for(size_t i = 0; i < lines.size(); i++) {
-		this->lines.push_back(std::to_string(lines[i]));
+	for (size_t i = 0; i < lines.size(); i++) {
+		this->lines.push_back((lines[i] < 10 ? "00" : lines[i] < 100 ? "0" : "") + std::to_string(lines[i]));
 	}
 }
 
 void Text::render() {
 	for (size_t i = 0; i < lines.size(); i++) {
+		if (highlightedLine != NOT_FOUND && i == highlightedLine) {
+			Graphics::drawRectSolid(Bounds2(position.x, position.y + (font->textHeight + MARGIN) * i, (float)font->textWidth * lines.at(i).length(), (float)font->textHeight), Color(Color::ORANGE));
+		}
+
 		float y = position.y + (font->textHeight + MARGIN) * i;
-		Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, Graphics::LEFT, false);
+
+		if (highlightedLine == i) {
+			Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), Color::BLACK, Graphics::LEFT, false);
+		} else {
+			Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, Graphics::LEFT, false);
+		}
 	}
 }
 
@@ -57,4 +66,9 @@ Vector2f Text::getRelativePositionWithParentContainer() {
 	}
 
 	return position + parentContainer->bounds.position;
+}
+
+void Text::setParentContainer(Container *container) {
+	this->parentContainer = container;
+	this->position = getRelativePositionWithParentContainer();
 }

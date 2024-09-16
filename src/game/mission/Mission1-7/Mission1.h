@@ -44,45 +44,94 @@ class Mission1 : public Mission {
 	}
 
 	static const inline char *instruction = "Copy all inputs in their respective outputs.";
-	static const inline std::vector<uint8_t> Ainputs = {
+	static const inline std::vector<uint8_t> inputsA = {
 			112, 84, 74, 90, 25, 127, 183, 118, 253, 10,
 			113, 240, 209, 53, 121, 138, 123, 139, 92, 60,
 			192, 249, 153, 74, 95, 190, 72, 59, 230, 116,
 			109, 213, 17, 78, 74, 93, 252, 195, 170, 147
 	};
-	static const inline std::vector<uint8_t> Binputs = {
+	static const inline std::vector<uint8_t> inputsB = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
-	static const inline std::vector<uint8_t> Cinputs = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-	};
-
-	static inline std::vector<uint8_t> Doutputs = {
+	static const inline std::vector<uint8_t> inputsC = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
-	static inline std::vector<uint8_t> Eoutputs = {
+	static inline std::vector<uint8_t> outputsD = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
-	static inline std::vector<uint8_t> Foutputs = {
+	static inline std::vector<uint8_t> outputsE = {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
+
+	static inline std::vector<uint8_t> outputsF = {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	};
+
+	Text *inputAText;
+	Text *inputBText;
+	Text *inputCText;
+	Text *outputDText;
+	Text *outputEText;
+	Text *outputFText;
+
+	Text *getInputAText() override {
+		if (inputAText == nullptr) {
+			inputAText = new Text(nullptr, Vector2f(0, 0), inputsA, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+		}
+		return inputAText;
+	}
+
+	Text *getInputBText() override {
+		if (inputBText == nullptr) {
+			inputBText = new Text(nullptr, Vector2f(0, 0), inputsB, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+		}
+		return inputBText;
+	}
+
+	Text *getInputCText() override {
+		if (inputCText == nullptr) {
+			inputCText = new Text(nullptr, Vector2f(0, 0), inputsC, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+		}
+		return inputCText;
+	}
+
+	Text *getOutputDText() override {
+		if (outputDText == nullptr) {
+			outputDText = new Text(nullptr, Vector2f(0, 0), outputsD, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+		}
+		return outputDText;
+	}
+
+	Text *getOutputEText() override {
+		if(outputEText == nullptr) {
+			outputEText = new Text(nullptr, Vector2f(0, 0), outputsE, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+		}
+		return outputEText;
+	}
+
+	Text *getOutputFText() override {
+		if(outputFText == nullptr) {
+			outputFText = new Text(nullptr, Vector2f(0, 0), outputsF, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+		}
+		return outputFText;
+	}
 
 	void setParsing(bool parsing) override {
 		if (this->parsing == parsing) {
@@ -158,39 +207,39 @@ class Mission1 : public Mission {
 	};
 
 	std::vector<uint8_t> getAInputs() override {
-		return Ainputs;
+		return inputsA;
 	};
 
 	std::vector<uint8_t> getBInputs() override {
-		return Binputs;
+		return inputsB;
 	};
 
 	std::vector<uint8_t> getCInputs() override {
-		return Cinputs;
+		return inputsC;
 	};
 
 	std::vector<uint8_t> getDOutputs() override {
-		return Doutputs;
+		return outputsD;
 	};
 
 	std::vector<uint8_t> getEOutputs() override {
-		return Eoutputs;
+		return outputsE;
 	};
 
 	std::vector<uint8_t> getFOutputs() override {
-		return Foutputs;
+		return outputsF;
 	};
 
 	void setDOutput(uint8_t index, uint8_t value) override {
-		Doutputs.at(index) = value;
+		outputsD.at(index) = value;
 	};
 
 	void setEOutput(uint8_t index, uint8_t value) override {
-		Eoutputs.at(index) = value;
+		outputsE.at(index) = value;
 	};
 
 	void setFOutput(uint8_t index, uint8_t value) override {
-		Foutputs.at(index) = value;
+		outputsF.at(index) = value;
 	};
 };
 

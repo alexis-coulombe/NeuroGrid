@@ -1,0 +1,8 @@
+#ifndef ASM_SRC_GAME_LOGIC_NANOIO_H_
+#define ASM_SRC_GAME_LOGIC_NANOIO_H_
+
+class NanoIO {
+
+};
+
+#endif //ASM_SRC_GAME_LOGIC_NANOIO_H_

@@ -231,13 +231,21 @@ Vector2f Textarea::getRelativePositionWithParentContainer() {
 }
 
 uint8_t Textarea::getLineOfLabel(std::string label) {
+	uint8_t lineFound = NOT_FOUND;
 	for (size_t i = 0; i < lines->size(); i++) {
 		if (lines->at(i) == std::string("." + label)) {
-			return i;
+			lineFound = i;
 		}
 	}
 
-	return 0xFF;
+	// check if another label with the same name exists
+	for (size_t i = 0; i < lines->size(); i++) {
+		if (lines->at(i) == std::string("." + label) && i != lineFound) {
+			return DUPLICATE;
+		}
+	}
+
+	return lineFound;
 }
 
 void Textarea::onKeyUp() {

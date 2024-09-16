@@ -6,6 +6,7 @@
 #include "../logic/Nano.h"
 #include "../logic/NanoTextarea.h"
 #include "../logic/NanoParser.h"
+#include "../../engine/ui/Text.h"
 
 class Mission {
  protected:
@@ -31,6 +32,14 @@ class Mission {
 	bool getParsing() { return parsing; };
 	virtual void setNanoParentContainer(NANOS nano, Container *container) = 0;
 	virtual void render(NANOS nano) = 0;
+
+	virtual Text *getInputAText() = 0;
+	virtual Text *getInputBText() = 0;
+	virtual Text *getInputCText() = 0;
+
+	virtual Text *getOutputDText() = 0;
+	virtual Text *getOutputEText() = 0;
+	virtual Text *getOutputFText() = 0;
 
 	virtual std::vector<uint8_t> getAInputs() = 0;
 	virtual std::vector<uint8_t> getBInputs() = 0;

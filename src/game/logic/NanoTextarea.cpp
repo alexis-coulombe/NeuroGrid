@@ -29,7 +29,5 @@ void NanoTextarea::onLineEnter(uint8_t line) {
 }
 
 void NanoTextarea::onLineChange(uint8_t line) {
-	if(line == error.line) {
-		error = ParserError("", "", ParserError::ERROR_TYPE::NONE, 0);
-	}
+	error = ParserError("", "", ParserError::ERROR_TYPE::NONE, 0);
 }

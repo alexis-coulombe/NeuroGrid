@@ -55,18 +55,12 @@ PlayScreen::PlayScreen() : GenericScreen() {
 	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int)missionContainer->bounds.size.y / 3, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3 * 2));
 
 	input1 = new Container(inputContainer, Bounds2(0, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
-	input1Text = new Text(input1, Vector2f(), Mission1::Ainputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 	input2 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
-	input2Text = new Text(input2, Vector2f(), Mission1::Binputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 	input3 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3 * 2, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
-	input3Text = new Text(input3, Vector2f(), Mission1::Cinputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 
 	output1 = new Container(outputContainer, Bounds2(0, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
-	output1Text = new Text(output1, Vector2f(), Mission1::Doutputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 	output2 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
-	output2Text = new Text(output2, Vector2f(), Mission1::Doutputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 	output3 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3 * 2, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
-	output3Text = new Text(output3, Vector2f(), Mission1::Doutputs, Asset::loadFont((char *)"assets/ModernDOS.ttf", 8));
 }
 
 void PlayScreen::init() {
@@ -102,11 +96,25 @@ void PlayScreen::init() {
 
 	missionBriefText = new Text(missionBriefContainer, Vector2f(), mission->getDescription(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 18));
 
+	input1Text = mission->getInputAText();
+	input1Text->setParentContainer(input1);
+	input2Text = mission->getInputBText();
+	input2Text->setParentContainer(input2);
+	input3Text = mission->getInputCText();
+	input3Text->setParentContainer(input3);
+
+	output1Text = mission->getOutputDText();
+	output1Text->setParentContainer(output1);
+	output2Text = mission->getOutputEText();
+	output2Text->setParentContainer(output2);
+	output3Text = mission->getOutputFText();
+	output3Text->setParentContainer(output3);
+
 	//mission->getNano(Mission::NANO1)->code->setText(0, "ADD N2 M1 10");
 	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 1");
 	mission->getNano(Mission::NANO1)->code->setText(1, "# A COMMENT WOW");
 	mission->getNano(Mission::NANO1)->code->setText(2, ".LOOP");
-	mission->getNano(Mission::NANO1)->code->setText(3, "ADD M1 M1 1");
+	mission->getNano(Mission::NANO1)->code->setText(3, "MOV M1 A");
 	//mission->getNano(Mission::NANO1)->code->setText(4, "JEQ .SEND");
 	mission->getNano(Mission::NANO1)->code->setText(4, "JMP SEND");
 	mission->getNano(Mission::NANO1)->code->setText(8, ".SEND");
@@ -163,7 +171,6 @@ void PlayScreen::renderText() {
 	input1Text->render();
 	input2Text->render();
 	input3Text->render();
-
 	output1Text->render();
 	output2Text->render();
 	output3Text->render();

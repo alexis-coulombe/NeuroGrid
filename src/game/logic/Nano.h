@@ -12,7 +12,24 @@ class Nano {
 	uint16_t cycles = 0;
 
 	// Parser variables
+	enum INPUTS {
+		A,
+		B,
+		C
+	};
+
+	enum OUTPUTS {
+		D,
+		E,
+		F
+	};
 	uint8_t currentParseLine = 0;
+	uint8_t currentInputALine = 0;
+	uint8_t currentInputBLine = 0;
+	uint8_t currentInputCLine = 0;
+	uint8_t currentOutputDLine = 0;
+	uint8_t currentOutputELine = 0;
+	uint8_t currentOutputFLine = 0;
 
 	NanoTextarea *code;
 
@@ -20,6 +37,7 @@ class Nano {
 	void setParentContainer(Container *container);
 	void render();
 	void increaseParseLine();
+	void increaseInputLine(INPUTS input);
 	void reset();
 };
 

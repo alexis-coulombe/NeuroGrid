@@ -24,6 +24,21 @@ class Color {
 	static const Color RED;
 	static const Color GREEN;
 	static const Color BLUE;
+	static const Color YELLOW;
+	static const Color ORANGE;
+	static const Color PURPLE;
+	static const Color CYAN;
+	static const Color MAGENTA;
+	static const Color GRAY;
+	static const Color LIGHT_GRAY;
+	static const Color DARK_GRAY;
+	static const Color BROWN;
+	static const Color PINK;
+	static const Color OLIVE;
+	static const Color TEAL;
+	static const Color NAVY;
+	static const Color MAROON;
+	static const Color AQUA;
 };
 
 #endif //ASM_COLOR_H
