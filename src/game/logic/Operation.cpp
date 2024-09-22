@@ -13,19 +13,19 @@ uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t cur
 		}
 		case Token::TOKEN_IO: {
 			if (operand.text == "A") {
-				uint8_t value = std::stoi(mission->getInputAText()->lines.at(mission->currentInputALine));
+				uint8_t value = std::stoi(mission->getIOText(Mission::IO::A)->lines.at(mission->currentInputALine));
 				mission->increaseIOLine(Mission::IO::A);
 				return value;
 			}
 
 			if (operand.text == "B") {
-				uint8_t value = std::stoi(mission->getInputAText()->lines.at(mission->currentInputBLine));
+				uint8_t value = std::stoi(mission->getIOText(Mission::IO::B)->lines.at(mission->currentInputBLine));
 				mission->increaseIOLine(Mission::IO::B);
 				return value;
 			}
 
 			if (operand.text == "C") {
-				uint8_t value = std::stoi(mission->getInputAText()->lines.at(mission->currentInputCLine));
+				uint8_t value = std::stoi(mission->getIOText(Mission::IO::C)->lines.at(mission->currentInputCLine));
 				mission->increaseIOLine(Mission::IO::C);
 				return value;
 			}
@@ -50,19 +50,19 @@ void Operation::setParseOperand(Nano *currentNano, Token operand, uint8_t value,
 		}
 		case Token::TOKEN_IO: {
 			if (operand.text == "D") {
-				mission->getOutputDText()->lines.at(mission->currentOutputDLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
+				mission->getIOText(Mission::IO::D)->lines.at(mission->currentOutputDLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
 				mission->increaseIOLine(Mission::IO::D);
 				break;
 			}
 
 			if (operand.text == "E") {
-				mission->getOutputEText()->lines.at(mission->currentOutputELine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
+				mission->getIOText(Mission::IO::E)->lines.at(mission->currentOutputELine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
 				mission->increaseIOLine(Mission::IO::E);
 				break;
 			}
 
 			if (operand.text == "F") {
-				mission->getOutputFText()->lines.at(mission->currentOutputFLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
+				mission->getIOText(Mission::IO::F)->lines.at(mission->currentOutputFLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
 				mission->increaseIOLine(Mission::IO::F);
 				break;
 			}

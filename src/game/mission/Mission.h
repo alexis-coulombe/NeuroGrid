@@ -12,6 +12,7 @@ class Mission {
  protected:
 	bool parsing = false;
 	bool autostep = false;
+	bool finished = false;
 
 	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));
 	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
@@ -44,66 +45,162 @@ class Mission {
 	virtual std::vector<std::string> getIntro() = 0;
 	virtual std::vector<std::string> getDescription() = 0;
 
-	virtual void setParsing(bool parsing) = 0;
-	virtual void setAutoStep(bool autostep) = 0;
-	virtual void stepParsing() = 0;
-	bool getParsing() { return parsing; };
-	bool getAutoStep() { return autostep; };
-	virtual void setNanoParentContainer(NANOS nano, Container *container) = 0;
-	virtual void render(NANOS nano) = 0;
+	void setParsing(bool parsing) {
+		if (this->parsing == parsing) {
+			return;
+		}
 
-	virtual Text *getInputAText() = 0;
-	virtual Text *getInputBText() = 0;
-	virtual Text *getInputCText() = 0;
-	virtual Text *getOutputDText() = 0;
-	virtual Text *getOutputEText() = 0;
-	virtual Text *getOutputFText() = 0;
+		this->parsing = parsing;
 
-	virtual std::vector<uint8_t> getAInputs() = 0;
-	virtual std::vector<uint8_t> getBInputs() = 0;
-	virtual std::vector<uint8_t> getCInputs() = 0;
-	virtual std::vector<uint8_t> getDOutputs() = 0;
-	virtual std::vector<uint8_t> getEOutputs() = 0;
-	virtual std::vector<uint8_t> getFOutputs() = 0;
+		if (parsing) {
+			nano1.code->readonly = true;
+			nano2.code->readonly = true;
+			nano3.code->readonly = true;
+			return;
+		}
+
+		reset();
+	};
+
+	void setAutoStep(bool autostep) {
+		if (!getParsing()) {
+			setParsing(true);
+		}
+
+		this->autostep = autostep;
+	};
+
+	void reset() {
+		setParsing(false);
+		setAutoStep(false);
+		finished = false;
+
+		nano1.reset();
+		nano2.reset();
+		nano3.reset();
+
+		getIOText(Mission::IO::A)->highlightedLine = Text::NOT_FOUND;
+		getIOText(Mission::IO::B)->highlightedLine = Text::NOT_FOUND;
+		getIOText(Mission::IO::C)->highlightedLine = Text::NOT_FOUND;
+		getIOText(Mission::IO::D)->highlightedLine = Text::NOT_FOUND;
+		getIOText(Mission::IO::E)->highlightedLine = Text::NOT_FOUND;
+		getIOText(Mission::IO::F)->highlightedLine = Text::NOT_FOUND;
+		currentInputALine = 0;
+		currentInputBLine = 0;
+		currentInputCLine = 0;
+		currentOutputDLine = 0;
+		currentOutputELine = 0;
+		currentOutputFLine = 0;
+	}
+
+	bool getParsing() {
+		return parsing;
+	}
+
+	bool getAutoStep() {
+		return autostep;
+	}
+
+	void setNanoParentContainer(NANOS nano, Container *container) {
+		switch (nano) {
+			case Mission::NANO1: {
+				nano1.setParentContainer(container);
+				nano1.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano1.code->bounds->size.x) / 2;
+				nano1.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano1.code->bounds->size.y) / 2;
+				break;
+			}
+			case Mission::NANO2: {
+				nano2.setParentContainer(container);
+				nano2.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano2.code->bounds->size.x) / 2;
+				nano2.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano2.code->bounds->size.y) / 2;
+				break;
+			}
+			case Mission::NANO3: {
+				nano3.setParentContainer(container);
+				nano3.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano3.code->bounds->size.x) / 2;
+				nano3.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano3.code->bounds->size.y) / 2;
+				break;
+			}
+			default: {
+				break;
+			}
+		}
+	};
+
+	void render(NANOS nano) {
+		switch (nano) {
+			case Mission::NANO1: {
+				nano1.render();
+				break;
+			}
+			case Mission::NANO2: {
+				nano2.render();
+				break;
+			}
+			case Mission::NANO3: {
+				nano3.render();
+				break;
+			}
+			default: {
+				break;
+			}
+		}
+	};
+
+	Text *inputAText;
+	Text *inputBText;
+	Text *inputCText;
+	Text *outputDText;
+	Text *outputEText;
+	Text *outputFText;
+
+	virtual Text *getIOText(IO io) = 0;
+	virtual std::vector<uint8_t> getIO(IO io) = 0;
 
 	void increaseIOLine(IO io) {
 		switch (io) {
 			case IO::A: {
 				currentInputALine++;
-				if (currentInputALine >= getInputAText()->lines.size()) {
+				if (currentInputALine >= getIOText(IO::A)->lines.size()) {
 					currentInputALine = 0;
 				}
 				break;
 			}
 			case IO::B: {
 				currentInputBLine++;
-				if (currentInputBLine >= getInputBText()->lines.size()) {
+				if (currentInputBLine >= getIOText(IO::B)->lines.size()) {
 					currentInputBLine = 0;
 				}
 				break;
 			}
 			case IO::C: {
 				currentInputCLine++;
-				if (currentInputCLine >= getInputCText()->lines.size()) {
+				if (currentInputCLine >= getIOText(IO::C)->lines.size()) {
 					currentInputCLine = 0;
 				}
 				break;
 			}
 			case IO::D: {
-				if (currentOutputDLine < getOutputDText()->lines.size()) {
+				if (currentOutputDLine < getIOText(IO::D)->lines.size()) {
 					currentOutputDLine++;
+				} else {
+					finished = true;
 				}
 				break;
 			}
 			case IO::E: {
-				if (currentOutputELine < getOutputEText()->lines.size()) {
+				if (currentOutputELine < getIOText(IO::E)->lines.size()) {
 					currentOutputELine++;
+				} else {
+					finished = true;
 				}
 				break;
 			}
 			case IO::F: {
-				if (currentOutputFLine < getOutputFText()->lines.size()) {
+				if (currentOutputFLine < getIOText(IO::F)->lines.size()) {
 					currentOutputFLine++;
+				} else {
+					finished = true;
 				}
 				break;
 			}
@@ -125,7 +222,7 @@ class Mission {
 				return nullptr;
 			}
 		}
-	};
+	}
 };
 
 #endif //ASM_SRC_GAME_MISSION_MISSION_H_

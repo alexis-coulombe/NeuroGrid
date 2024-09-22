@@ -21,7 +21,7 @@ void PlayStopButton::onPress() {
 void PlayStopButton::onClick() {
 	Mission *mission = MissionManager::getInstance()->currentMission;
 
-	mission->setParsing(false);
+	mission->nanoParser.stop();
 }
 
 void PlayStopButton::onHover() {

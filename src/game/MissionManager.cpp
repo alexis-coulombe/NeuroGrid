@@ -18,27 +18,3 @@ void MissionManager::updateCurrentMission(uint8_t missionID) {
 			break;
 	}
 }
-
-std::vector<uint8_t> MissionManager::getMissionAInputs() {
-	return currentMission->getAInputs();
-}
-
-std::vector<uint8_t> MissionManager::getMissionBInputs() {
-	return currentMission->getBInputs();
-}
-
-std::vector<uint8_t> MissionManager::getMissionCInputs() {
-	return currentMission->getCInputs();
-}
-
-std::vector<uint8_t> MissionManager::getMissionDOutputs() {
-	return currentMission->getDOutputs();
-}
-
-std::vector<uint8_t> MissionManager::getMissionEOutputs() {
-	return currentMission->getEOutputs();
-}
-
-std::vector<uint8_t> MissionManager::getMissionFOutputs() {
-	return currentMission->getFOutputs();
-}

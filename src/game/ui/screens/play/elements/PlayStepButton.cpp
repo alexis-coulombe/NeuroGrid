@@ -23,10 +23,6 @@ void PlayStepButton::onPress() {
 void PlayStepButton::onClick() {
 	Mission *mission = MissionManager::getInstance()->currentMission;
 
-	if (!mission->getParsing()) {
-		mission->setParsing(true);
-	}
-
 	mission->nanoParser.step();
 }
 

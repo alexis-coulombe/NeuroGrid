@@ -8,6 +8,12 @@ NanoParser::NanoParser(Nano *nano1, Nano *nano2, Nano *nano3) : nano1(nano1), na
 }
 
 void NanoParser::step() {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
+	if (!mission->getParsing()) {
+		mission->setParsing(true);
+	}
+
 	parseLine(nano1);
 	parseLine(nano2);
 	parseLine(nano3);
@@ -20,6 +26,10 @@ void NanoParser::step() {
 }
 
 void NanoParser::stop() {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
+	mission->setParsing(false);
+	mission->setAutoStep(false);
 }
 
 void NanoParser::parseLine(Nano *currentNano) {
@@ -35,12 +45,12 @@ void NanoParser::parseLine(Nano *currentNano) {
 	Token token = lexer.next();
 
 	currentNano->code->highlightedLine = currentNano->currentParseLine;
-	mission->getInputAText()->highlightedLine = mission->currentInputALine;
-	mission->getInputBText()->highlightedLine = mission->currentInputBLine;
-	mission->getInputCText()->highlightedLine = mission->currentInputCLine;
-	mission->getOutputDText()->highlightedLine = mission->currentOutputDLine;
-	mission->getOutputEText()->highlightedLine = mission->currentOutputELine;
-	mission->getOutputFText()->highlightedLine = mission->currentOutputFLine;
+	mission->getIOText(Mission::IO::A)->highlightedLine = mission->currentInputALine;
+	mission->getIOText(Mission::IO::B)->highlightedLine = mission->currentInputBLine;
+	mission->getIOText(Mission::IO::C)->highlightedLine = mission->currentInputCLine;
+	mission->getIOText(Mission::IO::D)->highlightedLine = mission->currentOutputDLine;
+	mission->getIOText(Mission::IO::E)->highlightedLine = mission->currentOutputELine;
+	mission->getIOText(Mission::IO::F)->highlightedLine = mission->currentOutputFLine;
 
 	if (token.type == Token::TOKEN_INVALID) {
 		currentNano->code->error = ParserError("Invalid token", ParserError::ERROR_TYPE::INVALID_TOKEN, currentNano->currentParseLine);

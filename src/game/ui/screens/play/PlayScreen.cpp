@@ -99,18 +99,18 @@ void PlayScreen::init() {
 	missionNano2ErrorText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getNano(Mission::NANOS::NANO2)->code->error.message, Asset::loadFont((char *)"assets/ModernDOS.ttf", 18), Color::RED);
 	missionNano3ErrorText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getNano(Mission::NANOS::NANO3)->code->error.message, Asset::loadFont((char *)"assets/ModernDOS.ttf", 18), Color::RED);
 
-	input1Text = mission->getInputAText();
+	input1Text = mission->getIOText(Mission::IO::A);
 	input1Text->setParentContainer(input1);
-	input2Text = mission->getInputBText();
+	input2Text = mission->getIOText(Mission::IO::B);
 	input2Text->setParentContainer(input2);
-	input3Text = mission->getInputCText();
+	input3Text = mission->getIOText(Mission::IO::C);
 	input3Text->setParentContainer(input3);
 
-	output1Text = mission->getOutputDText();
+	output1Text = mission->getIOText(Mission::IO::D);
 	output1Text->setParentContainer(output1);
-	output2Text = mission->getOutputEText();
+	output2Text = mission->getIOText(Mission::IO::E);
 	output2Text->setParentContainer(output2);
-	output3Text = mission->getOutputFText();
+	output3Text = mission->getIOText(Mission::IO::F);
 	output3Text->setParentContainer(output3);
 
 	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 1");

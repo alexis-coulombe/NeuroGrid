@@ -43,7 +43,6 @@ class Mission1 : public Mission {
 		};
 	}
 
-	static const inline char *instruction = "Copy all inputs in their respective outputs.";
 	static const inline std::vector<uint8_t> inputsA = {
 			112, 84, 74, 90, 25, 127, 183, 118, 253, 10,
 			113, 240, 209, 53, 121, 138, 123, 139, 92, 60,
@@ -84,154 +83,70 @@ class Mission1 : public Mission {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
-	Text *inputAText;
-	Text *inputBText;
-	Text *inputCText;
-	Text *outputDText;
-	Text *outputEText;
-	Text *outputFText;
-
-	Text *getInputAText() override {
-		if (inputAText == nullptr) {
-			inputAText = new Text(nullptr, Vector2f(0, 0), inputsA, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+	Text *getIOText(Mission::IO io) override {
+		switch (io) {
+			case Mission::IO::A: {
+				if (inputAText == nullptr) {
+					inputAText = new Text(nullptr, Vector2f(0, 0), inputsA, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+				}
+				return inputAText;
+			}
+			case Mission::IO::B: {
+				if (inputBText == nullptr) {
+					inputBText = new Text(nullptr, Vector2f(0, 0), inputsB, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+				}
+				return inputBText;
+			}
+			case Mission::IO::C: {
+				if (inputCText == nullptr) {
+					inputCText = new Text(nullptr, Vector2f(0, 0), inputsC, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+				}
+				return inputCText;
+			}
+			case Mission::IO::D: {
+				if (outputDText == nullptr) {
+					outputDText = new Text(nullptr, Vector2f(0, 0), outputsD, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+				}
+				return outputDText;
+			}
+			case Mission::IO::E: {
+				if (outputEText == nullptr) {
+					outputEText = new Text(nullptr, Vector2f(0, 0), outputsE, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+				}
+				return outputEText;
+			}
+			case Mission::IO::F: {
+				if (outputFText == nullptr) {
+					outputFText = new Text(nullptr, Vector2f(0, 0), outputsF, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+				}
+				return outputFText;
+			}
 		}
-		return inputAText;
 	}
 
-	Text *getInputBText() override {
-		if (inputBText == nullptr) {
-			inputBText = new Text(nullptr, Vector2f(0, 0), inputsB, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
-		}
-		return inputBText;
-	}
-
-	Text *getInputCText() override {
-		if (inputCText == nullptr) {
-			inputCText = new Text(nullptr, Vector2f(0, 0), inputsC, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
-		}
-		return inputCText;
-	}
-
-	Text *getOutputDText() override {
-		if (outputDText == nullptr) {
-			outputDText = new Text(nullptr, Vector2f(0, 0), outputsD, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
-		}
-		return outputDText;
-	}
-
-	Text *getOutputEText() override {
-		if(outputEText == nullptr) {
-			outputEText = new Text(nullptr, Vector2f(0, 0), outputsE, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
-		}
-		return outputEText;
-	}
-
-	Text *getOutputFText() override {
-		if(outputFText == nullptr) {
-			outputFText = new Text(nullptr, Vector2f(0, 0), outputsF, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
-		}
-		return outputFText;
-	}
-
-	void setParsing(bool parsing) override {
-		if (this->parsing == parsing) {
-			return;
-		}
-
-		this->parsing = parsing;
-
-		if (parsing) {
-			nano1.code->readonly = true;
-			nano2.code->readonly = true;
-			nano3.code->readonly = true;
-			return;
-		}
-
-		nano1.reset();
-		nano2.reset();
-		nano3.reset();
-	};
-
-	void setAutoStep(bool autostep) override {
-		this->autostep = autostep;
-	};
-
-	void stepParsing() override {
-		if (!parsing) {
-			return;
-		}
-
-		nanoParser.step();
-	};
-
-	void setNanoParentContainer(NANOS nano, Container *container) override {
-		switch (nano) {
-			case Mission::NANO1: {
-				nano1.setParentContainer(container);
-				nano1.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano1.code->bounds->size.x) / 2;
-				nano1.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano1.code->bounds->size.y) / 2;
-				break;
+	std::vector<uint8_t> getIO(Mission::IO io) override {
+		switch (io) {
+			case Mission::IO::A: {
+				return inputsA;
 			}
-			case Mission::NANO2: {
-				nano2.setParentContainer(container);
-				nano2.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano2.code->bounds->size.x) / 2;
-				nano2.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano2.code->bounds->size.y) / 2;
-				break;
+			case Mission::IO::B: {
+				return inputsB;
 			}
-			case Mission::NANO3: {
-				nano3.setParentContainer(container);
-				nano3.code->bounds->position.x = container->bounds.position.x + (container->bounds.size.x - nano3.code->bounds->size.x) / 2;
-				nano3.code->bounds->position.y = container->bounds.position.y + (container->bounds.size.y - nano3.code->bounds->size.y) / 2;
-				break;
+			case Mission::IO::C: {
+				return inputsC;
 			}
-			default: {
-				break;
+			case Mission::IO::D: {
+				return outputsD;
+			}
+			case Mission::IO::E: {
+				return outputsE;
+			}
+			case Mission::IO::F: {
+				return outputsF;
 			}
 		}
-	};
 
-	void render(NANOS nano) override {
-		switch (nano) {
-			case Mission::NANO1: {
-				nano1.render();
-				break;
-			}
-			case Mission::NANO2: {
-				nano2.render();
-				break;
-			}
-			case Mission::NANO3: {
-				nano3.render();
-				break;
-			}
-			default: {
-				break;
-			}
-		}
-	};
-
-	std::vector<uint8_t> getAInputs() override {
-		return inputsA;
-	};
-
-	std::vector<uint8_t> getBInputs() override {
-		return inputsB;
-	};
-
-	std::vector<uint8_t> getCInputs() override {
-		return inputsC;
-	};
-
-	std::vector<uint8_t> getDOutputs() override {
-		return outputsD;
-	};
-
-	std::vector<uint8_t> getEOutputs() override {
-		return outputsE;
-	};
-
-	std::vector<uint8_t> getFOutputs() override {
-		return outputsF;
+		return {};
 	};
 };
 

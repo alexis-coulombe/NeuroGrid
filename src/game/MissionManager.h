@@ -23,13 +23,6 @@ protected:
 
 	void updateCurrentMission(uint8_t missionID);
 
-	std::vector<uint8_t> getMissionAInputs();
-	std::vector<uint8_t> getMissionBInputs();
-	std::vector<uint8_t> getMissionCInputs();
-	std::vector<uint8_t> getMissionDOutputs();
-	std::vector<uint8_t> getMissionEOutputs();
-	std::vector<uint8_t> getMissionFOutputs();
-
 	void operator=(const MissionManager &) = delete;
 	static MissionManager *getInstance();
 };
