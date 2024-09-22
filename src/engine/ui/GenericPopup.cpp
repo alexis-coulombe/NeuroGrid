@@ -17,9 +17,13 @@ void GenericPopup::show() {
 	onShow();
 }
 
-void GenericPopup::render() {
+void GenericPopup::render(bool showBounds) {
 	if (!isVisible) {
 		return;
+	}
+
+	if(showBounds) {
+		Graphics::drawRectEmpty(bounds, Color::YELLOW);
 	}
 
 	Graphics::drawTexture(backgroundOverlay, Vector2f(0, 0), Color::BLACK_TRANSPARENT_HALF, Vector2f(Window::width, Window::height));

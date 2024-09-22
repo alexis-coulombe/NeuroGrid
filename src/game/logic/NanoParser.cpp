@@ -14,12 +14,21 @@ void NanoParser::step() {
 		mission->setParsing(true);
 	}
 
+	if(mission->getFinished()) {
+		if(!mission->validate()) {
+			mission->getFinishedFailedPopup()->show();
+		} else {
+			mission->getFinishedWinPopup()->show();
+		}
+		return;
+	}
+
 	parseLine(nano1);
 	parseLine(nano2);
 	parseLine(nano3);
 
 	if (nano1->code->error.type != ParserError::ERROR_TYPE::NONE || nano2->code->error.type != ParserError::ERROR_TYPE::NONE || nano3->code->error.type != ParserError::ERROR_TYPE::NONE) {
-		MissionManager::getInstance()->currentMission->setParsing(false);
+		MissionManager::getInstance()->currentMission->reset();
 		Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
 		return;
 	}

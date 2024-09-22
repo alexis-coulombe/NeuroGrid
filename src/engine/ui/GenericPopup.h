@@ -23,7 +23,7 @@ class GenericPopup {
 	virtual void onShow() = 0;
 	virtual void renderPopup() = 0;
 	virtual void onHide() = 0;
-	void render();
+	void render(bool showBounds = false);
  private:
 	Bounds2 bounds;
 };

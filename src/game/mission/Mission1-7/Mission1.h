@@ -122,6 +122,8 @@ class Mission1 : public Mission {
 				return outputFText;
 			}
 		}
+
+		return nullptr;
 	}
 
 	std::vector<uint8_t> getIO(Mission::IO io) override {
@@ -147,7 +149,17 @@ class Mission1 : public Mission {
 		}
 
 		return {};
-	};
+	}
+
+	bool validate() override {
+		for (size_t i = 0; i < inputsA.size(); i++) {
+			if (inputsA[i] != outputsD[i]) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 };
 
 #endif //ASM_SRC_GAME_MISSION_MISSION1_H_

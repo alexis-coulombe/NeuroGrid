@@ -23,6 +23,7 @@ file(GLOB SOURCE_FILES
         "src/game/logic/*.cpp" ,
         "src/game/logic/operators/*.cpp" ,
         "src/game/mission/*.cpp" ,
+        "src/game/mission/popups/*.cpp" ,
         "src/game/ui/screens/intro/*.cpp" ,
         "src/game/ui/screens/intro/elements/*.cpp" ,
         "src/game/ui/screens/menu/*.cpp" ,

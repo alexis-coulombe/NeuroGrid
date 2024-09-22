@@ -244,6 +244,9 @@ void PlayScreen::renderText() {
 	nano3LinesText->render();
 	nano3LinesText->updateText(std::to_string(mission->getNano(Mission::NANO3)->code->getNonEmptyLines()));
 	nano3ComplexityText->render();
+
+	mission->getFinishedFailedPopup()->render(true);
+	mission->getFinishedWinPopup()->render(true);
 }
 
 void PlayScreen::handleTimer() {

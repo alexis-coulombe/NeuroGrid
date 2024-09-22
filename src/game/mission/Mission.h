@@ -7,12 +7,17 @@
 #include "../logic/NanoTextarea.h"
 #include "../logic/NanoParser.h"
 #include "../../engine/ui/Text.h"
+#include "popups/FinishedFailedPopup.h"
+#include "popups/FinishedWinPopup.h"
 
 class Mission {
  protected:
 	bool parsing = false;
 	bool autostep = false;
 	bool finished = false;
+
+	FinishedFailedPopup *finishedFailedPopup = nullptr;
+	FinishedWinPopup *finishedWinPopup = nullptr;
 
 	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));
 	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
@@ -101,6 +106,10 @@ class Mission {
 		return autostep;
 	}
 
+	bool getFinished() {
+		return finished;
+	}
+
 	void setNanoParentContainer(NANOS nano, Container *container) {
 		switch (nano) {
 			case Mission::NANO1: {
@@ -125,7 +134,7 @@ class Mission {
 				break;
 			}
 		}
-	};
+	}
 
 	void render(NANOS nano) {
 		switch (nano) {
@@ -145,7 +154,23 @@ class Mission {
 				break;
 			}
 		}
-	};
+	}
+
+	FinishedFailedPopup *getFinishedFailedPopup() {
+		if(finishedFailedPopup == nullptr) {
+			finishedFailedPopup = new FinishedFailedPopup(Bounds2(0, 0, 600, 250));
+		}
+
+		return finishedFailedPopup;
+	}
+
+	FinishedWinPopup *getFinishedWinPopup() {
+		if(finishedWinPopup == nullptr) {
+			finishedWinPopup = new FinishedWinPopup(Bounds2(0, 0, 600, 250));
+		}
+
+		return finishedWinPopup;
+	}
 
 	Text *inputAText;
 	Text *inputBText;
@@ -156,6 +181,7 @@ class Mission {
 
 	virtual Text *getIOText(IO io) = 0;
 	virtual std::vector<uint8_t> getIO(IO io) = 0;
+	virtual bool validate() = 0;
 
 	void increaseIOLine(IO io) {
 		switch (io) {
@@ -181,7 +207,7 @@ class Mission {
 				break;
 			}
 			case IO::D: {
-				if (currentOutputDLine < getIOText(IO::D)->lines.size()) {
+				if (currentOutputDLine < getIOText(IO::D)->lines.size() - 1) {
 					currentOutputDLine++;
 				} else {
 					finished = true;
@@ -189,7 +215,7 @@ class Mission {
 				break;
 			}
 			case IO::E: {
-				if (currentOutputELine < getIOText(IO::E)->lines.size()) {
+				if (currentOutputELine < getIOText(IO::E)->lines.size() - 1) {
 					currentOutputELine++;
 				} else {
 					finished = true;
@@ -197,7 +223,7 @@ class Mission {
 				break;
 			}
 			case IO::F: {
-				if (currentOutputFLine < getIOText(IO::F)->lines.size()) {
+				if (currentOutputFLine < getIOText(IO::F)->lines.size() - 1) {
 					currentOutputFLine++;
 				} else {
 					finished = true;
