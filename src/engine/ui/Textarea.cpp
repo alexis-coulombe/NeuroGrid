@@ -312,7 +312,7 @@ void Textarea::onKeyBackspace() {
 			}
 
 			lines->at(rows - 1) = "";
-			moveCaretUp();
+			moveCaretLeft();
 			onLineChange(caretLine);
 		} else if (caretColumn == 0 && !getTextOfCurrentLine()->empty() && lines->at(caretLine - 1).length() + getTextOfCurrentLine()->length() < cols) {
 			uint8_t lengthOfLineAbove = (uint8_t)lines->at(caretLine - 1).length();

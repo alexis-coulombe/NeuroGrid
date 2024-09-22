@@ -2,6 +2,8 @@
 #include "../MissionManager.h"
 
 uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t currentLine) {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
 	switch (operand.type) {
 		case Token::TOKEN_NUMBER: {
 			return std::stoi(operand.text);
@@ -11,20 +13,20 @@ uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t cur
 		}
 		case Token::TOKEN_IO: {
 			if (operand.text == "A") {
-				uint8_t value = std::stoi(MissionManager::getInstance()->currentMission->getInputAText()->lines.at(currentNano->currentInputALine));
-				currentNano->increaseInputLine(Nano::INPUTS::A);
+				uint8_t value = std::stoi(mission->getInputAText()->lines.at(mission->currentInputALine));
+				mission->increaseIOLine(Mission::IO::A);
 				return value;
 			}
 
 			if (operand.text == "B") {
-				uint8_t value = std::stoi(MissionManager::getInstance()->currentMission->getInputAText()->lines.at(currentNano->currentInputBLine));
-				currentNano->increaseInputLine(Nano::INPUTS::B);
+				uint8_t value = std::stoi(mission->getInputAText()->lines.at(mission->currentInputBLine));
+				mission->increaseIOLine(Mission::IO::B);
 				return value;
 			}
 
 			if (operand.text == "C") {
-				uint8_t value = std::stoi(MissionManager::getInstance()->currentMission->getInputAText()->lines.at(currentNano->currentInputCLine));
-				currentNano->increaseInputLine(Nano::INPUTS::C);
+				uint8_t value = std::stoi(mission->getInputAText()->lines.at(mission->currentInputCLine));
+				mission->increaseIOLine(Mission::IO::C);
 				return value;
 			}
 
@@ -39,6 +41,8 @@ uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t cur
 }
 
 void Operation::setParseOperand(Nano *currentNano, Token operand, uint8_t value, uint8_t currentLine) {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
 	switch (operand.type) {
 		case Token::TOKEN_REGISTER: {
 			setRegisterValue(currentNano, operand.text, value, currentLine);
@@ -46,17 +50,20 @@ void Operation::setParseOperand(Nano *currentNano, Token operand, uint8_t value,
 		}
 		case Token::TOKEN_IO: {
 			if (operand.text == "D") {
-				MissionManager::getInstance()->currentMission->getOutputDText()->lines.at(currentNano->currentOutputDLine) = std::to_string(value);
+				mission->getOutputDText()->lines.at(mission->currentOutputDLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
+				mission->increaseIOLine(Mission::IO::D);
 				break;
 			}
 
 			if (operand.text == "E") {
-				MissionManager::getInstance()->currentMission->getOutputEText()->lines.at(currentNano->currentOutputELine) = std::to_string(value);
+				mission->getOutputEText()->lines.at(mission->currentOutputELine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
+				mission->increaseIOLine(Mission::IO::E);
 				break;
 			}
 
 			if (operand.text == "F") {
-				MissionManager::getInstance()->currentMission->getOutputFText()->lines.at(currentNano->currentOutputFLine) = std::to_string(value);
+				mission->getOutputFText()->lines.at(mission->currentOutputFLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
+				mission->increaseIOLine(Mission::IO::F);
 				break;
 			}
 

@@ -12,7 +12,7 @@ void NanoParser::step() {
 	parseLine(nano2);
 	parseLine(nano3);
 
-	if(nano1->code->error.type != ParserError::ERROR_TYPE::NONE || nano2->code->error.type != ParserError::ERROR_TYPE::NONE || nano3->code->error.type != ParserError::ERROR_TYPE::NONE) {
+	if (nano1->code->error.type != ParserError::ERROR_TYPE::NONE || nano2->code->error.type != ParserError::ERROR_TYPE::NONE || nano3->code->error.type != ParserError::ERROR_TYPE::NONE) {
 		MissionManager::getInstance()->currentMission->setParsing(false);
 		Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
 		return;
@@ -23,7 +23,9 @@ void NanoParser::stop() {
 }
 
 void NanoParser::parseLine(Nano *currentNano) {
-	if(currentNano->code->getNonEmptyLines() <= 0) {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
+	if (currentNano->code->getNonEmptyLines() <= 0) {
 		return;
 	}
 
@@ -33,14 +35,14 @@ void NanoParser::parseLine(Nano *currentNano) {
 	Token token = lexer.next();
 
 	currentNano->code->highlightedLine = currentNano->currentParseLine;
-	MissionManager::getInstance()->currentMission->getInputAText()->highlightedLine = currentNano->currentInputALine;
-	MissionManager::getInstance()->currentMission->getInputBText()->highlightedLine = currentNano->currentInputBLine;
-	MissionManager::getInstance()->currentMission->getInputCText()->highlightedLine = currentNano->currentInputCLine;
-	MissionManager::getInstance()->currentMission->getOutputDText()->highlightedLine = currentNano->currentOutputDLine;
-	MissionManager::getInstance()->currentMission->getOutputEText()->highlightedLine = currentNano->currentOutputELine;
-	MissionManager::getInstance()->currentMission->getOutputFText()->highlightedLine = currentNano->currentOutputFLine;
+	mission->getInputAText()->highlightedLine = mission->currentInputALine;
+	mission->getInputBText()->highlightedLine = mission->currentInputBLine;
+	mission->getInputCText()->highlightedLine = mission->currentInputCLine;
+	mission->getOutputDText()->highlightedLine = mission->currentOutputDLine;
+	mission->getOutputEText()->highlightedLine = mission->currentOutputELine;
+	mission->getOutputFText()->highlightedLine = mission->currentOutputFLine;
 
-	if(token.type == Token::TOKEN_INVALID) {
+	if (token.type == Token::TOKEN_INVALID) {
 		currentNano->code->error = ParserError("Invalid token", "Invalid token", ParserError::ERROR_TYPE::INVALID_TOKEN, currentNano->currentParseLine);
 		return;
 	}

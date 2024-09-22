@@ -1,6 +1,7 @@
 #ifndef ASM_PARSERERROR_H
 #define ASM_PARSERERROR_H
 
+#include <cstdint>
 #include <string>
 
 class ParserError {

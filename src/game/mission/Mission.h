@@ -22,6 +22,22 @@ class Mission {
 		NANO3
 	};
 
+	enum IO {
+		A,
+		B,
+		C,
+		D,
+		E,
+		F
+	};
+
+	uint8_t currentInputALine = 0;
+	uint8_t currentInputBLine = 0;
+	uint8_t currentInputCLine = 0;
+	uint8_t currentOutputDLine = 0;
+	uint8_t currentOutputELine = 0;
+	uint8_t currentOutputFLine = 0;
+
 	NanoParser nanoParser = NanoParser(&nano1, &nano2, &nano3);
 
 	virtual std::vector<std::string> getIntro() = 0;
@@ -52,6 +68,50 @@ class Mission {
 	virtual void setDOutput(uint8_t index, uint8_t value) = 0;
 	virtual void setEOutput(uint8_t index, uint8_t value) = 0;
 	virtual void setFOutput(uint8_t index, uint8_t value) = 0;
+
+	void increaseIOLine(IO io) {
+		switch (io) {
+			case IO::A: {
+				currentInputALine++;
+				if (currentInputALine >= getInputAText()->lines.size()) {
+					currentInputALine = 0;
+				}
+				break;
+			}
+			case IO::B: {
+				currentInputBLine++;
+				if (currentInputBLine >= getInputBText()->lines.size()) {
+					currentInputBLine = 0;
+				}
+				break;
+			}
+			case IO::C: {
+				currentInputCLine++;
+				if (currentInputCLine >= getInputCText()->lines.size()) {
+					currentInputCLine = 0;
+				}
+				break;
+			}
+			case IO::D: {
+				if (currentOutputDLine < getOutputDText()->lines.size()) {
+					currentOutputDLine++;
+				}
+				break;
+			}
+			case IO::E: {
+				if (currentOutputELine < getOutputEText()->lines.size()) {
+					currentOutputELine++;
+				}
+				break;
+			}
+			case IO::F: {
+				if (currentOutputFLine < getOutputFText()->lines.size()) {
+					currentOutputFLine++;
+				}
+				break;
+			}
+		}
+	}
 
 	Nano *getNano(NANOS nano) {
 		switch (nano) {

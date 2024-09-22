@@ -30,6 +30,7 @@ void AssetLibrary::init() {
 	CONTAINER_MISSIONS = Asset::loadTexture((char *)"assets/ui/container/missions.png");
 
 	CONTAINER_MISSION_PLAY = Asset::loadTexture((char *)"assets/ui/container/mission_play.png");
+	CONTAINER_MISSION_PLAY_BRIEF = Asset::loadTexture((char *)"assets/ui/container/mission_play_brief.png");
 
 	ERROR_SOUND = new Sound(Asset::loadSound((char *)"assets/sound/error.mp3"));
 }

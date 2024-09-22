@@ -1,6 +1,7 @@
 #ifndef ASM_COLOR_H
 #define ASM_COLOR_H
 
+#include <cstdint>
 #include <string>
 
 class Color {

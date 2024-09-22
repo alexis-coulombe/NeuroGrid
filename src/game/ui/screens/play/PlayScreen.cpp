@@ -52,7 +52,7 @@ PlayScreen::PlayScreen() : GenericScreen() {
 	playStepButton = new PlayStepButton(missionActionContainer, Bounds2(0, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
 	playStopButton = new PlayStopButton(missionActionContainer, Bounds2((int)missionActionContainer->bounds.size.x / 4, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
 
-	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int)missionContainer->bounds.size.y / 3, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3 * 2));
+	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int)missionContainer->bounds.size.y / 3, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3 * 2), AssetLibrary::CONTAINER_MISSION_PLAY_BRIEF);
 
 	input1 = new Container(inputContainer, Bounds2(0, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
 	input2 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
@@ -94,7 +94,7 @@ void PlayScreen::init() {
 	nano3LinesText = new Text(nano3LinesContainer, Vector2f(nano3LinesContainer->bounds.size.x / 2 - 5, nano3LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2 - 5, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
-	missionBriefText = new Text(missionBriefContainer, Vector2f(), mission->getDescription(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 18));
+	missionBriefText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getDescription(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 14));
 
 	input1Text = mission->getInputAText();
 	input1Text->setParentContainer(input1);
@@ -132,8 +132,7 @@ void PlayScreen::render() {
 	nano1Container->render();
 	nano2Container->render();
 	nano3Container->render();
-
-	missionBriefContainer->render(true);
+	missionBriefContainer->render();
 
 	renderText();
 

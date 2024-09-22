@@ -23,21 +23,14 @@ class Nano {
 		E,
 		F
 	};
-	uint8_t currentParseLine = 0;
-	uint8_t currentInputALine = 0;
-	uint8_t currentInputBLine = 0;
-	uint8_t currentInputCLine = 0;
-	uint8_t currentOutputDLine = 0;
-	uint8_t currentOutputELine = 0;
-	uint8_t currentOutputFLine = 0;
 
 	NanoTextarea *code;
+	uint8_t currentParseLine = 0;
 
 	explicit Nano(NanoTextarea *code);
 	void setParentContainer(Container *container);
 	void render();
 	void increaseParseLine();
-	void increaseInputLine(INPUTS input);
 	void reset();
 };
 
