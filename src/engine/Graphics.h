@@ -38,7 +38,7 @@ class Graphics {
 	static void drawRectSolid(Bounds2 bounds, Color color);
 
 	// Textures
-	static void drawTexture(Texture *texture, Vector2f position, Color color = Color::WHITE, Vector2f size = Vector2f(-1, -1), float rotation = 0, Vector2f pivot = Vector2f(-1, -1), TextureMirror mirror = NONE, Bounds2 source = Bounds2(-1, -1, -1, -1), TextureBlendMode blendMode = NORMAL, TextureScaleMode scaleMode = NEAREST);
+	static void drawTexture(Texture *texture, Vector2f position, Color color = Color::WHITE, Vector2f size = Vector2f(-1, -1), float rotation = 0, Vector2f pivot = Vector2f(-1, -1), TextureMirror mirror = NONE, Bounds2 source = Bounds2(-1, -1, -1, -1), TextureBlendMode blendMode = NORMAL, TextureScaleMode scaleMode = LINEAR);
 
 	// Fonts
 	static inline std::map<std::string, SDL_Texture*> textCache = {};

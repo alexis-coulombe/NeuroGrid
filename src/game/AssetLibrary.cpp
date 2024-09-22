@@ -22,6 +22,14 @@ void AssetLibrary::init() {
 	BUTTON_STOP_CODE_HOVER = Asset::loadTexture((char *)"assets/ui/button/stop_code_hover.png");
 	BUTTON_STOP_CODE_PRESS = Asset::loadTexture((char *)"assets/ui/button/stop_code_press.png");
 
+	BUTTON_AUTOPLAY_IDLE = Asset::loadTexture((char *)"assets/ui/button/autoplay_code_idle.png");
+	BUTTON_AUTOPLAY_HOVER = Asset::loadTexture((char *)"assets/ui/button/autoplay_code_hover.png");
+	BUTTON_AUTOPLAY_PRESS = Asset::loadTexture((char *)"assets/ui/button/autoplay_code_press.png");
+
+	BUTTON_PAUSE_IDLE = Asset::loadTexture((char *)"assets/ui/button/pause_code_idle.png");
+	BUTTON_PAUSE_HOVER = Asset::loadTexture((char *)"assets/ui/button/pause_code_hover.png");
+	BUTTON_PAUSE_PRESS = Asset::loadTexture((char *)"assets/ui/button/pause_code_press.png");
+
 	BUTTON_MISSION1_IDLE = Asset::loadTexture((char *)"assets/ui/button/mission1_idle.png");
 	BUTTON_MISSION1_HOVER = Asset::loadTexture((char *)"assets/ui/button/mission1_hover.png");
 	BUTTON_MISSION1_PRESS = BUTTON_MISSION1_HOVER;

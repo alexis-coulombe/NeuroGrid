@@ -43,6 +43,14 @@ class AssetLibrary {
 	static inline const Texture *BUTTON_STOP_CODE_HOVER = nullptr;
 	static inline const Texture *BUTTON_STOP_CODE_PRESS = nullptr;
 
+	static inline const Texture *BUTTON_AUTOPLAY_IDLE = nullptr;
+	static inline const Texture *BUTTON_AUTOPLAY_HOVER = nullptr;
+	static inline const Texture *BUTTON_AUTOPLAY_PRESS = nullptr;
+
+	static inline const Texture *BUTTON_PAUSE_IDLE = nullptr;
+	static inline const Texture *BUTTON_PAUSE_HOVER = nullptr;
+	static inline const Texture *BUTTON_PAUSE_PRESS = nullptr;
+
 	static inline const Texture *BUTTON_MISSION1_IDLE = nullptr;
 	static inline const Texture *BUTTON_MISSION1_HOVER = nullptr;
 	static inline const Texture *BUTTON_MISSION1_PRESS = nullptr;

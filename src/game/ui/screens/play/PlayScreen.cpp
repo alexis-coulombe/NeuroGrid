@@ -51,6 +51,8 @@ PlayScreen::PlayScreen() : GenericScreen() {
 	missionActionContainer = new Container(missionContainer, Bounds2(0, 0, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3));
 	playStepButton = new PlayStepButton(missionActionContainer, Bounds2(0, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
 	playStopButton = new PlayStopButton(missionActionContainer, Bounds2((int)missionActionContainer->bounds.size.x / 4, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
+	playButton = new PlayButton(missionActionContainer, Bounds2((int)missionActionContainer->bounds.size.x / 4 * 2, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
+	pauseButton = new PauseButton(missionActionContainer, Bounds2((int)missionActionContainer->bounds.size.x / 4 * 3, 0, (int)missionActionContainer->bounds.size.x / 4, (int)missionActionContainer->bounds.size.y), Color::WHITE, 0);
 
 	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int)missionContainer->bounds.size.y / 3, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3 * 2), AssetLibrary::CONTAINER_MISSION_PLAY_BRIEF);
 
@@ -68,9 +70,6 @@ void PlayScreen::init() {
 	mission->setNanoParentContainer(Mission::NANO1, nano1TextareaContainer);
 	mission->setNanoParentContainer(Mission::NANO2, nano2TextareaContainer);
 	mission->setNanoParentContainer(Mission::NANO3, nano3TextareaContainer);
-
-	playStepButton->linkMission(mission);
-	playStopButton->linkMission(mission);
 
 	Font *nanoTextFont = Asset::loadFont((char *)"assets/ModernDOS.ttf", 20);
 	nano1MemoryText = new Text(nano1MemoryContainer, Vector2f(nano1MemoryContainer->bounds.size.x / 2 - 5, nano1MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->memory), nanoTextFont);
@@ -160,6 +159,8 @@ void PlayScreen::render() {
 
 	playStepButton->render();
 	playStopButton->render();
+	playButton->render();
+	pauseButton->render();
 
 	mission->render(Mission::NANO1);
 	mission->render(Mission::NANO2);

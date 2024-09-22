@@ -6,11 +6,8 @@
 
 class PlayStepButton : public GenericButton {
  public:
-	Mission *mission;
-
 	PlayStepButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel);
 
-	void linkMission(Mission *mission);
 	void onRender() override;
 	void onPress() override;
 	void onClick() override;

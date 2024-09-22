@@ -8,6 +8,8 @@
 #include "elements/PlayStepButton.h"
 #include "elements/PlayStopButton.h"
 #include "../../../../engine/utility/Timer.h"
+#include "elements/PauseButton.h"
+#include "elements/PlayButton.h"
 
 class PlayScreen : public GenericScreen {
  private:
@@ -82,6 +84,8 @@ class PlayScreen : public GenericScreen {
 	Container *missionActionContainer;
 	PlayStepButton *playStepButton;
 	PlayStopButton *playStopButton;
+	PlayButton *playButton;
+	PauseButton *pauseButton;
 	Container *missionBriefContainer;
 	Text *missionBriefText;
 	Text *missionNano1ErrorText;
