@@ -30,11 +30,11 @@ uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t cur
 				return value;
 			}
 
-			currentNano->code->error = ParserError("Invalid operands", "Can't read from output register", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+			currentNano->code->error = ParserError("Can't read from output register", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 			return 0;
 		}
 		default: {
-			currentNano->code->error = ParserError("Invalid operands", "Invalid operand type for SUB operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+			currentNano->code->error = ParserError("Invalid operand type for SUB operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 			return 0;
 		}
 	}
@@ -67,11 +67,11 @@ void Operation::setParseOperand(Nano *currentNano, Token operand, uint8_t value,
 				break;
 			}
 
-			currentNano->code->error = ParserError("Invalid operands", "Can't write to input register", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+			currentNano->code->error = ParserError("Can't write to input register", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 			break;
 		}
 		default: {
-			currentNano->code->error = ParserError("Invalid operands", "Invalid operand type for SUB operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+			currentNano->code->error = ParserError("Invalid operand type for SUB operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 		}
 	}
 }
@@ -107,7 +107,7 @@ uint8_t Operation::getRegisterValue(Nano *currentNano, const std::string &reg, u
 		return currentNano->cycles;
 	}
 
-	currentNano->code->error = ParserError("Invalid operands", "Invalid register source for operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+	currentNano->code->error = ParserError("Invalid register source for operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 	return 0;
 }
 
@@ -146,5 +146,5 @@ void Operation::setRegisterValue(Nano *currentNano, const std::string &reg, uint
 		return;
 	}
 
-	currentNano->code->error = ParserError("Invalid operands", "Invalid register destination for operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+	currentNano->code->error = ParserError("Invalid register destination for operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 }

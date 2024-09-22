@@ -8,7 +8,7 @@ void SubOperation::execute(Nano *currentNano, Lexer &lexer, uint8_t currentLine)
 	if (operand1.type == Token::TOKEN_REGISTER) {
 		sub(currentNano, operand1, operand2, operand3, currentLine);
 	} else {
-		currentNano->code->error = ParserError("Invalid operands", "Invalid operands for ADD operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+		currentNano->code->error = ParserError("Invalid operands for ADD operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 	}
 }
 

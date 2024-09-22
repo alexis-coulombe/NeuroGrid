@@ -95,6 +95,9 @@ void PlayScreen::init() {
 	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2 - 5, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
 	missionBriefText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getDescription(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 14));
+	missionNano1ErrorText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getNano(Mission::NANOS::NANO1)->code->error.message, Asset::loadFont((char *)"assets/ModernDOS.ttf", 18), Color::RED);
+	missionNano2ErrorText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getNano(Mission::NANOS::NANO2)->code->error.message, Asset::loadFont((char *)"assets/ModernDOS.ttf", 18), Color::RED);
+	missionNano3ErrorText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getNano(Mission::NANOS::NANO3)->code->error.message, Asset::loadFont((char *)"assets/ModernDOS.ttf", 18), Color::RED);
 
 	input1Text = mission->getInputAText();
 	input1Text->setParentContainer(input1);
@@ -174,7 +177,16 @@ void PlayScreen::renderText() {
 	output2Text->render();
 	output3Text->render();
 
-	missionBriefText->render();
+	if(mission->getNano(Mission::NANO1)->code->error.type != ParserError::ERROR_TYPE::NONE) {
+		missionNano1ErrorText->updateText(mission->getNano(Mission::NANO1)->code->error.message);
+		missionNano1ErrorText->render();
+	} else if(mission->getNano(Mission::NANO2)->code->error.type != ParserError::ERROR_TYPE::NONE) {
+		missionNano2ErrorText->render();
+	} else if(mission->getNano(Mission::NANO3)->code->error.type != ParserError::ERROR_TYPE::NONE) {
+		missionNano3ErrorText->render();
+	} else {
+		missionBriefText->render();
+	}
 
 	nano1MemoryText->render();
 	nano1MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO1)->memory));

@@ -229,18 +229,6 @@ class Mission1 : public Mission {
 	std::vector<uint8_t> getFOutputs() override {
 		return outputsF;
 	};
-
-	void setDOutput(uint8_t index, uint8_t value) override {
-		outputsD.at(index) = value;
-	};
-
-	void setEOutput(uint8_t index, uint8_t value) override {
-		outputsE.at(index) = value;
-	};
-
-	void setFOutput(uint8_t index, uint8_t value) override {
-		outputsF.at(index) = value;
-	};
 };
 
 #endif //ASM_SRC_GAME_MISSION_MISSION1_H_

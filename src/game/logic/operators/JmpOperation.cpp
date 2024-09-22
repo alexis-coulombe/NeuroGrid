@@ -6,7 +6,7 @@ void JmpOperation::execute(Nano *currentNano, Lexer &lexer, uint8_t currentLine)
 	if (operand1.type == Token::TOKEN_SYMBOL) {
 		jmp(currentNano, operand1, currentLine);
 	} else {
-		currentNano->code->error = ParserError("Invalid operands", "Invalid operands for ADD operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+		currentNano->code->error = ParserError("Invalid operands for ADD operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 	}
 }
 
@@ -14,12 +14,12 @@ void JmpOperation::jmp(Nano *currentNano, Token operand1, uint8_t currentLine) {
 	uint8_t labelLine = currentNano->code->getLineOfLabel(operand1.text);
 
 	if (labelLine == Textarea::NOT_FOUND) {
-		currentNano->code->error = ParserError("Label not found", "Label not found", ParserError::ERROR_TYPE::LABEL_NOT_FOUND, currentLine);
+		currentNano->code->error = ParserError("Label not found", ParserError::ERROR_TYPE::LABEL_NOT_FOUND, currentLine);
 		return;
 	}
 
 	if(labelLine == Textarea::DUPLICATE) {
-		currentNano->code->error = ParserError("Duplicate label", "Duplicate label", ParserError::ERROR_TYPE::DUPLICATE_LABEL, currentLine);
+		currentNano->code->error = ParserError("Duplicate label", ParserError::ERROR_TYPE::DUPLICATE_LABEL, currentLine);
 		return;
 	}
 

@@ -52,7 +52,6 @@ class Mission {
 	virtual Text *getInputAText() = 0;
 	virtual Text *getInputBText() = 0;
 	virtual Text *getInputCText() = 0;
-
 	virtual Text *getOutputDText() = 0;
 	virtual Text *getOutputEText() = 0;
 	virtual Text *getOutputFText() = 0;
@@ -60,14 +59,9 @@ class Mission {
 	virtual std::vector<uint8_t> getAInputs() = 0;
 	virtual std::vector<uint8_t> getBInputs() = 0;
 	virtual std::vector<uint8_t> getCInputs() = 0;
-
 	virtual std::vector<uint8_t> getDOutputs() = 0;
 	virtual std::vector<uint8_t> getEOutputs() = 0;
 	virtual std::vector<uint8_t> getFOutputs() = 0;
-
-	virtual void setDOutput(uint8_t index, uint8_t value) = 0;
-	virtual void setEOutput(uint8_t index, uint8_t value) = 0;
-	virtual void setFOutput(uint8_t index, uint8_t value) = 0;
 
 	void increaseIOLine(IO io) {
 		switch (io) {

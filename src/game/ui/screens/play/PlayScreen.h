@@ -84,6 +84,9 @@ class PlayScreen : public GenericScreen {
 	PlayStopButton *playStopButton;
 	Container *missionBriefContainer;
 	Text *missionBriefText;
+	Text *missionNano1ErrorText;
+	Text *missionNano2ErrorText;
+	Text *missionNano3ErrorText;
 
 	Container *input1;
 	Text *input1Text;

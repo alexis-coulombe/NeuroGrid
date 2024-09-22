@@ -15,12 +15,11 @@ class ParserError {
 		DUPLICATE_LABEL,
 	};
 
-	std::string title;
 	std::string message;
 	ERROR_TYPE type = NONE;
 	uint8_t line;
 
-	ParserError(std::string title = "", std::string message = "", ERROR_TYPE type = NONE, uint8_t line = 0);
+	ParserError(std::string message, ERROR_TYPE type, uint8_t line = 0);
 };
 
 #endif

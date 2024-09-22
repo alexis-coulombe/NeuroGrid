@@ -43,7 +43,7 @@ void NanoParser::parseLine(Nano *currentNano) {
 	mission->getOutputFText()->highlightedLine = mission->currentOutputFLine;
 
 	if (token.type == Token::TOKEN_INVALID) {
-		currentNano->code->error = ParserError("Invalid token", "Invalid token", ParserError::ERROR_TYPE::INVALID_TOKEN, currentNano->currentParseLine);
+		currentNano->code->error = ParserError("Invalid token", ParserError::ERROR_TYPE::INVALID_TOKEN, currentNano->currentParseLine);
 		return;
 	}
 
@@ -66,7 +66,7 @@ void NanoParser::parseLine(Nano *currentNano) {
 				currentNano->increaseParseLine();
 			}
 		} else {
-			currentNano->code->error = ParserError("Unknown operation", "Operation not supported", ParserError::ERROR_TYPE::UNKNOWN_OPERATION, currentNano->currentParseLine);
+			currentNano->code->error = ParserError("Operation not supported", ParserError::ERROR_TYPE::UNKNOWN_OPERATION, currentNano->currentParseLine);
 		}
 
 		return;

@@ -9,7 +9,7 @@ void MovOperation::execute(Nano *currentNano, Lexer &lexer, uint8_t currentLine)
 
 void MovOperation::mov(Nano *currentNano, Token operand1, Token operand2, uint8_t currentLine) {
 	if (operand1.text == "IN") {
-		currentNano->code->error = ParserError("Invalid operands", "Invalid operands for MOV operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+		currentNano->code->error = ParserError("Invalid operands for MOV operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 		return;
 	}
 
