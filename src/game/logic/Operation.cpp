@@ -34,7 +34,7 @@ uint8_t Operation::getParseOperand(Nano *currentNano, Token operand, uint8_t cur
 			return 0;
 		}
 		default: {
-			currentNano->code->error = ParserError("Invalid operand type for SUB operation", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
+			currentNano->code->error = ParserError("Could not find register value or malformed integer", ParserError::ERROR_TYPE::INVALID_OPERANDS, currentLine);
 			return 0;
 		}
 	}

@@ -84,6 +84,22 @@ OPERATION_TYPE NanoParser::parseSymbol(const std::string &symbol) {
 		return OPERATION_TYPE::NOP;
 	} else if (symbol == "JMP") {
 		return OPERATION_TYPE::JMP;
+	} else if (symbol == "JMT") {
+		return OPERATION_TYPE::JMT;
+	} else if (symbol == "JMF") {
+		return OPERATION_TYPE::JMF;
+	} else if (symbol == "TEQ") {
+		return OPERATION_TYPE::TEQ;
+	} else if (symbol == "TNE") {
+		return OPERATION_TYPE::TNE;
+	} else if (symbol == "TLT") {
+		return OPERATION_TYPE::TLT;
+	} else if (symbol == "TLE") {
+		return OPERATION_TYPE::TLE;
+	} else if (symbol == "TGT") {
+		return OPERATION_TYPE::TGT;
+	} else if (symbol == "TGE") {
+		return OPERATION_TYPE::TGE;
 	} else {
 		return OPERATION_TYPE::INVALID_OP;
 	}

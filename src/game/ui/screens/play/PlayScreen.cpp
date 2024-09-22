@@ -113,20 +113,31 @@ void PlayScreen::init() {
 	output3Text = mission->getOutputFText();
 	output3Text->setParentContainer(output3);
 
-	//mission->getNano(Mission::NANO1)->code->setText(0, "ADD N2 M1 10");
 	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 1");
 	mission->getNano(Mission::NANO1)->code->setText(1, "# A COMMENT WOW");
 	mission->getNano(Mission::NANO1)->code->setText(2, ".LOOP");
-	mission->getNano(Mission::NANO1)->code->setText(3, "MOV M1 A");
-	//mission->getNano(Mission::NANO1)->code->setText(4, "JEQ .SEND");
+	mission->getNano(Mission::NANO1)->code->setText(3, "MOV N2 M1");
 	mission->getNano(Mission::NANO1)->code->setText(4, "JMP SEND");
-	mission->getNano(Mission::NANO1)->code->setText(8, ".SEND");
-	mission->getNano(Mission::NANO1)->code->setText(9, "MOV N2 M1");
-	mission->getNano(Mission::NANO1)->code->setText(10, "JMP LOOP");
+	mission->getNano(Mission::NANO1)->code->setText(6, ".SEND");
+	mission->getNano(Mission::NANO1)->code->setText(7, "TEQ A 10");
+	mission->getNano(Mission::NANO1)->code->setText(8, "JMT TRUE");
+	mission->getNano(Mission::NANO1)->code->setText(9, "JMF FALSE");
+	mission->getNano(Mission::NANO1)->code->setText(11, ".TRUE");
+	mission->getNano(Mission::NANO1)->code->setText(12, "MOV N2 A");
+	mission->getNano(Mission::NANO1)->code->setText(13, "JMP SEND");
+	mission->getNano(Mission::NANO1)->code->setText(15, ".FALSE");
+	mission->getNano(Mission::NANO1)->code->setText(16, "JMP LOOP");
 
-	//mission->getNano(Mission::NANO2)->code->setText(0, "NOP");
-	//mission->getNano(Mission::NANO2)->code->setText(1, "MOV M1 RX");
-	//mission->getNano(Mission::NANO2)->code->setText(2, "SUB M1 M1 1");
+	mission->getNano(Mission::NANO2)->code->setText(0, ".LOOP");
+	mission->getNano(Mission::NANO2)->code->setText(1, "TGT RX 100");
+	mission->getNano(Mission::NANO2)->code->setText(2, "JMT TRUE");
+	mission->getNano(Mission::NANO2)->code->setText(3, "JMF FALSE");
+	mission->getNano(Mission::NANO2)->code->setText(5, ".TRUE");
+	mission->getNano(Mission::NANO2)->code->setText(6, "MOV M1 0");
+	mission->getNano(Mission::NANO2)->code->setText(7, "JMP LOOP");
+	mission->getNano(Mission::NANO2)->code->setText(9, ".FALSE");
+	mission->getNano(Mission::NANO2)->code->setText(10, "MOV M1 1");
+	mission->getNano(Mission::NANO2)->code->setText(11, "JMP LOOP");
 }
 
 uint8_t memory = 0;
