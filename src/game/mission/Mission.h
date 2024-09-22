@@ -11,6 +11,7 @@
 class Mission {
  protected:
 	bool parsing = false;
+	bool autostep = false;
 
 	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));
 	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
@@ -44,8 +45,10 @@ class Mission {
 	virtual std::vector<std::string> getDescription() = 0;
 
 	virtual void setParsing(bool parsing) = 0;
+	virtual void setAutoStep(bool autostep) = 0;
 	virtual void stepParsing() = 0;
 	bool getParsing() { return parsing; };
+	bool getAutoStep() { return autostep; };
 	virtual void setNanoParentContainer(NANOS nano, Container *container) = 0;
 	virtual void render(NANOS nano) = 0;
 

@@ -7,6 +7,7 @@
 
 PlayScreen::PlayScreen() : GenericScreen() {
 	timer = new Timer(5 * 60 * TARGET_FPS, true, handleTimer);
+	autoStepTimer = new Timer(TARGET_FPS / 20, false, handleAutoStepTimer);
 
 	inputContainer = new Container(screenContainer, Bounds2(0, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
 	gameContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6), 0, (std::min((int)Window::width, 1920) / 6) * 4, std::min((int)Window::height, 1080)));
@@ -175,6 +176,7 @@ void PlayScreen::render() {
 	}
 
 	timer->tick();
+	autoStepTimer->tick();
 }
 
 void PlayScreen::onWindowResized() {
@@ -182,6 +184,12 @@ void PlayScreen::onWindowResized() {
 }
 
 void PlayScreen::renderText() {
+	if (mission->getAutoStep()) {
+		autoStepTimer->enable();
+	} else {
+		autoStepTimer->disable();
+	}
+
 	input1Text->render();
 	input2Text->render();
 	input3Text->render();
@@ -240,4 +248,12 @@ void PlayScreen::renderText() {
 
 void PlayScreen::handleTimer() {
 	SaveFileManager::saveGame();
+}
+
+void PlayScreen::handleAutoStepTimer() {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
+	if (mission->getAutoStep()) {
+		mission->nanoParser.step();
+	}
 }

@@ -26,8 +26,7 @@ void PlayButton::onClick() {
 		mission->setParsing(true);
 	}
 
-	// TODO: autostep
-	//mission->nanoParser.step();
+	mission->setAutoStep(true);
 }
 
 void PlayButton::onHover() {

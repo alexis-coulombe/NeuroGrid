@@ -6,9 +6,12 @@ PauseButton::PauseButton(Container *parentContainer, Bounds2 bounds, Color color
 }
 
 void PauseButton::onRender() {
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
 	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_PAUSE_IDLE), bounds.position, color, bounds.size);
 
 	// TODO: disabled if not in autoplay
+	disabled = !mission->getAutoStep();
 }
 
 void PauseButton::onPress() {
@@ -16,7 +19,11 @@ void PauseButton::onPress() {
 }
 
 void PauseButton::onClick() {
-	// TODO: pause at current line
+	Mission *mission = MissionManager::getInstance()->currentMission;
+
+	if (mission->getAutoStep()) {
+		mission->setAutoStep(false);
+	}
 }
 
 void PauseButton::onHover() {

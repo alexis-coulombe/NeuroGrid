@@ -152,6 +152,10 @@ class Mission1 : public Mission {
 		nano3.reset();
 	};
 
+	void setAutoStep(bool autostep) override {
+		this->autostep = autostep;
+	};
+
 	void stepParsing() override {
 		if (!parsing) {
 			return;

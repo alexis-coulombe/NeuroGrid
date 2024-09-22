@@ -14,9 +14,11 @@
 class PlayScreen : public GenericScreen {
  private:
 	Mission *mission;
-	Timer* timer;
+	Timer *timer;
+	Timer *autoStepTimer;
 
 	static void handleTimer();
+	static void handleAutoStepTimer();
 
 	Container *inputContainer;
 	Container *gameContainer;
