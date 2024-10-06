@@ -1,40 +1,36 @@
 #include "SaveFileManager.h"
-#include "../../Config.h"
-#include "../third_party/json.hpp"
 #include "../Utils.h"
 #include <filesystem>
 #include <string>
-#include <fstream>
 #include <iostream>
-#include <vector>
 
 std::string getSaveFilePath();
 
 bool SaveFileManager::saveGame() {
 	std::string filename = getSaveFilePath() + "savegame.sav";
-	printf("Save file path: %s\n", filename.c_str());
 	std::fstream file(filename, std::ios::in | std::ios::out | std::ios::binary);
 
 	if (!file) {
 		std::cout << "Save file does not exist, creating a new one." << std::endl;
 		std::filesystem::path savePath = getSaveFilePath();
 		std::filesystem::create_directories(savePath);
-		std::cout << "Save file does not exist, creating a new one." << std::endl;
-		file.open(filename, std::ios::out | std::ios::binary);
-		file.write(SAVE_FILE_VERSION, sizeof(SAVE_FILE_VERSION));
+
+		file.open(filename, std::ios::in | std::ios::binary);
+		writeVersion(&file, SAVE_FILE_VERSION);
+
+		// Write default data
+		SaveData saveData = {0};
+		for(size_t i = 0; i < MAX_MISSIONS; i++) {
+			writeSaveData(&file, &saveData);
+		}
+
 		file.close();
-		// Re-open the file for reading and writing
-		file.open(filename, std::ios::in | std::ios::out | std::ios::binary);
 	}
 
-	uint8_t version = 0x00;
-	file.read(reinterpret_cast<char *>(&version), sizeof(version));
+	file.open(filename, std::ios::in | std::ios::out | std::ios::binary);
 
+	uint8_t version = readVersion(&file);
 	std::cout << "Save file version: " << (uint8_t)version << std::endl;
-
-	file.seekg(sizeof(version), std::ios::beg);
-	std::vector<char> jsonData((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-	std::string jsonString(jsonData.begin(), jsonData.end());
 
 	file.close();
 
@@ -52,6 +48,30 @@ bool SaveFileManager::hasSaveFile() {
 	return file.good();
 }
 
+uint8_t SaveFileManager::readVersion(std::fstream *file) {
+	uint8_t version;
+	file->read(reinterpret_cast<char *>(&version), sizeof(version));
+	file->seekg(sizeof(version), std::ios::beg);
+
+	return version;
+}
+
+void SaveFileManager::writeVersion(std::fstream *file, uint8_t version) {
+	file->write(reinterpret_cast<char *>(&version), sizeof(version));
+	file->seekp(sizeof(version), std::ios::beg);
+}
+
+SaveFileManager::SaveData SaveFileManager::readSaveData(std::fstream *file, SaveFileManager::SaveData *saveData) {
+	file->read(reinterpret_cast<char *>(saveData), sizeof(SaveFileManager::SaveData));
+	file->seekg(sizeof(SaveFileManager::SaveData), std::ios::beg);
+
+	return *saveData;
+}
+
+void SaveFileManager::writeSaveData(std::fstream *file, SaveFileManager::SaveData *saveData) {
+	file->write(reinterpret_cast<char *>(saveData), sizeof(SaveFileManager::SaveData));
+	file->seekp(sizeof(SaveFileManager::SaveData), std::ios::beg);
+}
 
 std::string getSaveFilePath() {
 	std::string filename = UNKNOWN_SAVE_FILE_PATH;

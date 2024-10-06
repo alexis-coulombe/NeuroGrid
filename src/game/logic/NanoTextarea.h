@@ -9,7 +9,7 @@ class NanoTextarea : public Textarea {
 	ParserError error = ParserError("", ParserError::ERROR_TYPE::NONE);
 	bool blocking = false;
 
-	NanoTextarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor);
+	NanoTextarea(Container *parentContainer, Vector2f position, Font *font, Color textColor);
 
 	void onHover() override;
 	void onBeforeRender(uint8_t line) override;

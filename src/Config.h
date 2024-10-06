@@ -3,6 +3,12 @@
 
 #define GAME_TITLE ("NeuroGrid")
 
+// Mechanics
+#define MAX_TEXTAREA_LINES (20)
+#define MAX_TEXTAREA_LINE_LENGTH (20)
+
+#define MAX_MISSIONS (40)
+
 // Engine
 #define TARGET_FPS (50)
 
@@ -18,7 +24,8 @@
 #define AUDIO_CHUNKSIZE (1024)
 #define AUDIO_CHANNEL_COUNT (8)
 
-#define SAVE_FILE_VERSION ("1")
+// Save
+#define SAVE_FILE_VERSION (0x00)
 #define CONFIG_FILE_VERSION (1)
 
 #define LINUX_SAVE_FILE_PATH (std::string(std::getenv("HOME")) + "/.local/share/" + GAME_TITLE + "/")

@@ -3,6 +3,7 @@
 
 #include "../../../engine/ui/GenericPopup.h"
 #include "../../../engine/ui/Text.h"
+#include "../../ui/screens/play/elements/popup/QuitToMenuButton.h"
 
 class FinishedWinPopup : public GenericPopup {
  public:
@@ -11,6 +12,8 @@ class FinishedWinPopup : public GenericPopup {
 	Container *buttonContainer;
 	Container *continueButtonContainer;
 	Container *quitButtonContainer;
+
+	QuitToMenuButton *quitToMenuButton;
 
 	FinishedWinPopup(Bounds2 bounds);
 

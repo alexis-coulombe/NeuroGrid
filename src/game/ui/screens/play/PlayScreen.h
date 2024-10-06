@@ -10,6 +10,8 @@
 #include "../../../../engine/utility/Timer.h"
 #include "elements/PauseButton.h"
 #include "elements/PlayButton.h"
+#include "elements/QuitPopup.h"
+#include "elements/QuitButton.h"
 
 class PlayScreen : public GenericScreen {
  private:
@@ -19,6 +21,8 @@ class PlayScreen : public GenericScreen {
 
 	static void handleTimer();
 	static void handleAutoStepTimer();
+
+	QuitButton *quitButton;
 
 	Container *inputContainer;
 	Container *gameContainer;

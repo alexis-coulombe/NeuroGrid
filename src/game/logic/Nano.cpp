@@ -17,7 +17,7 @@ void Nano::render() {
 void Nano::increaseParseLine() {
 	currentParseLine++;
 
-	if (currentParseLine >= code->rows) {
+	if (currentParseLine >= MAX_TEXTAREA_LINES) {
 		currentParseLine = 0;
 	}
 }

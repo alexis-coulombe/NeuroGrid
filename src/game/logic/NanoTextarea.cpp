@@ -3,7 +3,7 @@
 
 Lexer *lexer;
 
-NanoTextarea::NanoTextarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor) : Textarea(parentContainer, position, cols, rows, font, textColor) {
+NanoTextarea::NanoTextarea(Container *parentContainer, Vector2f position, Font *font, Color textColor) : Textarea(parentContainer, position, font, textColor) {
 }
 
 void NanoTextarea::onBeforeRender(uint8_t line) {

@@ -9,6 +9,8 @@ PlayScreen::PlayScreen() : GenericScreen() {
 	timer = new Timer(5 * 60 * TARGET_FPS, true, handleTimer);
 	autoStepTimer = new Timer(TARGET_FPS / 20, false, handleAutoStepTimer);
 
+	quitButton = new QuitButton(screenContainer, Bounds2((int32_t)screenContainer->bounds.size.x - 40, 0, 40, 40), Color::WHITE, 0);
+
 	inputContainer = new Container(screenContainer, Bounds2(0, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
 	gameContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6), 0, (std::min((int)Window::width, 1920) / 6) * 4, std::min((int)Window::height, 1080)));
 	outputContainer = new Container(screenContainer, Bounds2((std::min((int)Window::width, 1920) / 6) * 5, 0, (std::min((int)Window::width, 1920) / 6), std::min((int)Window::height, 1080)));
@@ -138,6 +140,7 @@ void PlayScreen::render() {
 	playStopButton->render();
 	playButton->render();
 	pauseButton->render();
+	quitButton->render();
 
 	mission->render(Mission::NANO1);
 	mission->render(Mission::NANO2);
@@ -145,10 +148,6 @@ void PlayScreen::render() {
 
 	if (Input::getInstance()->getKeyDown(Input::Tab)) {
 		playStepButton->click();
-	}
-
-	if (Input::getInstance()->getKeyDown(Input::Escape)) {
-		playStopButton->click();
 	}
 
 	mission->getFinishedWinPopup()->render(true);

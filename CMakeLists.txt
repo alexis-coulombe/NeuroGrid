@@ -35,6 +35,7 @@ file(GLOB SOURCE_FILES
         "src/game/ui/screens/menu_play/elements/popup/*.cpp" ,
         "src/game/ui/screens/play/*.cpp" ,
         "src/game/ui/screens/play/elements/*.cpp" ,
+        "src/game/ui/screens/play/elements/popup/*.cpp" ,
         "src/language/*.cpp" ,
 )
 

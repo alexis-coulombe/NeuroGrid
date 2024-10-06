@@ -1,9 +1,9 @@
 #include "Textarea.h"
 
-Textarea::Textarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor) : parentContainer(parentContainer), cols(cols), rows(rows), font(font), textColor(textColor) {
-	bounds = new Bounds2(position.x, position.y, (float)(cols * font->textWidth), (float)(rows * font->textHeight));
+Textarea::Textarea(Container *parentContainer, Vector2f position, Font *font, Color textColor, uint8_t zLevel) : parentContainer(parentContainer), font(font), textColor(textColor), zLevel(zLevel) {
+	bounds = new Bounds2(position.x, position.y, (float)(MAX_TEXTAREA_LINE_LENGTH * font->textWidth), (float)(MAX_TEXTAREA_LINES * font->textHeight));
 	bounds->position = getRelativePositionWithParentContainer();
-	lines = new std::vector<std::string>(rows);
+	lines = new std::vector<std::string>(MAX_TEXTAREA_LINES);
 	timer = new Timer(TARGET_FPS / 10, true, handleKeyPressed);
 }
 
@@ -34,7 +34,7 @@ void Textarea::update() {
 	onKeyPageDown();
 	onKeyEnter();
 
-	if (!Input::getInstance()->typedText.empty() && getTextOfCurrentLine()->length() < cols) {
+	if (!Input::getInstance()->typedText.empty() && getTextOfCurrentLine()->length() < MAX_TEXTAREA_LINE_LENGTH) {
 		char c = Input::getInstance()->typedText[0];
 
 		if (c >= 'a' && c <= 'z') {
@@ -60,7 +60,7 @@ void Textarea::render() {
 	//Graphics::drawRectEmpty(*bounds, Color::GREEN);
 	//Graphics::drawString(font, bounds->size.toString(), bounds->position, Color::GREEN);
 
-	for (size_t line = 0; line < rows; line++) {
+	for (size_t line = 0; line < MAX_TEXTAREA_LINES; line++) {
 		std::string string = lines->at(line);
 
 		if (string.empty()) {
@@ -74,8 +74,8 @@ void Textarea::render() {
 			string.replace(pos, 1, ""); // Replace \n with an empty string
 		}
 
-		float x = ((line / cols) * font->textWidth) + bounds->position.x;
-		float y = (line / rows) + (line * font->textHeight) + bounds->position.y;
+		float x = ((line / MAX_TEXTAREA_LINE_LENGTH) * font->textWidth) + bounds->position.x;
+		float y = (line / MAX_TEXTAREA_LINES) + (line * font->textHeight) + bounds->position.y;
 
 		if (highlightedLine == line) {
 			Graphics::drawRectSolid(Bounds2(x, y, bounds->size.x, (float)font->textHeight), Color::WHITE);
@@ -94,8 +94,8 @@ void Textarea::render() {
 			showCaret = !showCaret;
 		}
 
-		float x = ((caretColumn / cols) * font->textWidth) + bounds->position.x;
-		float y = (caretLine / rows) + (caretLine * font->textHeight + bounds->position.y);
+		float x = ((caretColumn / MAX_TEXTAREA_LINE_LENGTH) * font->textWidth) + bounds->position.x;
+		float y = (caretLine / MAX_TEXTAREA_LINES) + (caretLine * font->textHeight + bounds->position.y);
 
 		for (uint8_t i = 0; i < caretColumn; i++) {
 			x += font->textWidth;
@@ -111,6 +111,10 @@ void Textarea::render() {
 }
 
 void Textarea::onClick() {
+	if(zLevel != Input::getInstance()->getMouseZLevel()) {
+		return;
+	}
+
 	if (Input::getInstance()->getMouseButtonDown(Input::LEFT)) {
 		inFocus = Input::getInstance()->mouseInBounds(*bounds);
 
@@ -119,8 +123,8 @@ void Textarea::onClick() {
 			uint8_t line = (uint8_t)((mousePosition.y - bounds->position.y) / font->textHeight);
 			uint8_t column = (uint8_t)((mousePosition.x - bounds->position.x) / font->textWidth);
 
-			if (line >= rows) {
-				line = rows - 1;
+			if (line >= MAX_TEXTAREA_LINES) {
+				line = MAX_TEXTAREA_LINES - 1;
 			}
 
 			if (column > lines->at(line).length()) {
@@ -176,7 +180,7 @@ void Textarea::moveCaretUp() {
 }
 
 void Textarea::moveCaretDown() {
-	if (caretLine == rows - 1) {
+	if (caretLine == MAX_TEXTAREA_LINES - 1) {
 		caretColumn = (uint8_t)getTextOfCurrentLine()->length();
 		return;
 	}
@@ -203,11 +207,11 @@ void Textarea::moveCaretLeft() {
 }
 
 void Textarea::moveCaretRight() {
-	if (caretColumn == lines->at(caretLine).length() && caretColumn == rows) {
+	if (caretColumn == lines->at(caretLine).length() && caretColumn == MAX_TEXTAREA_LINES) {
 		return;
 	}
 
-	if (caretColumn == lines->at(caretLine).length() && caretLine < rows) {
+	if (caretColumn == lines->at(caretLine).length() && caretLine < MAX_TEXTAREA_LINES) {
 		moveCaretDown();
 		caretColumn = 0;
 		return;
@@ -274,18 +278,18 @@ void Textarea::onKeyRight() {
 
 void Textarea::onKeyEnter() {
 	if (Input::getInstance()->getKeyDown(Input::Return)) {
-		if (caretLine == rows - 1) {
+		if (caretLine == MAX_TEXTAREA_LINES - 1) {
 			return;
 		}
 
-		if(!lines->at(rows - 1).empty()) {
+		if(!lines->at(MAX_TEXTAREA_LINES - 1).empty()) {
 			return;
 		}
 
 		std::string text = lines->at(caretLine).substr(caretColumn, lines->at(caretLine).length() - caretColumn);
 		lines->at(caretLine) = lines->at(caretLine).substr(0, caretColumn);
 
-		for (size_t i = rows - 1; i > caretLine; i--) {
+		for (size_t i = MAX_TEXTAREA_LINES - 1; i > caretLine; i--) {
 			lines->at(i) = lines->at(i - 1);
 		}
 
@@ -307,22 +311,22 @@ void Textarea::onKeyBackspace() {
 			moveCaretLeft();
 			onLineChange(caretLine);
 		} else if (getTextOfCurrentLine()->empty()) {
-			for (size_t i = caretLine; i < rows - 1; i++) {
+			for (size_t i = caretLine; i < MAX_TEXTAREA_LINES - 1; i++) {
 				lines->at(i) = lines->at(i + 1);
 			}
 
-			lines->at(rows - 1) = "";
+			lines->at(MAX_TEXTAREA_LINES - 1) = "";
 			moveCaretLeft();
 			onLineChange(caretLine);
-		} else if (caretColumn == 0 && !getTextOfCurrentLine()->empty() && lines->at(caretLine - 1).length() + getTextOfCurrentLine()->length() < cols) {
+		} else if (caretColumn == 0 && !getTextOfCurrentLine()->empty() && lines->at(caretLine - 1).length() + getTextOfCurrentLine()->length() < MAX_TEXTAREA_LINE_LENGTH) {
 			uint8_t lengthOfLineAbove = (uint8_t)lines->at(caretLine - 1).length();
 
 			lines->at(caretLine - 1) += lines->at(caretLine);
-			for (size_t i = caretLine; i < rows - 1; i++) {
+			for (size_t i = caretLine; i < MAX_TEXTAREA_LINES - 1; i++) {
 				lines->at(i) = lines->at(i + 1);
 			}
 
-			lines->at(rows - 1) = "";
+			lines->at(MAX_TEXTAREA_LINES - 1) = "";
 			moveCaretUp();
 			caretColumn = lengthOfLineAbove;
 			onLineChange(caretLine);
@@ -360,7 +364,7 @@ void Textarea::onKeyPageUp() {
 
 void Textarea::onKeyPageDown() {
 	if (Input::getInstance()->getKeyDown(Input::PageDown)) {
-		caretLine = rows;
+		caretLine = MAX_TEXTAREA_LINES;
 		moveCaretDown(); // move caret to end of the last line
 	}
 }

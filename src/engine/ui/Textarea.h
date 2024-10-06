@@ -31,20 +31,20 @@ class Textarea {
 	static const uint8_t NOT_FOUND = 0xFF;
 	static const uint8_t DUPLICATE = 0xFF;
 
-	uint8_t cols, rows;
 	Bounds2 *bounds;
 	Container *parentContainer;
 
 	Font *font;
 	Color textColor;
 
+	uint8_t zLevel;
 	std::string text;
 
 	bool inFocus = false;
 	bool readonly = false;
 	uint8_t highlightedLine = NOT_FOUND;
 
-	Textarea(Container *parentContainer, Vector2f position, uint8_t cols, uint8_t rows, Font *font, Color textColor = Color::BLACK);
+	Textarea(Container *parentContainer, Vector2f position, Font *font, Color textColor = Color::BLACK, uint8_t zLevel = 0);
 
 	void update();
 	void render();
