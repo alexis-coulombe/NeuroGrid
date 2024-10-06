@@ -26,6 +26,10 @@ void GenericPopup::render(bool showBounds) {
 		Graphics::drawRectEmpty(bounds, Color::YELLOW);
 	}
 
+	if(Input::getInstance()->getKeyDown(Input::Escape)) {
+		hide();
+	}
+
 	Graphics::drawTexture(backgroundOverlay, Vector2f(0, 0), Color::BLACK_TRANSPARENT_HALF, Vector2f(Window::width, Window::height));
 	popupContainer->render();
 

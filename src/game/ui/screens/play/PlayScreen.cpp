@@ -151,7 +151,6 @@ void PlayScreen::render() {
 		playStopButton->click();
 	}
 
-	mission->getFinishedFailedPopup()->render(true);
 	mission->getFinishedWinPopup()->render(true);
 
 	timer->tick();

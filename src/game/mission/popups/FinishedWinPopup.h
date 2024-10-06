@@ -6,6 +6,12 @@
 
 class FinishedWinPopup : public GenericPopup {
  public:
+	Container *graphContainer;
+
+	Container *buttonContainer;
+	Container *continueButtonContainer;
+	Container *quitButtonContainer;
+
 	FinishedWinPopup(Bounds2 bounds);
 
 	void onShow() override;

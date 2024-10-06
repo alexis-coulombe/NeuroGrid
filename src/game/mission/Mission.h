@@ -7,7 +7,6 @@
 #include "../logic/NanoTextarea.h"
 #include "../logic/NanoParser.h"
 #include "../../engine/ui/Text.h"
-#include "popups/FinishedFailedPopup.h"
 #include "popups/FinishedWinPopup.h"
 
 class Mission {
@@ -16,7 +15,6 @@ class Mission {
 	bool autostep = false;
 	bool finished = false;
 
-	FinishedFailedPopup *finishedFailedPopup = nullptr;
 	FinishedWinPopup *finishedWinPopup = nullptr;
 
 	Nano nano1 = Nano(new NanoTextarea(nullptr, Vector2f(), 20, 20, Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));
@@ -165,17 +163,9 @@ class Mission {
 		}
 	}
 
-	FinishedFailedPopup *getFinishedFailedPopup() {
-		if(finishedFailedPopup == nullptr) {
-			finishedFailedPopup = new FinishedFailedPopup(Bounds2(0, 0, 600, 250));
-		}
-
-		return finishedFailedPopup;
-	}
-
 	FinishedWinPopup *getFinishedWinPopup() {
 		if(finishedWinPopup == nullptr) {
-			finishedWinPopup = new FinishedWinPopup(Bounds2(0, 0, 600, 250));
+			finishedWinPopup = new FinishedWinPopup(Bounds2((int32_t) (Window::width / 2) - 300, (int32_t) (Window::height/ 2) - 125, 600, 250));
 		}
 
 		return finishedWinPopup;

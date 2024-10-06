@@ -19,7 +19,7 @@ void NanoParser::step() {
 			mission->getFinishedWinPopup()->show();
 			Audio::playSound(const_cast<Sound *>(AssetLibrary::SUCCESS_SOUND), false);
 		} else {
-			nano1->code->error = ParserError("Invalid output", ParserError::ERROR_TYPE::INVALID_OUTPUT, Textarea::NOT_FOUND);
+			nano1->code->error = ParserError("The output does not match the expected output", ParserError::ERROR_TYPE::INVALID_OUTPUT, Textarea::NOT_FOUND);
 			Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
 		}
 		mission->setAutoStep(false);

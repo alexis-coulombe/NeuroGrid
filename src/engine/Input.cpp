@@ -40,15 +40,15 @@ void Input::pollEvents() {
 			}
 			case SDL_KEYDOWN: {
 				if (event.key.repeat == 0) {
-					keysDown.insert((Key)event.key.keysym.sym);
+					keysDown.insert(static_cast<Key>((Key)event.key.keysym.scancode | SDLK_SCANCODE_MASK));
 				} else {
-					keysHeld.insert((Key)event.key.keysym.sym);
+					keysHeld.insert(static_cast<Key>((Key)event.key.keysym.scancode | SDLK_SCANCODE_MASK));
 				}
 				break;
 			}
 			case SDL_KEYUP: {
-				keysUp.insert((Key)event.key.keysym.sym);
-				keysHeld.erase((Key)event.key.keysym.sym);
+				keysUp.insert(static_cast<Key>((Key)event.key.keysym.scancode | SDLK_SCANCODE_MASK));
+				keysHeld.erase(static_cast<Key>((Key)event.key.keysym.scancode | SDLK_SCANCODE_MASK));
 				break;
 			}
 			case SDL_TEXTINPUT: {
@@ -61,7 +61,6 @@ void Input::pollEvents() {
 			}
 			case SDL_QUIT: {
 				exit(0);
-				break;
 			}
 		}
 	}
