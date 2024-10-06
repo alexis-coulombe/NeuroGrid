@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
-project(ASM)
+project(ASM LANGUAGES CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED On)
+set(CMAKE_CXX_EXTENSIONS Off)
 
 # Find the SDL2 package
 find_package(PkgConfig REQUIRED)

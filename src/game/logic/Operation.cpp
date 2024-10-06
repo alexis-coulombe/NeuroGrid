@@ -50,18 +50,21 @@ void Operation::setParseOperand(Nano *currentNano, Token operand, uint8_t value,
 		}
 		case Token::TOKEN_IO: {
 			if (operand.text == "D") {
+				mission->getIO(Mission::IO::D)->at(mission->currentOutputDLine) = value;
 				mission->getIOText(Mission::IO::D)->lines.at(mission->currentOutputDLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
 				mission->increaseIOLine(Mission::IO::D);
 				break;
 			}
 
 			if (operand.text == "E") {
+				mission->getIO(Mission::IO::E)->at(mission->currentOutputELine) = value;
 				mission->getIOText(Mission::IO::E)->lines.at(mission->currentOutputELine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
 				mission->increaseIOLine(Mission::IO::E);
 				break;
 			}
 
 			if (operand.text == "F") {
+				mission->getIO(Mission::IO::F)->at(mission->currentOutputFLine) = value;
 				mission->getIOText(Mission::IO::F)->lines.at(mission->currentOutputFLine) = (value < 10 ? "00" : value < 100 ? "0" : "") + std::to_string(value);
 				mission->increaseIOLine(Mission::IO::F);
 				break;

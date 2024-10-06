@@ -62,6 +62,7 @@ class AssetLibrary {
 	static inline const Texture *CONTAINER_MISSION_PLAY_BRIEF = nullptr;
 
 	static inline const Sound   *ERROR_SOUND = nullptr;
+	static inline const Sound   *SUCCESS_SOUND = nullptr;
 };
 
 #endif //ASM_SRC_ENGINE_ASSETLIBRARY_H_

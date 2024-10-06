@@ -43,40 +43,40 @@ class Mission1 : public Mission {
 		};
 	}
 
-	static const inline std::vector<uint8_t> inputsA = {
+	static inline std::vector<uint8_t> *inputsA = new std::vector<uint8_t> {
 			112, 84, 74, 90, 25, 127, 183, 118, 253, 10,
 			113, 240, 209, 53, 121, 138, 123, 139, 92, 60,
 			192, 249, 153, 74, 95, 190, 72, 59, 230, 116,
 			109, 213, 17, 78, 74, 93, 252, 195, 170, 147
 	};
-	static const inline std::vector<uint8_t> inputsB = {
+	static inline std::vector<uint8_t> *inputsB = new std::vector<uint8_t> {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
-	static const inline std::vector<uint8_t> inputsC = {
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-	};
-
-	static inline std::vector<uint8_t> outputsD = {
+	static inline std::vector<uint8_t> *inputsC = new std::vector<uint8_t> {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
-	static inline std::vector<uint8_t> outputsE = {
+	static inline std::vector<uint8_t> *outputsD = new std::vector<uint8_t> {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
-	static inline std::vector<uint8_t> outputsF = {
+	static inline std::vector<uint8_t> *outputsE = new std::vector<uint8_t> {
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	};
+
+	static inline std::vector<uint8_t> *outputsF = new std::vector<uint8_t> {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -87,37 +87,37 @@ class Mission1 : public Mission {
 		switch (io) {
 			case Mission::IO::A: {
 				if (inputAText == nullptr) {
-					inputAText = new Text(nullptr, Vector2f(0, 0), inputsA, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+					inputAText = new Text(nullptr, Vector2f(0, 0), *inputsA, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
 				}
 				return inputAText;
 			}
 			case Mission::IO::B: {
 				if (inputBText == nullptr) {
-					inputBText = new Text(nullptr, Vector2f(0, 0), inputsB, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+					inputBText = new Text(nullptr, Vector2f(0, 0), *inputsB, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
 				}
 				return inputBText;
 			}
 			case Mission::IO::C: {
 				if (inputCText == nullptr) {
-					inputCText = new Text(nullptr, Vector2f(0, 0), inputsC, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+					inputCText = new Text(nullptr, Vector2f(0, 0), *inputsC, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
 				}
 				return inputCText;
 			}
 			case Mission::IO::D: {
 				if (outputDText == nullptr) {
-					outputDText = new Text(nullptr, Vector2f(0, 0), outputsD, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+					outputDText = new Text(nullptr, Vector2f(0, 0), *outputsD, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
 				}
 				return outputDText;
 			}
 			case Mission::IO::E: {
 				if (outputEText == nullptr) {
-					outputEText = new Text(nullptr, Vector2f(0, 0), outputsE, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+					outputEText = new Text(nullptr, Vector2f(0, 0), *outputsE, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
 				}
 				return outputEText;
 			}
 			case Mission::IO::F: {
 				if (outputFText == nullptr) {
-					outputFText = new Text(nullptr, Vector2f(0, 0), outputsF, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
+					outputFText = new Text(nullptr, Vector2f(0, 0), *outputsF, Asset::loadFont((char *)"assets/ModernDOS.ttf", 20), Color::WHITE);
 				}
 				return outputFText;
 			}
@@ -126,7 +126,7 @@ class Mission1 : public Mission {
 		return nullptr;
 	}
 
-	std::vector<uint8_t> getIO(Mission::IO io) override {
+	std::vector<uint8_t> *getIO(Mission::IO io) override {
 		switch (io) {
 			case Mission::IO::A: {
 				return inputsA;
@@ -152,8 +152,8 @@ class Mission1 : public Mission {
 	}
 
 	bool validate() override {
-		for (size_t i = 0; i < inputsA.size(); i++) {
-			if (inputsA[i] != outputsD[i]) {
+		for (size_t i = 0; i < inputsA->size(); i++) {
+			if (inputsA->at(i) != outputsD->at(i)) {
 				return false;
 			}
 		}

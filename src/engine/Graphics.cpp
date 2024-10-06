@@ -77,31 +77,30 @@ void Graphics::drawTexture(Texture *texture, Vector2f position, Color color, Vec
 }
 
 Bounds2 Graphics::drawString(Font *font, std::string text, Vector2f position, Color color, Graphics::TextAlignement alignement, bool measureOnly) {
-	SDL_Color white = SDL_Color{255, 255, 255, 255};
+	SDL_Color white = {0xFF, 0xFF, 0xFF, 0xFF};
 	SDL_Texture *handle = nullptr;
 
-	if (textCache.find(text + std::to_string(font->pointSize)) != textCache.end()) {
-		handle = textCache[text + std::to_string(font->pointSize)];
+	auto cacheKey = text + std::to_string(font->pointSize);
+	if (textCache.find(cacheKey) != textCache.end()) {
+		handle = textCache[cacheKey];
 	} else {
 		SDL_Surface *surface = TTF_RenderText_Solid(font->handle, text.c_str(), white);
 		handle = SDL_CreateTextureFromSurface(Window::renderer, surface);
 		SDL_FreeSurface(surface);
-
-		textCache[text + std::to_string(font->pointSize)] = handle;
+		textCache[cacheKey] = handle;
 	}
 
-	uint format;
-	int access, width, height;
-	SDL_QueryTexture(handle, &format, &access, &width, &height);
+	int width, height;
+	SDL_QueryTexture(handle, nullptr, nullptr, &width, &height);
 
 	if (alignement == CENTER) {
-		position.x -= (float)width / 2;
+		position.x -= width / 2.0f;
 	} else if (alignement == RIGHT) {
-		position.x -= (float)width;
+		position.x -= width;
 	}
 
 	if (!measureOnly) {
-		Texture texture = Texture(handle, width, height);
+		Texture texture(handle, width, height);
 		drawTexture(&texture, position, color);
 	}
 

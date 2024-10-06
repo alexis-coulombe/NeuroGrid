@@ -96,6 +96,15 @@ class Mission {
 		currentOutputDLine = 0;
 		currentOutputELine = 0;
 		currentOutputFLine = 0;
+
+		for(size_t i = 0; i < getIO(Mission::IO::D)->size(); i++) {
+			getIO(Mission::IO::D)->at(i) = 0;
+			getIOText(Mission::IO::D)->lines.at(i) = "000";
+			getIO(Mission::IO::E)->at(i) = 0;
+			getIOText(Mission::IO::E)->lines.at(i) = "000";
+			getIO(Mission::IO::F)->at(i) = 0;
+			getIOText(Mission::IO::F)->lines.at(i) = "000";
+		}
 	}
 
 	bool getParsing() {
@@ -180,7 +189,7 @@ class Mission {
 	Text *outputFText;
 
 	virtual Text *getIOText(IO io) = 0;
-	virtual std::vector<uint8_t> getIO(IO io) = 0;
+	virtual std::vector<uint8_t> *getIO(IO io) = 0;
 	virtual bool validate() = 0;
 
 	void increaseIOLine(IO io) {

@@ -22,7 +22,7 @@ Text::Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> l
 	}
 }
 
-void Text::render() {
+void Text::render(Graphics::TextAlignement alignement) {
 	for (size_t i = 0; i < lines.size(); i++) {
 		if (highlightedLine != NOT_FOUND && i == highlightedLine) {
 			Graphics::drawRectSolid(Bounds2(position.x, position.y + (font->textHeight + MARGIN) * i, (float)font->textWidth * lines.at(i).length(), (float)font->textHeight), Color(Color::ORANGE));
@@ -31,9 +31,9 @@ void Text::render() {
 		float y = position.y + (font->textHeight + MARGIN) * i;
 
 		if (highlightedLine == i) {
-			Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), Color::BLACK, Graphics::LEFT, false);
+			Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), Color::BLACK, alignement, false);
 		} else {
-			Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, Graphics::LEFT, false);
+			Graphics::drawString(font, lines.at(i), Vector2f(position.x, y), color, alignement, false);
 		}
 	}
 }

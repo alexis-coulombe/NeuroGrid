@@ -10,9 +10,10 @@ void PlayButton::onRender() {
 
 	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_AUTOPLAY_IDLE), bounds.position, color, bounds.size);
 
-	disabled = mission->getNano(Mission::NANO1)->code->error.type != ParserError::NONE ||
+	disabled = (mission->getNano(Mission::NANO1)->code->error.type != ParserError::NONE ||
 			mission->getNano(Mission::NANO2)->code->error.type != ParserError::NONE ||
-			mission->getNano(Mission::NANO3)->code->error.type != ParserError::NONE;
+			mission->getNano(Mission::NANO3)->code->error.type != ParserError::NONE) ||
+			mission->getAutoStep();
 }
 
 void PlayButton::onPress() {

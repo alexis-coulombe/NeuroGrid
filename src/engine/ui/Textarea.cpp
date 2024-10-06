@@ -331,7 +331,7 @@ void Textarea::onKeyBackspace() {
 }
 
 void Textarea::onKeyDelete() {
-	if (Input::getInstance()->getKeyDown(Input::Delete) || (Input::getInstance()->getKeyHeld(Input::Delete) && timer->expired)) {
+ 	if (Input::getInstance()->getKeyDown(Input::Delete) || (Input::getInstance()->getKeyHeld(Input::Delete) && timer->expired)) {
 		if (!getTextOfCurrentLine()->empty() && caretColumn != getTextOfCurrentLine()->length()) {
 			getTextOfCurrentLine()->erase(caretColumn, 1);
 			onLineChange(caretLine);

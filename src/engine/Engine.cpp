@@ -65,7 +65,7 @@ void Engine::run() {
 
 		Input::getInstance()->pollEvents();
 
-		if (Input::getInstance()->getKeyDown(Input::Key::RightAlt)) {
+		if (Input::getInstance()->getKeyDown(Input::RightAlt)) {
 			fullscreen = !fullscreen;
 			SDL_SetWindowFullscreen(Window::window, fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 

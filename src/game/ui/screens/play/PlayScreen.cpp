@@ -73,26 +73,26 @@ void PlayScreen::init() {
 	mission->setNanoParentContainer(Mission::NANO3, nano3TextareaContainer);
 
 	Font *nanoTextFont = Asset::loadFont((char *)"assets/ModernDOS.ttf", 20);
-	nano1MemoryText = new Text(nano1MemoryContainer, Vector2f(nano1MemoryContainer->bounds.size.x / 2 - 5, nano1MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->memory), nanoTextFont);
-	nano1TestText = new Text(nano1TestContainer, Vector2f(nano1TestContainer->bounds.size.x / 2 - 5, nano1TestContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->test), nanoTextFont);
-	nano1RxText = new Text(nano1RxContainer, Vector2f(nano1RxContainer->bounds.size.x / 2 - 5, nano1RxContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->rx), nanoTextFont);
-	nano1CyclesText = new Text(nano1CyclesContainer, Vector2f(nano1CyclesContainer->bounds.size.x / 2 - 5, nano1CyclesContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->cycles), nanoTextFont);
-	nano1LinesText = new Text(nano1LinesContainer, Vector2f(nano1LinesContainer->bounds.size.x / 2 - 5, nano1LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
-	nano1ComplexityText = new Text(nano1ComplexityContainer, Vector2f(nano1ComplexityContainer->bounds.size.x / 2 - 5, nano1ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
+	nano1MemoryText = new Text(nano1MemoryContainer, Vector2f(nano1MemoryContainer->bounds.size.x / 2, nano1MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->memory), nanoTextFont);
+	nano1TestText = new Text(nano1TestContainer, Vector2f(nano1TestContainer->bounds.size.x / 2, nano1TestContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->test), nanoTextFont);
+	nano1RxText = new Text(nano1RxContainer, Vector2f(nano1RxContainer->bounds.size.x / 2, nano1RxContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->rx), nanoTextFont);
+	nano1CyclesText = new Text(nano1CyclesContainer, Vector2f(nano1CyclesContainer->bounds.size.x / 2, nano1CyclesContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO1)->cycles), nanoTextFont);
+	nano1LinesText = new Text(nano1LinesContainer, Vector2f(nano1LinesContainer->bounds.size.x / 2, nano1LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
+	nano1ComplexityText = new Text(nano1ComplexityContainer, Vector2f(nano1ComplexityContainer->bounds.size.x / 2, nano1ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
-	nano2MemoryText = new Text(nano2MemoryContainer, Vector2f(nano2MemoryContainer->bounds.size.x / 2 - 5, nano2MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->memory), nanoTextFont);
-	nano2TestText = new Text(nano2TestContainer, Vector2f(nano2TestContainer->bounds.size.x / 2 - 5, nano2TestContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->test), nanoTextFont);
-	nano2RxText = new Text(nano2RxContainer, Vector2f(nano2RxContainer->bounds.size.x / 2 - 5, nano2RxContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->rx), nanoTextFont);
-	nano2CyclesText = new Text(nano2CyclesContainer, Vector2f(nano2CyclesContainer->bounds.size.x / 2 - 5, nano2CyclesContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->cycles), nanoTextFont);
-	nano2LinesText = new Text(nano2LinesContainer, Vector2f(nano2LinesContainer->bounds.size.x / 2 - 5, nano2LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
-	nano2ComplexityText = new Text(nano2ComplexityContainer, Vector2f(nano2ComplexityContainer->bounds.size.x / 2 - 5, nano2ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
+	nano2MemoryText = new Text(nano2MemoryContainer, Vector2f(nano2MemoryContainer->bounds.size.x / 2, nano2MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->memory), nanoTextFont);
+	nano2TestText = new Text(nano2TestContainer, Vector2f(nano2TestContainer->bounds.size.x / 2, nano2TestContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->test), nanoTextFont);
+	nano2RxText = new Text(nano2RxContainer, Vector2f(nano2RxContainer->bounds.size.x / 2, nano2RxContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->rx), nanoTextFont);
+	nano2CyclesText = new Text(nano2CyclesContainer, Vector2f(nano2CyclesContainer->bounds.size.x / 2, nano2CyclesContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO2)->cycles), nanoTextFont);
+	nano2LinesText = new Text(nano2LinesContainer, Vector2f(nano2LinesContainer->bounds.size.x / 2, nano2LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
+	nano2ComplexityText = new Text(nano2ComplexityContainer, Vector2f(nano2ComplexityContainer->bounds.size.x / 2, nano2ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
-	nano3MemoryText = new Text(nano3MemoryContainer, Vector2f(nano3MemoryContainer->bounds.size.x / 2 - 5, nano3MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->memory), nanoTextFont);
-	nano3TestText = new Text(nano3TestContainer, Vector2f(nano3TestContainer->bounds.size.x / 2 - 5, nano3TestContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->test), nanoTextFont);
-	nano3RxText = new Text(nano3RxContainer, Vector2f(nano3RxContainer->bounds.size.x / 2 - 5, nano3RxContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->rx), nanoTextFont);
-	nano3CyclesText = new Text(nano3CyclesContainer, Vector2f(nano3CyclesContainer->bounds.size.x / 2 - 5, nano3CyclesContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->cycles), nanoTextFont);
-	nano3LinesText = new Text(nano3LinesContainer, Vector2f(nano3LinesContainer->bounds.size.x / 2 - 5, nano3LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
-	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2 - 5, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
+	nano3MemoryText = new Text(nano3MemoryContainer, Vector2f(nano3MemoryContainer->bounds.size.x / 2, nano3MemoryContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->memory), nanoTextFont);
+	nano3TestText = new Text(nano3TestContainer, Vector2f(nano3TestContainer->bounds.size.x / 2, nano3TestContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->test), nanoTextFont);
+	nano3RxText = new Text(nano3RxContainer, Vector2f(nano3RxContainer->bounds.size.x / 2, nano3RxContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->rx), nanoTextFont);
+	nano3CyclesText = new Text(nano3CyclesContainer, Vector2f(nano3CyclesContainer->bounds.size.x / 2, nano3CyclesContainer->bounds.size.y / 2 - 10), std::to_string(mission->getNano(Mission::NANO3)->cycles), nanoTextFont);
+	nano3LinesText = new Text(nano3LinesContainer, Vector2f(nano3LinesContainer->bounds.size.x / 2, nano3LinesContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
+	nano3ComplexityText = new Text(nano3ComplexityContainer, Vector2f(nano3ComplexityContainer->bounds.size.x / 2, nano3ComplexityContainer->bounds.size.y / 2 - 10), "0", nanoTextFont);
 
 	missionBriefText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getDescription(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 14));
 	missionNano1ErrorText = new Text(missionBriefContainer, Vector2f(20, 20), mission->getNano(Mission::NANOS::NANO1)->code->error.message, Asset::loadFont((char *)"assets/ModernDOS.ttf", 18), Color::RED);
@@ -113,31 +113,7 @@ void PlayScreen::init() {
 	output3Text = mission->getIOText(Mission::IO::F);
 	output3Text->setParentContainer(output3);
 
-	mission->getNano(Mission::NANO1)->code->setText(0, "ADD M1 M1 1");
-	mission->getNano(Mission::NANO1)->code->setText(1, "# A COMMENT WOW");
-	mission->getNano(Mission::NANO1)->code->setText(2, ".LOOP");
-	mission->getNano(Mission::NANO1)->code->setText(3, "MOV N2 M1");
-	mission->getNano(Mission::NANO1)->code->setText(4, "JMP SEND");
-	mission->getNano(Mission::NANO1)->code->setText(6, ".SEND");
-	mission->getNano(Mission::NANO1)->code->setText(7, "TEQ A 10");
-	mission->getNano(Mission::NANO1)->code->setText(8, "JMT TRUE");
-	mission->getNano(Mission::NANO1)->code->setText(9, "JMF FALSE");
-	mission->getNano(Mission::NANO1)->code->setText(11, ".TRUE");
-	mission->getNano(Mission::NANO1)->code->setText(12, "MOV N2 A");
-	mission->getNano(Mission::NANO1)->code->setText(13, "JMP SEND");
-	mission->getNano(Mission::NANO1)->code->setText(15, ".FALSE");
-	mission->getNano(Mission::NANO1)->code->setText(16, "JMP LOOP");
-
-	mission->getNano(Mission::NANO2)->code->setText(0, ".LOOP");
-	mission->getNano(Mission::NANO2)->code->setText(1, "TGT RX 100");
-	mission->getNano(Mission::NANO2)->code->setText(2, "JMT TRUE");
-	mission->getNano(Mission::NANO2)->code->setText(3, "JMF FALSE");
-	mission->getNano(Mission::NANO2)->code->setText(5, ".TRUE");
-	mission->getNano(Mission::NANO2)->code->setText(6, "MOV M1 0");
-	mission->getNano(Mission::NANO2)->code->setText(7, "JMP LOOP");
-	mission->getNano(Mission::NANO2)->code->setText(9, ".FALSE");
-	mission->getNano(Mission::NANO2)->code->setText(10, "MOV M1 1");
-	mission->getNano(Mission::NANO2)->code->setText(11, "JMP LOOP");
+	mission->getNano(Mission::NANO1)->code->setText(0, "MOV D A");
 }
 
 uint8_t memory = 0;
@@ -175,6 +151,9 @@ void PlayScreen::render() {
 		playStopButton->click();
 	}
 
+	mission->getFinishedFailedPopup()->render(true);
+	mission->getFinishedWinPopup()->render(true);
+
 	timer->tick();
 	autoStepTimer->tick();
 }
@@ -208,45 +187,41 @@ void PlayScreen::renderText() {
 		missionBriefText->render();
 	}
 
-	nano1MemoryText->render();
+	nano1MemoryText->render(Graphics::TextAlignement::CENTER);
 	nano1MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO1)->memory));
-	nano1MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO1)->memory));
-	nano1TestText->render();
+	nano1TestText->render(Graphics::TextAlignement::CENTER);
 	nano1TestText->updateText(std::to_string(mission->getNano(Mission::NANO1)->test));
-	nano1RxText->render();
+	nano1RxText->render(Graphics::TextAlignement::CENTER);
 	nano1RxText->updateText(std::to_string(mission->getNano(Mission::NANO1)->rx));
-	nano1CyclesText->render();
+	nano1CyclesText->render(Graphics::TextAlignement::CENTER);
 	nano1CyclesText->updateText(std::to_string(mission->getNano(Mission::NANO1)->cycles));
-	nano1LinesText->render();
+	nano1LinesText->render(Graphics::TextAlignement::CENTER);
 	nano1LinesText->updateText(std::to_string(mission->getNano(Mission::NANO1)->code->getNonEmptyLines()));
-	nano1ComplexityText->render();
+	nano1ComplexityText->render(Graphics::TextAlignement::CENTER);
 
-	nano2MemoryText->render();
+	nano2MemoryText->render(Graphics::TextAlignement::CENTER);
 	nano2MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO2)->memory));
-	nano2TestText->render();
+	nano2TestText->render(Graphics::TextAlignement::CENTER);
 	nano2TestText->updateText(std::to_string(mission->getNano(Mission::NANO2)->test));
-	nano2RxText->render();
+	nano2RxText->render(Graphics::TextAlignement::CENTER);
 	nano2RxText->updateText(std::to_string(mission->getNano(Mission::NANO2)->rx));
-	nano2CyclesText->render();
+	nano2CyclesText->render(Graphics::TextAlignement::CENTER);
 	nano2CyclesText->updateText(std::to_string(mission->getNano(Mission::NANO2)->cycles));
-	nano2LinesText->render();
+	nano2LinesText->render(Graphics::TextAlignement::CENTER);
 	nano2LinesText->updateText(std::to_string(mission->getNano(Mission::NANO2)->code->getNonEmptyLines()));
-	nano2ComplexityText->render();
+	nano2ComplexityText->render(Graphics::TextAlignement::CENTER);
 
-	nano3MemoryText->render();
+	nano3MemoryText->render(Graphics::TextAlignement::CENTER);
 	nano3MemoryText->updateText(std::to_string(mission->getNano(Mission::NANO3)->memory));
-	nano3TestText->render();
+	nano3TestText->render(Graphics::TextAlignement::CENTER);
 	nano3TestText->updateText(std::to_string(mission->getNano(Mission::NANO3)->test));
-	nano3RxText->render();
+	nano3RxText->render(Graphics::TextAlignement::CENTER);
 	nano3RxText->updateText(std::to_string(mission->getNano(Mission::NANO3)->rx));
-	nano3CyclesText->render();
+	nano3CyclesText->render(Graphics::TextAlignement::CENTER);
 	nano3CyclesText->updateText(std::to_string(mission->getNano(Mission::NANO3)->cycles));
-	nano3LinesText->render();
+	nano3LinesText->render(Graphics::TextAlignement::CENTER);
 	nano3LinesText->updateText(std::to_string(mission->getNano(Mission::NANO3)->code->getNonEmptyLines()));
-	nano3ComplexityText->render();
-
-	mission->getFinishedFailedPopup()->render(true);
-	mission->getFinishedWinPopup()->render(true);
+	nano3ComplexityText->render(Graphics::TextAlignement::CENTER);
 }
 
 void PlayScreen::handleTimer() {

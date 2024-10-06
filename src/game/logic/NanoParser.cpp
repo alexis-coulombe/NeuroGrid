@@ -15,11 +15,14 @@ void NanoParser::step() {
 	}
 
 	if(mission->getFinished()) {
-		if(!mission->validate()) {
-			mission->getFinishedFailedPopup()->show();
-		} else {
+		if(mission->validate()) {
 			mission->getFinishedWinPopup()->show();
+			Audio::playSound(const_cast<Sound *>(AssetLibrary::SUCCESS_SOUND), false);
+		} else {
+			nano1->code->error = ParserError("Invalid output", ParserError::ERROR_TYPE::INVALID_OUTPUT, Textarea::NOT_FOUND);
+			Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
 		}
+		mission->setAutoStep(false);
 		return;
 	}
 
@@ -37,8 +40,7 @@ void NanoParser::step() {
 void NanoParser::stop() {
 	Mission *mission = MissionManager::getInstance()->currentMission;
 
-	mission->setParsing(false);
-	mission->setAutoStep(false);
+	mission->reset();
 }
 
 void NanoParser::parseLine(Nano *currentNano) {

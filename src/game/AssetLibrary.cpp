@@ -34,11 +34,12 @@ void AssetLibrary::init() {
 	BUTTON_MISSION1_HOVER = Asset::loadTexture((char *)"assets/ui/button/mission1_hover.png");
 	BUTTON_MISSION1_PRESS = BUTTON_MISSION1_HOVER;
 
-	CONTAINER_MISSION_INTRO = Asset::loadTexture((char *)"assets/ui/container/mission_info.png");
+	CONTAINER_MISSION_INTRO = Asset::loadTexture((char *)"assets/ui/container/mission_intro.png");
 	CONTAINER_MISSIONS = Asset::loadTexture((char *)"assets/ui/container/missions.png");
 
 	CONTAINER_MISSION_PLAY = Asset::loadTexture((char *)"assets/ui/container/mission_play.png");
 	CONTAINER_MISSION_PLAY_BRIEF = Asset::loadTexture((char *)"assets/ui/container/mission_play_brief.png");
 
 	ERROR_SOUND = new Sound(Asset::loadSound((char *)"assets/sound/error.mp3"));
+	SUCCESS_SOUND = new Sound(Asset::loadSound((char *)"assets/sound/success.mp3"));
 }

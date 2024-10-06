@@ -34,7 +34,7 @@ class Input {
 	};
 	enum Key {
 		Return = '\r',
-		Escape = 27,
+		Escape = SDL_SCANCODE_ESCAPE | SDLK_SCANCODE_MASK,
 		Backspace = '\b',
 		Tab = '\t',
 		Space = ' ',

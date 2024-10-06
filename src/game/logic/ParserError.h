@@ -13,6 +13,7 @@ class ParserError {
 		UNKNOWN_OPERATION,
 		INVALID_TOKEN,
 		DUPLICATE_LABEL,
+		INVALID_OUTPUT
 	};
 
 	std::string message;

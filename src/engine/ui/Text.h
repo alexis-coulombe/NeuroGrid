@@ -6,6 +6,7 @@
 #include "../utility/Color.h"
 #include "../Font.h"
 #include "../../Config.h"
+#include "../Graphics.h"
 
 class Text {
  private:
@@ -25,7 +26,7 @@ class Text {
 	Text(Container *parentContainer, Vector2f position, std::vector<std::string> lines, Font *font, Color color = Color::WHITE);
 	Text(Container *parentContainer, Vector2f position, std::vector<uint8_t> lines, Font *font, Color color = Color::WHITE);
 
-	void render();
+	void render(Graphics::TextAlignement alignement = Graphics::LEFT);
 	void renderAnimateScrolling();
 	void updateText(std::string line);
 	void updateText(std::vector<std::string> lines);
