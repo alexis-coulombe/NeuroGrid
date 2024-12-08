@@ -9,7 +9,7 @@ PlayNewGameButton::PlayNewGameButton(Container *parentContainer, Bounds2 bounds,
 
 void PlayNewGameButton::onRender() {
 	MissionManager::getInstance()->updateCurrentMission(Mission1::ID);
-	GameState::getInstance()->currentState = GameState::sPlay;
+	//GameState::getInstance()->currentState = GameState::sPlay;
 	//Graphics::drawTexture(const_cast<Texture *>(texture), bounds.position, color, bounds.size);
 }
 
@@ -18,7 +18,8 @@ void PlayNewGameButton::onPress() {
 }
 
 void PlayNewGameButton::onClick() {
-	if (!SaveFileManager::hasSaveFile()) {
+	// TODO: handle this
+	if (false && !SaveFileManager::hasSaveFile()) {
 		GameState::getInstance()->currentState = GameState::sIntro;
 	} else {
 		GameState::getInstance()->currentState = GameState::sMenuPlay;

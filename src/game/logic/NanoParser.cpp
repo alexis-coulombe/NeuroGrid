@@ -15,14 +15,15 @@ void NanoParser::step() {
 	}
 
 	if(mission->getFinished()) {
+		mission->setAutoStep(false);
 		if(mission->validate()) {
 			mission->getFinishedWinPopup()->show();
 			Audio::playSound(const_cast<Sound *>(AssetLibrary::SUCCESS_SOUND), false);
+			mission->reset();
 		} else {
 			nano1->code->error = ParserError("The output does not match the expected output", ParserError::ERROR_TYPE::INVALID_OUTPUT, Textarea::NOT_FOUND);
 			Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
 		}
-		mission->setAutoStep(false);
 		return;
 	}
 
@@ -31,7 +32,7 @@ void NanoParser::step() {
 	parseLine(nano3);
 
 	if (nano1->code->error.type != ParserError::ERROR_TYPE::NONE || nano2->code->error.type != ParserError::ERROR_TYPE::NONE || nano3->code->error.type != ParserError::ERROR_TYPE::NONE) {
-		MissionManager::getInstance()->currentMission->reset();
+		mission->reset();
 		Audio::playSound(const_cast<Sound *>(AssetLibrary::ERROR_SOUND), false);
 		return;
 	}

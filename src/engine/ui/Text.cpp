@@ -72,3 +72,8 @@ void Text::setParentContainer(Container *container) {
 	this->parentContainer = container;
 	this->position = getRelativePositionWithParentContainer();
 }
+
+void Text::setPosition(Vector2f newPosition) {
+	this->position = newPosition;
+	this->position = getRelativePositionWithParentContainer();
+}

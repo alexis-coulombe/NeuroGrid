@@ -39,6 +39,12 @@ void AssetLibrary::init() {
 
 	CONTAINER_MISSION_PLAY = Asset::loadTexture((char *)"assets/ui/container/mission_play.png");
 	CONTAINER_MISSION_PLAY_BRIEF = Asset::loadTexture((char *)"assets/ui/container/mission_play_brief.png");
+	CONTAINER_MISSION_PLAY_IO_A = Asset::loadTexture((char *)"assets/ui/container/mission_play_io_A.png");
+	//CONTAINER_MISSION_PLAY_IO_B = nullptr;
+	//CONTAINER_MISSION_PLAY_IO_C = nullptr;
+	//CONTAINER_MISSION_PLAY_IO_D = nullptr;
+	//CONTAINER_MISSION_PLAY_IO_E = nullptr;
+	//CONTAINER_MISSION_PLAY_IO_F = nullptr;
 
 	ERROR_SOUND = new Sound(Asset::loadSound((char *)"assets/sound/error.mp3"));
 	SUCCESS_SOUND = new Sound(Asset::loadSound((char *)"assets/sound/success.mp3"));

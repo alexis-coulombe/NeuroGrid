@@ -152,13 +152,26 @@ class Mission1 : public Mission {
 	}
 
 	bool validate() override {
-		for (size_t i = 0; i < inputsA->size(); i++) {
-			if (inputsA->at(i) != outputsD->at(i)) {
-				return false;
-			}
-		}
+		std::vector<uint8_t> expectedOutputD = {
+				112, 84, 74, 90, 25, 127, 183, 118, 253, 10,
+				113, 240, 209, 53, 121, 138, 123, 139, 92, 60,
+				192, 249, 153, 74, 95, 190, 72, 59, 230, 116,
+				109, 213, 17, 78, 74, 93, 252, 195, 170, 147
+		};
+		std::vector<uint8_t> expectedOutputE = {
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
+		std::vector<uint8_t> expectedOutputF = {
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		};
 
-		return true;
+		return *outputsD == expectedOutputD && *outputsE == expectedOutputE && *outputsF == expectedOutputF;
 	}
 };
 

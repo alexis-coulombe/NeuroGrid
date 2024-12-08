@@ -11,7 +11,10 @@ void PlayStopButton::onRender() {
 
 	Graphics::drawTexture(const_cast<Texture *>(AssetLibrary::BUTTON_STOP_CODE_IDLE), bounds.position, color, bounds.size);
 
-	disabled = !mission->getParsing();
+	disabled = (mission->getNano(Mission::NANO1)->code->error.type != ParserError::NONE ||
+			mission->getNano(Mission::NANO2)->code->error.type != ParserError::NONE ||
+			mission->getNano(Mission::NANO3)->code->error.type != ParserError::NONE) ||
+			!mission->getParsing();
 }
 
 void PlayStopButton::onPress() {

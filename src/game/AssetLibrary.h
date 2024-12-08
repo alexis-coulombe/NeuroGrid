@@ -60,6 +60,12 @@ class AssetLibrary {
 
 	static inline const Texture *CONTAINER_MISSION_PLAY = nullptr;
 	static inline const Texture *CONTAINER_MISSION_PLAY_BRIEF = nullptr;
+	static inline const Texture *CONTAINER_MISSION_PLAY_IO_A = nullptr;
+	static inline const Texture *CONTAINER_MISSION_PLAY_IO_B = nullptr;
+	static inline const Texture *CONTAINER_MISSION_PLAY_IO_C = nullptr;
+	static inline const Texture *CONTAINER_MISSION_PLAY_IO_D = nullptr;
+	static inline const Texture *CONTAINER_MISSION_PLAY_IO_E = nullptr;
+	static inline const Texture *CONTAINER_MISSION_PLAY_IO_F = nullptr;
 
 	static inline const Sound   *ERROR_SOUND = nullptr;
 	static inline const Sound   *SUCCESS_SOUND = nullptr;

@@ -13,7 +13,8 @@ void PlayButton::onRender() {
 	disabled = (mission->getNano(Mission::NANO1)->code->error.type != ParserError::NONE ||
 			mission->getNano(Mission::NANO2)->code->error.type != ParserError::NONE ||
 			mission->getNano(Mission::NANO3)->code->error.type != ParserError::NONE) ||
-			mission->getAutoStep();
+			mission->getAutoStep() ||
+			mission->getFinished();
 }
 
 void PlayButton::onPress() {

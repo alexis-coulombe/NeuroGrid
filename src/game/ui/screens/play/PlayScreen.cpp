@@ -59,13 +59,13 @@ PlayScreen::PlayScreen() : GenericScreen() {
 
 	missionBriefContainer = new Container(missionContainer, Bounds2(0, (int)missionContainer->bounds.size.y / 3, (int)missionContainer->bounds.size.x, (int)missionContainer->bounds.size.y / 3 * 2), AssetLibrary::CONTAINER_MISSION_PLAY_BRIEF);
 
-	input1 = new Container(inputContainer, Bounds2(0, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
-	input2 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
-	input3 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3 * 2, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y));
+	input1 = new Container(inputContainer, Bounds2(0, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSION_PLAY_IO_A);
+	input2 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSION_PLAY_IO_A);
+	input3 = new Container(inputContainer, Bounds2((int)inputContainer->bounds.size.x / 3 * 2, 0, (int)inputContainer->bounds.size.x / 3, (int)inputContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSION_PLAY_IO_A);
 
-	output1 = new Container(outputContainer, Bounds2(0, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
-	output2 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
-	output3 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3 * 2, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y));
+	output1 = new Container(outputContainer, Bounds2(0, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSION_PLAY_IO_A);
+	output2 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSION_PLAY_IO_A);
+	output3 = new Container(outputContainer, Bounds2((int)outputContainer->bounds.size.x / 3 * 2, 0, (int)outputContainer->bounds.size.x / 3, (int)outputContainer->bounds.size.y), AssetLibrary::CONTAINER_MISSION_PLAY_IO_A);
 }
 
 void PlayScreen::init() {
@@ -103,17 +103,23 @@ void PlayScreen::init() {
 
 	input1Text = mission->getIOText(Mission::IO::A);
 	input1Text->setParentContainer(input1);
+	input1Text->setPosition(Vector2f(28, 75));
 	input2Text = mission->getIOText(Mission::IO::B);
 	input2Text->setParentContainer(input2);
+	input2Text->setPosition(Vector2f(28, 75));
 	input3Text = mission->getIOText(Mission::IO::C);
 	input3Text->setParentContainer(input3);
+	input3Text->setPosition(Vector2f(28, 75));
 
 	output1Text = mission->getIOText(Mission::IO::D);
 	output1Text->setParentContainer(output1);
+	output1Text->setPosition(Vector2f(28, 75));
 	output2Text = mission->getIOText(Mission::IO::E);
 	output2Text->setParentContainer(output2);
+	output2Text->setPosition(Vector2f(28, 75));
 	output3Text = mission->getIOText(Mission::IO::F);
 	output3Text->setParentContainer(output3);
+	output3Text->setPosition(Vector2f(28, 75));
 
 	mission->getNano(Mission::NANO1)->code->setText(0, "MOV D A");
 }
@@ -126,8 +132,6 @@ void PlayScreen::render() {
 	nano3Container->render();
 	missionBriefContainer->render();
 
-	renderText();
-
 	input1->render();
 	input2->render();
 	input3->render();
@@ -135,6 +139,8 @@ void PlayScreen::render() {
 	output1->render();
 	output2->render();
 	output3->render();
+
+	renderText();
 
 	playStepButton->render();
 	playStopButton->render();

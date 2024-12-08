@@ -32,6 +32,7 @@ class Text {
 	void updateText(std::vector<std::string> lines);
 	Vector2f getRelativePositionWithParentContainer();
 	void setParentContainer(Container *container);
+	void setPosition(Vector2f position);
 };
 
 #endif //ASM_SRC_ENGINE_UI_TEXT_H_

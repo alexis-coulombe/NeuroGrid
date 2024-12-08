@@ -1,10 +1,12 @@
 #include "Textarea.h"
 
+static const uint16_t KEY_HOLD_SPEED = TARGET_FPS / 20;
+
 Textarea::Textarea(Container *parentContainer, Vector2f position, Font *font, Color textColor, uint8_t zLevel) : parentContainer(parentContainer), font(font), textColor(textColor), zLevel(zLevel) {
-	bounds = new Bounds2(position.x, position.y, (float)(MAX_TEXTAREA_LINE_LENGTH * font->textWidth), (float)(MAX_TEXTAREA_LINES * font->textHeight));
+	bounds = new Bounds2(position.x, position.y, (float)((MAX_TEXTAREA_LINE_LENGTH + 2) * font->textWidth), (float)(MAX_TEXTAREA_LINES * font->textHeight));
 	bounds->position = getRelativePositionWithParentContainer();
 	lines = new std::vector<std::string>(MAX_TEXTAREA_LINES);
-	timer = new Timer(TARGET_FPS / 10, true, handleKeyPressed);
+	timer = new Timer(KEY_HOLD_SPEED, true, handleKeyPressed);
 }
 
 void Textarea::update() {
@@ -74,11 +76,11 @@ void Textarea::render() {
 			string.replace(pos, 1, ""); // Replace \n with an empty string
 		}
 
-		float x = ((line / MAX_TEXTAREA_LINE_LENGTH) * font->textWidth) + bounds->position.x;
-		float y = (line / MAX_TEXTAREA_LINES) + (line * font->textHeight) + bounds->position.y;
+		uint16_t x = font->textWidth + bounds->position.x;
+		uint16_t y = (line / MAX_TEXTAREA_LINES) + (line * font->textHeight) + bounds->position.y;
 
 		if (highlightedLine == line) {
-			Graphics::drawRectSolid(Bounds2(x, y, bounds->size.x, (float)font->textHeight), Color::WHITE);
+			Graphics::drawRectSolid(Bounds2(x, y, (uint16_t) bounds->size.x, font->textHeight), Color::WHITE);
 			textColor = Color::BLACK;
 		} else {
 			textColor = Color::WHITE;
@@ -94,15 +96,14 @@ void Textarea::render() {
 			showCaret = !showCaret;
 		}
 
-		float x = ((caretColumn / MAX_TEXTAREA_LINE_LENGTH) * font->textWidth) + bounds->position.x;
-		float y = (caretLine / MAX_TEXTAREA_LINES) + (caretLine * font->textHeight + bounds->position.y);
-
-		for (uint8_t i = 0; i < caretColumn; i++) {
-			x += font->textWidth;
-		}
 
 		if (showCaret) {
-			Graphics::drawRectSolid(Bounds2(x, y, (float)font->textWidth, (float)font->textHeight), Color::WHITE);
+			uint16_t x = (caretColumn / (MAX_TEXTAREA_LINE_LENGTH + 1)) * font->textWidth + bounds->position.x;
+			uint16_t y = (caretLine / MAX_TEXTAREA_LINES) + (caretLine * font->textHeight + bounds->position.y);
+
+			x += font->textWidth * (caretColumn + 1);
+
+			Graphics::drawRectSolid(Bounds2(x, y, font->textWidth, font->textHeight), Color::WHITE);
 		}
 		caretAnimation++;
 	}
@@ -277,7 +278,7 @@ void Textarea::onKeyRight() {
 }
 
 void Textarea::onKeyEnter() {
-	if (Input::getInstance()->getKeyDown(Input::Return)) {
+	if (Input::getInstance()->getKeyDown(Input::Return) || (Input::getInstance()->getKeyHeld(Input::Return) && timer->expired)) {
 		if (caretLine == MAX_TEXTAREA_LINES - 1) {
 			return;
 		}
