@@ -2,6 +2,7 @@
 #define ASM_PLAYNEWGAMEBUTTON_H
 
 #include "../../../../../engine/ui/GenericButton.h"
+#include "../../../../../engine/fileIO/SaveFileManager.h"
 
 class PlayNewGameButton : public GenericButton {
  public:
@@ -11,6 +12,8 @@ class PlayNewGameButton : public GenericButton {
 	void onPress() override;
   void onClick() override;
   void onHover() override;
+ private:
+	SaveFileManager saveFileManager;
 };
 
 #endif //ASM_PLAYNEWGAMEBUTTON_H

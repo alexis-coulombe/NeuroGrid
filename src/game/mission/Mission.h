@@ -21,6 +21,7 @@ class Mission {
 	Nano nano2 = Nano(new NanoTextarea(nullptr, Vector2f(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
 	Nano nano3 = Nano(new NanoTextarea(nullptr, Vector2f(), Asset::loadFont((char *)"assets/ModernDOS.ttf", 16), Color::WHITE));;
  public:
+	uint8_t ID;
 	enum NANOS {
 		NANO1 = 0,
 		NANO2,

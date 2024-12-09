@@ -4,30 +4,32 @@
 #include <cstdint>
 #include <fstream>
 #include "../../Config.h"
+#include "../../game/logic/Nano.h"
+#include "../../game/mission/Mission.h"
 
 class SaveFileManager {
  public:
 	typedef struct {
-		uint8_t missionID;
-		uint8_t missionStatus;
-		uint8_t nano1Content[MAX_TEXTAREA_LINES][MAX_TEXTAREA_LINE_LENGTH];
-		uint8_t nano2Content[MAX_TEXTAREA_LINES][MAX_TEXTAREA_LINE_LENGTH];
-		uint8_t nano3Content[MAX_TEXTAREA_LINES][MAX_TEXTAREA_LINE_LENGTH];
+		std::string nano1Content[MAX_TEXTAREA_LINES];
+		std::string nano2Content[MAX_TEXTAREA_LINES];
+		std::string nano3Content[MAX_TEXTAREA_LINES];
 	} MissionSaveData;
 
 	typedef struct {
+		uint8_t version;
 		MissionSaveData missionSaveData[MAX_MISSIONS];
 	} SaveData;
 
-	static bool saveGame();
-	static bool loadGame();
+	bool firstPlay = false;
 
-	static bool hasSaveFile();
+	bool saveGame(Mission *mission);
+	bool loadGame();
  private:
-	static uint8_t readVersion(std::fstream *file);
-	static void writeVersion(std::fstream *file, uint8_t version);
-	static SaveData readSaveData(std::fstream *file, SaveData *saveData);
-	static void writeSaveData(std::fstream *file, SaveData *saveData);
+	SaveData saveData;
+
+	void checkSaveFile(std::fstream *file);
+	void readSaveData(std::fstream *file, SaveData *saveData);
+	void writeSaveData(std::fstream *file, SaveData *saveData);
 };
 
 #endif //ASM_SRC_ENGINE_FILEIO_SAVEFILEMANAGER_H_

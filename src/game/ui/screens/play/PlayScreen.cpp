@@ -6,7 +6,7 @@
 #include "../../../AssetLibrary.h"
 
 PlayScreen::PlayScreen() : GenericScreen() {
-	timer = new Timer(5 * 60 * TARGET_FPS, true, handleTimer);
+	timer = new Timer(1 * 60 * TARGET_FPS, true, handleTimer);
 	autoStepTimer = new Timer(TARGET_FPS / 20, false, handleAutoStepTimer);
 
 	quitButton = new QuitButton(screenContainer, Bounds2((int32_t)screenContainer->bounds.size.x - 40, 0, 40, 40), Color::WHITE, 0);
@@ -228,8 +228,8 @@ void PlayScreen::renderText() {
 	nano3ComplexityText->render(Graphics::TextAlignement::CENTER);
 }
 
-void PlayScreen::handleTimer() {
-	SaveFileManager::saveGame();
+ void PlayScreen::handleTimer() {
+		saveFileManager.saveGame(MissionManager::getInstance()->currentMission);
 }
 
 void PlayScreen::handleAutoStepTimer() {

@@ -16,7 +16,7 @@
 
 class Mission3 : public Mission {
  public:
-	static const uint8_t ID = 0x03;
+	static const uint8_t ID = 2;
 	static const inline char *NAME = "Veil of decay";
 	virtual std::vector<std::string> getIntro() {
 		return {

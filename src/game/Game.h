@@ -7,6 +7,7 @@
 class Game {
  private:
 	GameState *state;
+	SaveFileManager saveFileManager;
  public:
 	Game();
 	void init();

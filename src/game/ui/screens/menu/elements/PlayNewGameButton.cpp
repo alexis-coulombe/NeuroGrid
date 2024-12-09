@@ -5,6 +5,7 @@
 #include "../../../../MissionManager.h"
 
 PlayNewGameButton::PlayNewGameButton(Container *parentContainer, Bounds2 bounds, Color color, uint8_t zLevel) : GenericButton(parentContainer, bounds, color, zLevel) {
+	saveFileManager = SaveFileManager();
 }
 
 void PlayNewGameButton::onRender() {
@@ -18,8 +19,7 @@ void PlayNewGameButton::onPress() {
 }
 
 void PlayNewGameButton::onClick() {
-	// TODO: handle this
-	if (false && !SaveFileManager::hasSaveFile()) {
+	if (saveFileManager.firstPlay) {
 		GameState::getInstance()->currentState = GameState::sIntro;
 	} else {
 		GameState::getInstance()->currentState = GameState::sMenuPlay;

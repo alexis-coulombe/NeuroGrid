@@ -12,12 +12,14 @@
 #include "elements/PlayButton.h"
 #include "elements/QuitPopup.h"
 #include "elements/QuitButton.h"
+#include "../../../../engine/fileIO/SaveFileManager.h"
 
 class PlayScreen : public GenericScreen {
  private:
 	Mission *mission;
 	Timer *timer;
 	Timer *autoStepTimer;
+	static inline SaveFileManager saveFileManager = SaveFileManager();
 
 	static void handleTimer();
 	static void handleAutoStepTimer();

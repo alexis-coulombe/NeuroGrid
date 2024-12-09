@@ -12,7 +12,7 @@
 
 class Mission1 : public Mission {
  public:
-	static const uint8_t ID = 0x01;
+	static const uint8_t ID = 0;
 	static const inline char *NAME = "Initial Calibration";
 	virtual std::vector<std::string> getIntro() {
 		return {

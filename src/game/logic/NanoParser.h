@@ -18,6 +18,8 @@ class NanoParser {
 	void stop();
 	void parseLine(Nano *currentNano);
 	OPERATION_TYPE parseSymbol(const std::string& symbol);
+ private:
+	uint8_t parserCounter = 0;
 };
 
 #endif //ASM_SRC_GAME_LOGIC_NANOPARSER_H_

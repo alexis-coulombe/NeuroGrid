@@ -13,7 +13,7 @@
 
 class Mission2 : public Mission {
  public:
-	static const uint8_t ID = 0x02;
+	static const uint8_t ID = 1;
 	static const inline char *NAME = "Cadence of necrosis";
 	virtual std::vector<std::string> getIntro() {
 		return {

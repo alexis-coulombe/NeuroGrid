@@ -6,71 +6,92 @@
 
 std::string getSaveFilePath();
 
-bool SaveFileManager::saveGame() {
+bool SaveFileManager::saveGame(Mission *mission) {
 	std::string filename = getSaveFilePath() + "savegame.sav";
 	std::fstream file(filename, std::ios::in | std::ios::out | std::ios::binary);
 
-	if (!file) {
-		std::cout << "Save file does not exist, creating a new one." << std::endl;
-		std::filesystem::path savePath = getSaveFilePath();
-		std::filesystem::create_directories(savePath);
+	checkSaveFile(&file);
 
-		file.open(filename, std::ios::in | std::ios::binary);
-		writeVersion(&file, SAVE_FILE_VERSION);
-
-		// Write default data
-		SaveData saveData = {0};
-		for(size_t i = 0; i < MAX_MISSIONS; i++) {
-			writeSaveData(&file, &saveData);
-		}
-
-		file.close();
+	for(size_t i = 0; i < mission->getNano(Mission::NANO1)->code->getLines()->size(); i++) {
+		saveData.missionSaveData[mission->ID].nano1Content[i] = mission->getNano(Mission::NANO1)->code->getLines()->at(i);
 	}
 
-	file.open(filename, std::ios::in | std::ios::out | std::ios::binary);
+	for(size_t i = 0; i < mission->getNano(Mission::NANO2)->code->getLines()->size(); i++) {
+		saveData.missionSaveData[mission->ID].nano2Content[i] = mission->getNano(Mission::NANO2)->code->getLines()->at(i);
+	}
 
-	uint8_t version = readVersion(&file);
-	std::cout << "Save file version: " << (uint8_t)version << std::endl;
+	for(size_t i = 0; i < mission->getNano(Mission::NANO3)->code->getLines()->size(); i++) {
+		saveData.missionSaveData[mission->ID].nano3Content[i] = mission->getNano(Mission::NANO3)->code->getLines()->at(i);
+	}
 
-	file.close();
-
+	writeSaveData(&file, &saveData);
 	return true;
 }
 
 bool SaveFileManager::loadGame() {
-	return false;
-}
-
-bool SaveFileManager::hasSaveFile() {
 	std::string filename = getSaveFilePath() + "savegame.sav";
 	std::fstream file(filename, std::ios::in | std::ios::out | std::ios::binary);
 
-	return file.good();
+	checkSaveFile(&file);
+
+	readSaveData(&file, &saveData);
+	std::cout << "Save file version: " << (uint8_t)saveData.version << std::endl;
+
+	if (saveData.version != SAVE_FILE_VERSION) {
+		std::cout << "Save file version mismatch!" << std::endl;
+		//TODO: handle futur versions
+		exit(1);
+	}
+
+	//TODO: load game
+	return true;
 }
 
-uint8_t SaveFileManager::readVersion(std::fstream *file) {
-	uint8_t version;
-	file->read(reinterpret_cast<char *>(&version), sizeof(version));
-	file->seekg(sizeof(version), std::ios::beg);
+void SaveFileManager::checkSaveFile(std::fstream *file) {
+	std::string filename = getSaveFilePath() + "savegame.sav";
 
-	return version;
+	if (!file->good()) {
+		std::cout << "Save file does not exist, creating a new one." << std::endl;
+		std::filesystem::path savePath = getSaveFilePath();
+		std::filesystem::create_directories(savePath);
+
+		file->open(filename, std::ios::out | std::ios::binary);
+		saveData = {0};
+		saveData.version = SAVE_FILE_VERSION;
+		writeSaveData(file, &saveData);
+		file->close();
+		firstPlay = true;
+	}
 }
 
-void SaveFileManager::writeVersion(std::fstream *file, uint8_t version) {
-	file->write(reinterpret_cast<char *>(&version), sizeof(version));
-	file->seekp(sizeof(version), std::ios::beg);
-}
-
-SaveFileManager::SaveData SaveFileManager::readSaveData(std::fstream *file, SaveFileManager::SaveData *saveData) {
-	file->read(reinterpret_cast<char *>(saveData), sizeof(SaveFileManager::SaveData));
-	file->seekg(sizeof(SaveFileManager::SaveData), std::ios::beg);
-
-	return *saveData;
+void SaveFileManager::readSaveData(std::fstream *file, SaveFileManager::SaveData *saveData) {
+	file->read(reinterpret_cast<char *>(saveData), sizeof(*saveData));
 }
 
 void SaveFileManager::writeSaveData(std::fstream *file, SaveFileManager::SaveData *saveData) {
-	file->write(reinterpret_cast<char *>(saveData), sizeof(SaveFileManager::SaveData));
-	file->seekp(sizeof(SaveFileManager::SaveData), std::ios::beg);
+	file->write(reinterpret_cast<const char*>(&saveData->version), sizeof(saveData->version));
+
+	for (int i = 0; i < MAX_MISSIONS; ++i) {
+		const MissionSaveData& mission = saveData->missionSaveData[i];
+		for (int j = 0; j < MAX_TEXTAREA_LINES; ++j) {
+			// Write nano1Content
+			size_t length = mission.nano1Content[j].size();
+			file->write(reinterpret_cast<const char*>(&length), sizeof(length));
+			file->write(mission.nano1Content[j].data(), length);
+
+			// Write nano2Content
+			length = mission.nano2Content[j].size();
+			file->write(reinterpret_cast<const char*>(&length), sizeof(length));
+			file->write(mission.nano2Content[j].data(), length);
+
+			// Write nano3Content
+			length = mission.nano3Content[j].size();
+			file->write(reinterpret_cast<const char*>(&length), sizeof(length));
+			file->write(mission.nano3Content[j].data(), length);
+		}
+	}
+
+	file->close();
 }
 
 std::string getSaveFilePath() {

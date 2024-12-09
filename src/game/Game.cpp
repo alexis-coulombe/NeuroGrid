@@ -3,11 +3,13 @@
 
 Game::Game() {
 	state = GameState::getInstance();
+	saveFileManager = SaveFileManager();
 }
 
 void Game::init() {
 	AssetLibrary::init();
 
+	saveFileManager.loadGame();
 	state->init();
 }
 

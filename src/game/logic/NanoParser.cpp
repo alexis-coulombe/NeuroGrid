@@ -1,5 +1,4 @@
 #include "NanoParser.h"
-#include "../../language/Lexer.h"
 #include "../MissionManager.h"
 #include "../AssetLibrary.h"
 #include "../../engine/Audio.h"
@@ -27,8 +26,11 @@ void NanoParser::step() {
 		return;
 	}
 
+	parserCounter = 0;
 	parseLine(nano1);
+	parserCounter = 0;
 	parseLine(nano2);
+	parserCounter = 0;
 	parseLine(nano3);
 
 	if (nano1->code->error.type != ParserError::ERROR_TYPE::NONE || nano2->code->error.type != ParserError::ERROR_TYPE::NONE || nano3->code->error.type != ParserError::ERROR_TYPE::NONE) {
@@ -45,9 +47,10 @@ void NanoParser::stop() {
 }
 
 void NanoParser::parseLine(Nano *currentNano) {
+	parserCounter++;
 	Mission *mission = MissionManager::getInstance()->currentMission;
 
-	if (currentNano->code->getNonEmptyLines() <= 0) {
+	if (currentNano->code->getNonEmptyLines() <= 0 || parserCounter > MAX_TEXTAREA_LINES) {
 		return;
 	}
 
